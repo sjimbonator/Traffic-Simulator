@@ -25,17 +25,17 @@ public class Simulation extends JPanel {
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
-        //Image img;
+        Image img;
         try{
             for (WorldObject object : worldObjects){
                 object.draw(g2);
             }
             
-            //img = ImageIO.read(new File("C:\\Users\\sjimm\\Pictures\\thumbnail.png"));
-            //AffineTransform xform = new AffineTransform(1.5, 0.0, 0.0, 1.5, 960.0, 540.0);
-            //xform.scale(0.5f , 0.5f);
+            img = ImageIO.read(new File("C:\\Users\\sjimm\\Pictures\\thumbnail.png"));
+            AffineTransform xform = new AffineTransform();
+            xform.setToTranslation(960 -(img.getWidth(this) / 2) , 540-(img.getHeight(this) / 2)); // in het midden
             //xform.rotate(Math.PI / 6);
-            //g2.drawImage(img, xform, this);
+            g2.drawImage(img, xform, this);
         } catch(Exception e){e.printStackTrace();}
         
     }
