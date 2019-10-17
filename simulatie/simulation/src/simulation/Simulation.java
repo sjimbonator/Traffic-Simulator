@@ -19,25 +19,32 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class Simulation extends JPanel {
+
     private ArrayList<WorldObject> worldObjects = new ArrayList();
-    
+    private Image car;
+    private Image background;
+
+    public Simulation() {
+        try {
+            car = ImageIO.read(new File("C:\\Users\\sjimm\\Pictures\\car.jpg"));
+            background = ImageIO.read(new File("C:\\Users\\sjimm\\Pictures\\REEE.jpg"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
-    public void paintComponent(Graphics g){
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D)g;
-        Image img;
-        try{
-            for (WorldObject object : worldObjects){
-                object.draw(g2);
-            }
+        Graphics2D g2 = (Graphics2D) g;
+        AffineTransform xform = new AffineTransform();
+        xform.setToTranslation(960 -(background.getWidth(this) / 2) , 540-(background.getHeight(this) / 2));
+        g2.drawImage(background, xform, this);
             
-            img = ImageIO.read(new File("C:\\Users\\sjimm\\Pictures\\thumbnail.png"));
-            AffineTransform xform = new AffineTransform();
-            xform.setToTranslation(960 -(img.getWidth(this) / 2) , 540-(img.getHeight(this) / 2)); // in het midden
-            //xform.rotate(Math.PI / 6);
-            g2.drawImage(img, xform, this);
-        } catch(Exception e){e.printStackTrace();}
-        
+        for (WorldObject object : worldObjects) {
+            object.draw(g2);
+        }
+
     }
 
     public static void main(String args[]) {
@@ -46,7 +53,7 @@ public class Simulation extends JPanel {
         frame.setResizable(false);
         frame.setSize(1920, 1080);
         frame.setVisible(true);
-        
+
         Simulation sim = new Simulation();
         frame.setContentPane(sim);
 

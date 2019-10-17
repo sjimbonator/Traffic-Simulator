@@ -44,7 +44,10 @@ public class Car implements WorldObject {
 
     @Override
     public ArrayList<Integer> getPos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Integer> pos = new ArrayList();
+        pos.add(0, x);
+        pos.add(1, y);
+        return pos;
     }
 
 }
