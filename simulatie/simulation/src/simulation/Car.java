@@ -8,10 +8,10 @@ import java.util.ArrayList;
 
 public class Car implements WorldObject {
 
-    private int x;
-    private int y;
-    private int rotation;
-    private int speed;
+    private double x;
+    private double y;
+    private double rotation;
+    private double speed;
 
     private Image model;
 
@@ -20,34 +20,58 @@ public class Car implements WorldObject {
         x += speed * Math.sin(rotation);
     }
 
+    private void accelerate() {
+        if (!(speed > 10.0)){
+            speed += 0.01;
+        }
+        
+    }
+
+    private void deccelerate() {
+        speed -= 1;
+    }
+
     public Car(int x, int y, int rotation, Image model) {
         this.x = x;
         this.y = y;
         this.rotation = rotation;
-        this.speed = 0;
-        
+        this.speed = 5;
+
         this.model = model;
 
     }
 
+    @Override
     public void update(ArrayList<WorldObject> worldObjects) {
-            
+        accelerate();
+        move();
+
+    }
+
+
+    @Override
+    public String getType() {
+        return "Car";
     }
 
     @Override
-    public void draw(Graphics2D g) {
-        AffineTransform xform = new AffineTransform();
-        xform.setToTranslation(x -(model.getWidth( (ImageObserver) this) / 2) , y-(model.getHeight( (ImageObserver) this) / 2));
-        xform.rotate(Math.toRadians(rotation), x - (model.getWidth( (ImageObserver) this) / 2), y - (model.getHeight( (ImageObserver) this) / 2));
-        g.drawImage(model, xform, (ImageObserver) this);
+    public int getX() {
+        return (int) x;
     }
 
     @Override
-    public ArrayList<Integer> getPos() {
-        ArrayList<Integer> pos = new ArrayList();
-        pos.add(0, x);
-        pos.add(1, y);
-        return pos;
+    public int getY() {
+        return (int) y;
+    }
+
+    @Override
+    public int getRotation() {
+        return (int) rotation;
+    }
+
+    @Override
+    public Image getImage() {
+        return model;
     }
 
 }
