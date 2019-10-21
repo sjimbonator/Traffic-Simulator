@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -37,12 +36,12 @@ public class Simulation extends JPanel {
             e.printStackTrace();
         }
     }
-
+    
     public void update() {
         int random = (int) (Math.random() * 200 + 1);
         if (random == 10) {
-            worldObjects.add(new Car(1800, 520, 300, carImage));
-            //worldObjects.add(new TrafficLight(720, 520, trafficLight));
+            worldObjects.add(new Car(1800, 540, 300, carImage));
+            worldObjects.add(new TrafficLight(720, 520, 0, trafficLight));
         }
         
         for (WorldObject object : worldObjects) {
@@ -56,20 +55,23 @@ public class Simulation extends JPanel {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         
-        worldObjects.add(new TrafficLight(720, 520, trafficLight));
+        
         
         AffineTransform xform = new AffineTransform();
         g2.drawImage(background, xform, this);
         for (WorldObject object : worldObjects) {
             if(object.getType() == "Car"){
             xform.setToTranslation(object.getX() - (object.getImage().getWidth(this) / 2), object.getY() - (object.getImage().getHeight(this) / 2));
-           //xform.rotate(Math.toRadians(object.getRotation()), object.getX() - (object.getImage().getWidth(this) / 2), object.getY() - (object.getImage().getHeight(this) / 2));
+            //xform.setToTranslation(object.getX(), object.getY());
+           //xform.rotate(Math.toRadians(object.getRotation()));
             xform.rotate(Math.toRadians(270),object.getImage().getWidth(this)/2,object.getImage().getHeight(this)/2 );
+            //xform.rotate(Math.toRadians(270));
             g2.drawImage(carImage, xform, this);
             }
-            else if(object.getType() == "trafficLight") {
+            if(object.getType() == "trafficLight") {
             xform.setToTranslation(object.getX() - (object.getImage().getWidth(this) / 2), object.getY() - (object.getImage().getHeight(this) / 2));
-            xform.rotate(Math.toRadians(0));
+            //xform.setToTranslation(object.getX(), object.getY());
+            xform.rotate(Math.toRadians(object.getRotation()));
             xform.scale(1.5, 1.5);
             g2.drawImage(trafficLight, xform, this);
             }

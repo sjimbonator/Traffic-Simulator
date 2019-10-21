@@ -18,10 +18,12 @@ public class TrafficLight implements WorldObject {
         this.color = color;
     }
     
-    public TrafficLight(int x, int y, Image model){
+    public TrafficLight(int x, int y, int rotation, Image model){
         this.x = x;
         this.y = y;
+        this.rotation = rotation;
         this.model = model;
+        color = "red";
     }
            
     @Override

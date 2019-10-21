@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Car implements WorldObject {
 
-    private ArrayList<WorldObject> worldObjects = new ArrayList();
+    //private ArrayList<WorldObject> worldObjects = new ArrayList();
     private double x;
     private double y;
     private double rotation;
@@ -19,7 +19,6 @@ public class Car implements WorldObject {
     private void move() {
         y += speed * Math.cos(rotation);
         x += speed * Math.sin(rotation);
-        //System.out.print(y);
     }
     
 
@@ -31,15 +30,14 @@ public class Car implements WorldObject {
     }
 
     private void deccelerate() {
-        for (WorldObject object : worldObjects) {
-           if(object.getType() == "trafficLight"){
-             if((int)y == object.getY()){
-                   speed -= 1;
-                   System.out.print(y);
-               }
-            }
-        }
-        //speed -= 1;
+        //for (WorldObject object : worldObjects) {
+         //  if(object.getType() == "trafficLight"){
+          //   if((int)y == object.getY() && obect.getColor == "red"){
+           //        speed -= 1;
+          //     }
+        //    }
+        //}
+        speed -= 1;
     }
 
     public Car(int x, int y, int rotation, Image model) {
@@ -56,7 +54,7 @@ public class Car implements WorldObject {
     public void update(ArrayList<WorldObject> worldObjects) {
         accelerate();
         move();
-        deccelerate();
+        //deccelerate();
     }
 
 
