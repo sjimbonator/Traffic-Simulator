@@ -31,8 +31,15 @@ public class Car implements WorldObject {
     }
 
     private void deccelerate() {
-        
-        speed = 0;
+        for (WorldObject object : worldObjects) {
+           if(object.getType() == "trafficLight"){
+             if((int)y == object.getY()){
+                   speed -= 1;
+                   System.out.print(y);
+               }
+            }
+        }
+        //speed -= 1;
     }
 
     public Car(int x, int y, int rotation, Image model) {
@@ -49,13 +56,7 @@ public class Car implements WorldObject {
     public void update(ArrayList<WorldObject> worldObjects) {
         accelerate();
         move();
-       // for (WorldObject object : worldObjects) {
-         //   if(object.getType() == "trafficLight"){
-         //      if((int)y == object.getY()){
-         //           deccelerate();
-        //        }
-        //    }
-        //}
+        deccelerate();
     }
 
 
