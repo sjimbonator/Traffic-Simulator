@@ -25,11 +25,13 @@ public class Simulation extends JPanel {
     private ArrayList<WorldObject> worldObjects = new ArrayList();
     private Image carImage;
     private Image background;
+    private Image trafficLight;
 
     public Simulation() {
         try {
-            carImage = ImageIO.read(new File("C:\\Users\\sjimm\\Pictures\\car.png"));
-            background = ImageIO.read(new File("C:\\Users\\sjimm\\Pictures\\REEE.jpg"));
+            carImage = ImageIO.read(new File("C:\\Users\\Startklaar\\Pictures\\car1.png"));
+            background = ImageIO.read(new File("C:\\Users\\Startklaar\\Pictures\\crossing.png"));
+            trafficLight = ImageIO.read(new File("C:\\Users\\Startklaar\\Pictures\\trafficlight.png"));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -37,10 +39,12 @@ public class Simulation extends JPanel {
     }
 
     public void update() {
-        int random = (int) (Math.random() * 100 + 1);
+        int random = (int) (Math.random() * 200 + 1);
         if (random == 10) {
-            worldObjects.add(new Car(960, 540, 90, carImage));
+            worldObjects.add(new Car(1800, 520, 300, carImage));
+            //worldObjects.add(new TrafficLight(720, 520, trafficLight));
         }
+        
         for (WorldObject object : worldObjects) {
             object.update(worldObjects);
         }
@@ -51,12 +55,24 @@ public class Simulation extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+        
+        worldObjects.add(new TrafficLight(720, 520, trafficLight));
+        
         AffineTransform xform = new AffineTransform();
         g2.drawImage(background, xform, this);
         for (WorldObject object : worldObjects) {
+            if(object.getType() == "Car"){
             xform.setToTranslation(object.getX() - (object.getImage().getWidth(this) / 2), object.getY() - (object.getImage().getHeight(this) / 2));
-            xform.rotate(Math.toRadians(object.getRotation()), object.getX() - (object.getImage().getWidth(this) / 2), object.getY() - (object.getImage().getHeight(this) / 2));
+           //xform.rotate(Math.toRadians(object.getRotation()), object.getX() - (object.getImage().getWidth(this) / 2), object.getY() - (object.getImage().getHeight(this) / 2));
+            xform.rotate(Math.toRadians(270),object.getImage().getWidth(this)/2,object.getImage().getHeight(this)/2 );
             g2.drawImage(carImage, xform, this);
+            }
+            else if(object.getType() == "trafficLight") {
+            xform.setToTranslation(object.getX() - (object.getImage().getWidth(this) / 2), object.getY() - (object.getImage().getHeight(this) / 2));
+            xform.rotate(Math.toRadians(0));
+            xform.scale(1.5, 1.5);
+            g2.drawImage(trafficLight, xform, this);
+            }
 
         }
     }
