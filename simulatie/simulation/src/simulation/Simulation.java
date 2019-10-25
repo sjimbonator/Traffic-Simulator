@@ -19,12 +19,72 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class Simulation extends JPanel {
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttCallback;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+
+public class Simulation extends JPanel implements MqttCallback {
 
     private ArrayList<WorldObject> worldObjects = new ArrayList();
     private Image carImage;
     private Image background;
     private Image trafficLight;
+    private String mqttmessage;
+    
+    private static final String brokerUrl ="tcp://arankieskamp.com:1883";
+    private static final String clientId = "Groep7Sub";
+    private static final String topic = "test";
+    
+    public void subscribe(String topic) {
+		//logger file name and pattern to log
+		MemoryPersistence persistence = new MemoryPersistence();
+
+		try
+		{
+
+			MqttClient sampleClient = new MqttClient(brokerUrl, clientId, persistence);
+			MqttConnectOptions connOpts = new MqttConnectOptions();
+			connOpts.setCleanSession(true);
+
+			System.out.println("checking");
+			System.out.println("Mqtt Connecting to broker: " + brokerUrl);
+
+			sampleClient.connect(connOpts);
+			System.out.println("Mqtt Connected");
+
+			sampleClient.setCallback(this);
+			sampleClient.subscribe(topic);
+
+			System.out.println("Subscribed");
+			System.out.println("Listening");
+
+		} catch (MqttException e) {
+			System.out.println(e);
+		}
+	}
+
+	 //Called when the client lost the connection to the broker
+	public void connectionLost(Throwable arg0) {
+		
+	}
+
+	//Called when a outgoing publish is complete
+	public void deliveryComplete(IMqttDeliveryToken arg0) {
+
+	}
+
+	public void messageArrived(String topic, MqttMessage mqttmessage) throws Exception {
+
+		System.out.println("| Topic:" + topic);
+		System.out.println("| Message: " +mqttmessage.toString());
+		System.out.println("-------------------------------------------------");
+                this.mqttmessage = mqttmessage.toString();
+
+	}
 
     public Simulation() {
         try {
@@ -37,11 +97,15 @@ public class Simulation extends JPanel {
         }
     }
     
+    //public void addObjects() {
+        //worldObjects.add(new TrafficLight(720, 520, 0, trafficLight, mqttmessage));
+    //}
+    
     public void update() {
         int random = (int) (Math.random() * 200 + 1);
         if (random == 10) {
             worldObjects.add(new Car(1800, 540, 300, carImage));
-            worldObjects.add(new TrafficLight(720, 520, 0, trafficLight));
+            worldObjects.add(new TrafficLight(720, 520, 0, trafficLight, mqttmessage));
         }
         
         for (WorldObject object : worldObjects) {
@@ -85,14 +149,18 @@ public class Simulation extends JPanel {
     }
 
     public static void main(String args[]) {
+        System.out.println("Subscriber running");
+        
         JFrame frame = new JFrame("Traffic Jam Simulator");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         Simulation sim = new Simulation();
+        sim.subscribe(topic);
         frame.setContentPane(sim);
         frame.pack();
         frame.setVisible(true);
+        //sim.addObjects();
         while (true) {
             try {
                 sim.update();

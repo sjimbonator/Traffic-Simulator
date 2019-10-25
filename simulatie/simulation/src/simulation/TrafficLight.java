@@ -10,50 +10,62 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 public class TrafficLight implements WorldObject {
-    private double x;
-    private double y;
+    private int x;
+    private int y;
+    private String mqttmessage;
     private String color;
     private Image model;
-    private double rotation;
-    
-    private void color(String color)
-    {
-        this.color = color;
-    }
-    
-    private void changeRed (){
-        try {
-            model = ImageIO.read(new File("C:\\Users\\Startklaar\\Pictures\\trafficlight.png"));
+    private int rotation;
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    
-    private void changeYellow (){
-        try {
-            model = ImageIO.read(new File("C:\\Users\\Startklaar\\Pictures\\trafficlight.png"));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    
-    private void changeGreen (){
-        try {
-            model = ImageIO.read(new File("C:\\Users\\Startklaar\\Pictures\\trafficlight.png"));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    
-    public TrafficLight(int x, int y, int rotation, Image model){
+    public TrafficLight(int x, int y, int rotation, Image model, String mqttmessage){
         this.x = x;
         this.y = y;
         this.rotation = rotation;
         this.model = model;
-        color = "red";
+        this.mqttmessage = mqttmessage;
+        
+    }
+    
+    private void changeColor (){
+        if(mqttmessage != null && mqttmessage.contains("0")){
+            
+            try {
+                model = ImageIO.read(new File("C:\\Users\\Startklaar\\Pictures\\car1.png"));
+                System.out.println("color is red");
+                
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            color = "red";
+            
+        }
+        
+        if (mqttmessage != null && mqttmessage.contains("1")){
+            try {
+                model = ImageIO.read(new File("C:\\Users\\Startklaar\\Pictures\\trafficlight.png"));
+                System.out.println("color is orange");
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            color = "orange";
+        }
+        if (mqttmessage != null && mqttmessage.contains("2")){
+            try {
+                model = ImageIO.read(new File("C:\\Users\\Startklaar\\Pictures\\trafficlight.png"));
+                System.out.println("color is green");
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            color = "green";
+        }
+    }
+    
+    //function used to find color of the trafficlight for the cars
+    public String getColor() {
+        return color;
     }
            
     @Override
@@ -73,7 +85,8 @@ public class TrafficLight implements WorldObject {
 
     @Override
     public void update(ArrayList<WorldObject> worldObjects) {
-        color(color);
+        changeColor();
+        System.out.println(mqttmessage);
     }
 
     @Override
