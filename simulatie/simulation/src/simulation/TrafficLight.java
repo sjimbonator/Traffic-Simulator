@@ -4,7 +4,10 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.image.ImageObserver;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 
 public class TrafficLight implements WorldObject {
     private double x;
@@ -16,6 +19,33 @@ public class TrafficLight implements WorldObject {
     private void color(String color)
     {
         this.color = color;
+    }
+    
+    private void changeRed (){
+        try {
+            model = ImageIO.read(new File("C:\\Users\\Startklaar\\Pictures\\trafficlight.png"));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void changeYellow (){
+        try {
+            model = ImageIO.read(new File("C:\\Users\\Startklaar\\Pictures\\trafficlight.png"));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void changeGreen (){
+        try {
+            model = ImageIO.read(new File("C:\\Users\\Startklaar\\Pictures\\trafficlight.png"));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     public TrafficLight(int x, int y, int rotation, Image model){
