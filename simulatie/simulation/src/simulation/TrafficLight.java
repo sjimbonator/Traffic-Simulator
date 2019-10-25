@@ -10,41 +10,38 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 public class TrafficLight implements WorldObject {
+    
+    Simulation sim = new Simulation();
     private int x;
     private int y;
-    private String mqttmessage;
+    private static String mqttmessage;
     private String color;
     private Image model;
     private int rotation;
 
-    public TrafficLight(int x, int y, int rotation, Image model, String mqttmessage){
+    public TrafficLight(int x, int y, int rotation, Image model){
         this.x = x;
         this.y = y;
         this.rotation = rotation;
         this.model = model;
-        this.mqttmessage = mqttmessage;
-        
     }
     
     private void changeColor (){
         if(mqttmessage != null && mqttmessage.contains("0")){
-            
             try {
                 model = ImageIO.read(new File("C:\\Users\\Startklaar\\Pictures\\car1.png"));
-                System.out.println("color is red");
+                System.out.println("traffic light color is red");
                 
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
             color = "red";
-            
         }
-        
         if (mqttmessage != null && mqttmessage.contains("1")){
             try {
                 model = ImageIO.read(new File("C:\\Users\\Startklaar\\Pictures\\trafficlight.png"));
-                System.out.println("color is orange");
+                System.out.println("traffic light color is orange");
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -54,7 +51,7 @@ public class TrafficLight implements WorldObject {
         if (mqttmessage != null && mqttmessage.contains("2")){
             try {
                 model = ImageIO.read(new File("C:\\Users\\Startklaar\\Pictures\\trafficlight.png"));
-                System.out.println("color is green");
+                System.out.println("traffic light color is green");
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -85,8 +82,9 @@ public class TrafficLight implements WorldObject {
 
     @Override
     public void update(ArrayList<WorldObject> worldObjects) {
+        mqttmessage = sim.getMessage();
         changeColor();
-        System.out.println(mqttmessage);
+        //System.out.println(mqttmessage);
     }
 
     @Override

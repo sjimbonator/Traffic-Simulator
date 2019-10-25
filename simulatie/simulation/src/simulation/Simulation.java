@@ -33,11 +33,11 @@ public class Simulation extends JPanel implements MqttCallback {
     private Image carImage;
     private Image background;
     private Image trafficLight;
-    private String mqttmessage;
+    private static String mqttmessage;
     
     private static final String brokerUrl ="tcp://arankieskamp.com:1883";
     private static final String clientId = "Groep7Sub";
-    private static final String topic = "test";
+    private static final String topic = "7/traffic_light/1";
     
     public void subscribe(String topic) {
 		//logger file name and pattern to log
@@ -85,6 +85,10 @@ public class Simulation extends JPanel implements MqttCallback {
                 this.mqttmessage = mqttmessage.toString();
 
 	}
+        
+        public String getMessage(){
+            return mqttmessage;
+        }
 
     public Simulation() {
         try {
@@ -97,15 +101,15 @@ public class Simulation extends JPanel implements MqttCallback {
         }
     }
     
-    //public void addObjects() {
-        //worldObjects.add(new TrafficLight(720, 520, 0, trafficLight, mqttmessage));
-    //}
+    public void addObjects() {
+        worldObjects.add(new TrafficLight(720, 520, 0, trafficLight));
+    }
     
     public void update() {
         int random = (int) (Math.random() * 200 + 1);
         if (random == 10) {
             worldObjects.add(new Car(1800, 540, 300, carImage));
-            worldObjects.add(new TrafficLight(720, 520, 0, trafficLight, mqttmessage));
+            //worldObjects.add(new TrafficLight(720, 520, 0, trafficLight));
         }
         
         for (WorldObject object : worldObjects) {
@@ -160,7 +164,7 @@ public class Simulation extends JPanel implements MqttCallback {
         frame.setContentPane(sim);
         frame.pack();
         frame.setVisible(true);
-        //sim.addObjects();
+        sim.addObjects();
         while (true) {
             try {
                 sim.update();
