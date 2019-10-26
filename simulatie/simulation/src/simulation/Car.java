@@ -65,7 +65,7 @@ public class Car implements WorldObject {
             if (!(object == this)) {
                 if (object instanceof TrafficLight) {
                     if (((TrafficLight) object).getColor() == "green") {
-                        break;
+                        continue;
                     }
                 }
                 double objX = object.getX();
