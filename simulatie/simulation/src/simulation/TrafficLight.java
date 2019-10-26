@@ -66,13 +66,13 @@ public class TrafficLight implements WorldObject {
     }
            
     @Override
-    public int getX() {
-        return (int) x;
+    public double getX() {
+        return x;
     }
 
     @Override
-    public int getY() {
-        return (int) y;
+    public double getY() {
+        return y;
     }
     
     @Override
@@ -81,10 +81,11 @@ public class TrafficLight implements WorldObject {
     }
 
     @Override
-    public void update(ArrayList<WorldObject> worldObjects) {
+    public boolean update(ArrayList<WorldObject> worldObjects) {
         mqttmessage = sim.getMessage();
         changeColor();
         //System.out.println(mqttmessage);
+        return false;
     }
 
     @Override
@@ -93,7 +94,7 @@ public class TrafficLight implements WorldObject {
     }
 
     @Override
-    public int getRotation() {
-        return (int) rotation;
+    public double getRotation() {
+        return rotation;
     }
 }
