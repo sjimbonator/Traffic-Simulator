@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ import javax.swing.*;
 public class Simulation extends JPanel {
 
     private ArrayList<WorldObject> worldObjects = new ArrayList();
+    private ArrayList<ArrayList<Point2D>> carRoutes = new ArrayList();
     private Image carImage;
     private Image background;
 
@@ -34,16 +36,28 @@ public class Simulation extends JPanel {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
+        //Filling the carRoutes ArrayList
+        ArrayList<Point2D> route1 = new ArrayList();
+        route1.add(new Point2D.Double(470,5));
+        route1.add(new Point2D.Double(470,190));
+        route1.add(new Point2D.Double(470,330));
+        route1.add(new Point2D.Double(0,330));
+        carRoutes.add(route1);
+        
+        
     }
 
     public void update() {
         int random = (int) (Math.random() * 100 + 1);
         if (random == 10) {
-            worldObjects.add(new Car(300, 300, 290, carImage));
+            worldObjects.add(new Car(carRoutes.get(0), carImage));
         }
+        ArrayList<WorldObject> deleteList = new ArrayList();
         for (WorldObject object : worldObjects) {
-            object.update(worldObjects);
+            if(object.update(worldObjects)) {deleteList.add(object);}
         }
+        worldObjects.removeAll(deleteList);
         repaint();
     }
 
@@ -54,9 +68,9 @@ public class Simulation extends JPanel {
         AffineTransform xform = new AffineTransform();
         g2.drawImage(background, xform, this);
         for (WorldObject object : worldObjects) {
-            xform.setToTranslation(object.getX() - (object.getImage().getWidth(this) / 2), object.getY() - (object.getImage().getHeight(this) / 2));
+            xform.setToTranslation((int) object.getX() - (object.getImage().getWidth(this) / 2), (int) object.getY() - (object.getImage().getHeight(this) / 2));
             double offset = (object.getImage().getWidth(this) - object.getImage().getHeight(this));
-            xform.rotate(Math.toRadians(object.getRotation()), (object.getImage().getWidth(this) / 2), (object.getImage().getHeight(this) / 2));
+            xform.rotate(Math.toRadians((int) object.getRotation()), (object.getImage().getWidth(this) / 2), (object.getImage().getHeight(this) / 2));
             xform.translate(-offset, -offset);
             g2.drawImage(carImage, xform, this);
 
