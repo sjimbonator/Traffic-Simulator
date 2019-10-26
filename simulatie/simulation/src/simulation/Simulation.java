@@ -28,8 +28,8 @@ public class Simulation extends JPanel {
 
     public Simulation() {
         try {
-            carImage = ImageIO.read(new File("C:\\Users\\sjimm\\Pictures\\car.png"));
-            background = ImageIO.read(new File("C:\\Users\\sjimm\\Pictures\\REEE.jpg"));
+            carImage = ImageIO.read(new File("C:\\Users\\Sjimmie\\Pictures\\hqdefault.jpg"));
+            background = ImageIO.read(new File("./BACKGROUND.png"));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -39,7 +39,7 @@ public class Simulation extends JPanel {
     public void update() {
         int random = (int) (Math.random() * 100 + 1);
         if (random == 10) {
-            worldObjects.add(new Car(960, 540, 90, carImage));
+            worldObjects.add(new Car(300, 300, 180, carImage));
         }
         for (WorldObject object : worldObjects) {
             object.update(worldObjects);
@@ -63,7 +63,7 @@ public class Simulation extends JPanel {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(1920, 1080);
+        return new Dimension(1311, 900);
     }
 
     public static void main(String args[]) {
