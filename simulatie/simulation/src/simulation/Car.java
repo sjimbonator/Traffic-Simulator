@@ -63,6 +63,11 @@ public class Car implements WorldObject {
 
         for (WorldObject object : worldObjects) {
             if (!(object == this)) {
+                if (object instanceof TrafficLight) {
+                    if (((TrafficLight) object).getColor() == "green") {
+                        break;
+                    }
+                }
                 double objX = object.getX();
                 double objY = object.getY();
                 if ((objX >= (x - 50) && objX <= (x + 50)) && (objY >= (y - 50) && objY <= (y + 50))) {

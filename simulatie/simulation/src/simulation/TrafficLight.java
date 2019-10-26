@@ -10,61 +10,32 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 public class TrafficLight implements WorldObject {
-    
-    Simulation sim = new Simulation();
+
     private int x;
     private int y;
-    private static String mqttmessage;
-    private String color;
-    private Image model;
+    private Image red;
+    private Image orange;
+    private Image green;
+    private Image white;
     private int rotation;
+    private String color = "green";
 
-    public TrafficLight(int x, int y, int rotation, Image model){
+    public TrafficLight(int x, int y, int rotation, Image red, Image orange, Image green, Image white) {
         this.x = x;
         this.y = y;
         this.rotation = rotation;
-        this.model = model;
+
+        this.red = red;
+        this.orange = orange;
+        this.green = green;
+        this.white = white;
     }
-    
-    private void changeColor (){
-        if(mqttmessage != null && mqttmessage.contains("0")){
-            try {
-                model = ImageIO.read(new File("C:\\Users\\Startklaar\\Pictures\\car1.png"));
-                System.out.println("traffic light color is red");
-                
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            color = "red";
-        }
-        if (mqttmessage != null && mqttmessage.contains("1")){
-            try {
-                model = ImageIO.read(new File("C:\\Users\\Startklaar\\Pictures\\trafficlight.png"));
-                System.out.println("traffic light color is orange");
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            color = "orange";
-        }
-        if (mqttmessage != null && mqttmessage.contains("2")){
-            try {
-                model = ImageIO.read(new File("C:\\Users\\Startklaar\\Pictures\\trafficlight.png"));
-                System.out.println("traffic light color is green");
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            color = "green";
-        }
-    }
-    
     //function used to find color of the trafficlight for the cars
     public String getColor() {
         return color;
     }
-           
+
     @Override
     public double getX() {
         return x;
@@ -74,17 +45,23 @@ public class TrafficLight implements WorldObject {
     public double getY() {
         return y;
     }
-    
+
     @Override
     public Image getImage() {
-        return model;
+        if (color == "red") {
+            return red;
+        } else if(color == "green") {
+            return green;
+        } else if(color == "orange"){
+            return orange;
+        } else{
+            return white;
+        }
     }
 
     @Override
     public boolean update(ArrayList<WorldObject> worldObjects) {
-        mqttmessage = sim.getMessage();
-        changeColor();
-        //System.out.println(mqttmessage);
+        color = "red";
         return false;
     }
 

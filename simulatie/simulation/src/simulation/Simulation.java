@@ -25,13 +25,24 @@ public class Simulation extends JPanel {
 
     private ArrayList<WorldObject> worldObjects = new ArrayList();
     private ArrayList<ArrayList<Point2D>> carRoutes = new ArrayList();
+    
     private Image carImage;
     private Image background;
+    
+    private Image red;
+    private Image orange;
+    private Image green;
+    private Image white;
 
     public Simulation() {
         try {
             carImage = ImageIO.read(new File("./car.png"));
             background = ImageIO.read(new File("./BACKGROUNDarrows.png"));
+            
+            red = ImageIO.read(new File("./red.png"));
+            orange = ImageIO.read(new File("./orange.png"));
+            green = ImageIO.read(new File("./green.png"));
+            white = ImageIO.read(new File("./white.png"));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -44,6 +55,38 @@ public class Simulation extends JPanel {
         route1.add(new Point2D.Double(470,330));
         route1.add(new Point2D.Double(0,330));
         carRoutes.add(route1);
+        
+        //Creating traffic lights
+        
+        //North
+        TrafficLight light0 = new TrafficLight(702, 470, 180, red, orange, green, white );
+        worldObjects.add(light0);
+        TrafficLight light1 = new TrafficLight(702, 421, 270, red, orange, green, white );
+        worldObjects.add(light1);
+        TrafficLight light2 = new TrafficLight(702, 342, 270, red, orange, green, white );
+        worldObjects.add(light2);
+        TrafficLight light3 = new TrafficLight(702, 293, 0, red, orange, green, white );
+        worldObjects.add(light3);
+        
+        //East
+        TrafficLight light4 = new TrafficLight(588, 698, 90, red, orange, green, white );
+        worldObjects.add(light4);
+        TrafficLight light5 = new TrafficLight(509, 698, 270, red, orange, green, white );
+        worldObjects.add(light5);
+        
+        //South
+        TrafficLight light6 = new TrafficLight(202, 505, 90, red, orange, green, white );
+        worldObjects.add(light6);
+        TrafficLight light7 = new TrafficLight(202, 584, 90, red, orange, green, white );
+        worldObjects.add(light7);
+        TrafficLight light8 = new TrafficLight(202, 438, 0, red, orange, green, white );
+        worldObjects.add(light8);
+        
+        //West
+        TrafficLight light9 = new TrafficLight(538, 202, 90, red, orange, green, white );
+        worldObjects.add(light9);
+        TrafficLight light10 = new TrafficLight(460, 202, 270, red, orange, green, white );
+        worldObjects.add(light10);
         
         
     }
@@ -72,7 +115,7 @@ public class Simulation extends JPanel {
             double offset = (object.getImage().getWidth(this) - object.getImage().getHeight(this));
             xform.rotate(Math.toRadians((int) object.getRotation()), (object.getImage().getWidth(this) / 2), (object.getImage().getHeight(this) / 2));
             xform.translate(-offset, -offset);
-            g2.drawImage(carImage, xform, this);
+            g2.drawImage(object.getImage(), xform, this);
 
         }
     }
