@@ -16,12 +16,17 @@ public class Car implements WorldObject {
     private Image model;
 
     private void move() {
-        y += speed * Math.cos(rotation);
-        x += speed * Math.sin(rotation);
+        System.out.println(rotation);
+        y += speed * Math.cos((Math.toRadians(rotation)));
+        x += speed * -Math.sin((Math.toRadians(rotation)));
+        System.out.println("Y+=");
+        System.out.println(Math.cos(Math.toRadians(rotation)));
+        System.out.println("X+=");
+        System.out.println(Math.sin(Math.toRadians(rotation)));
     }
 
     private void accelerate() {
-        if (!(speed > 10.0)){
+        if (!(speed > 3.0)){
             speed += 0.01;
         }
         
@@ -31,7 +36,7 @@ public class Car implements WorldObject {
         speed -= 1;
     }
 
-    public Car(int x, int y, int rotation, Image model) {
+    public Car(double x, double y, double rotation, Image model) {
         this.x = x;
         this.y = y;
         this.rotation = rotation;

@@ -28,8 +28,8 @@ public class Simulation extends JPanel {
 
     public Simulation() {
         try {
-            carImage = ImageIO.read(new File("C:\\Users\\Sjimmie\\Pictures\\hqdefault.jpg"));
-            background = ImageIO.read(new File("./BACKGROUND.png"));
+            carImage = ImageIO.read(new File("./car.png"));
+            background = ImageIO.read(new File("./BACKGROUNDarrows.png"));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -39,7 +39,7 @@ public class Simulation extends JPanel {
     public void update() {
         int random = (int) (Math.random() * 100 + 1);
         if (random == 10) {
-            worldObjects.add(new Car(300, 300, 180, carImage));
+            worldObjects.add(new Car(300, 300, 290, carImage));
         }
         for (WorldObject object : worldObjects) {
             object.update(worldObjects);
@@ -55,7 +55,9 @@ public class Simulation extends JPanel {
         g2.drawImage(background, xform, this);
         for (WorldObject object : worldObjects) {
             xform.setToTranslation(object.getX() - (object.getImage().getWidth(this) / 2), object.getY() - (object.getImage().getHeight(this) / 2));
-            xform.rotate(Math.toRadians(object.getRotation()), object.getX() - (object.getImage().getWidth(this) / 2), object.getY() - (object.getImage().getHeight(this) / 2));
+            double offset = (object.getImage().getWidth(this) - object.getImage().getHeight(this));
+            xform.rotate(Math.toRadians(object.getRotation()), (object.getImage().getWidth(this) / 2), (object.getImage().getHeight(this) / 2));
+            xform.translate(-offset, -offset);
             g2.drawImage(carImage, xform, this);
 
         }
