@@ -141,7 +141,6 @@ public class Simulation extends JPanel {
         Simulation sim = new Simulation();
         MqttSubscriber mqttsub = new MqttSubscriber();
         mqttsub.main(null);
-        //sim.subscribe(topic_trafficlights);
         frame.setContentPane(sim);
         frame.pack();
         frame.setVisible(true);

@@ -10,7 +10,8 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 public class TrafficLight implements WorldObject {
-
+    
+    MqttSubscriber mqttsub = new MqttSubscriber();
     private int x;
     private int y;
     private Image red;
@@ -18,10 +19,9 @@ public class TrafficLight implements WorldObject {
     private Image green;
     private Image white;
     private int rotation;
-    private String color = "green";
-    private static String mqttmessage;
-    private String topic = "7/motorised/1/sensor/1";
-
+    private String color;
+    private static String mqttMessage;
+    
     public TrafficLight(int x, int y, int rotation, Image red, Image orange, Image green, Image white) {
         this.x = x;
         this.y = y;
@@ -50,13 +50,17 @@ public class TrafficLight implements WorldObject {
 
     @Override
     public Image getImage() {
-        
-        if (color == "red" || (mqttmessage != null && mqttmessage.contains("0"))) {
+        if (mqttMessage != null && mqttMessage.contains("0")) {
+            color = "red";
             return red;
-        } else if(color == "green" || (mqttmessage != null && mqttmessage.contains("2"))) {
-            return green;
-        } else if(color == "orange" || (mqttmessage != null && mqttmessage.contains("1"))){
+        }else if(mqttMessage != null && mqttMessage.contains("1")){
+            color = "orange";
             return orange;
+        }else if(mqttMessage != null && mqttMessage.contains("2")) {
+            color = "green";
+            return green;
+        }else if(mqttMessage != null && mqttMessage.contains("3")) {
+            return white;
         } else{
             return white;
         }
@@ -64,7 +68,7 @@ public class TrafficLight implements WorldObject {
 
     @Override
     public boolean update(ArrayList<WorldObject> worldObjects) {
-        color = "red";
+        mqttMessage = mqttsub.getMessage();
         return false;
     }
 
