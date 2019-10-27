@@ -24,7 +24,7 @@ public class TrafficLight implements WorldObject {
     private String mqttMessage;
     
     public TrafficLight(String topic, int x, int y, int rotation, Image red, Image orange, Image green, Image white) {
-        //this.mqttsub = new MqttSubscriber(topic);
+        this.mqttsub = new MqttSubscriber(topic);
         
         this.x = x;
         this.y = y;

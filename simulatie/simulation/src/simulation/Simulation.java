@@ -213,7 +213,7 @@ public class Simulation extends JPanel {
     }
 
     public void update() {
-        int random = (int) (Math.random() * 1000 + 1);
+        int random = (int) (Math.random() * 100 + 1);
         if (random == 10) {
             random = (int) (Math.random() * 10);
             worldObjects.add(new Car(carRoutes.get(random), carImage));
