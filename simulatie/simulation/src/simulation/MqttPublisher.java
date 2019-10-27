@@ -12,11 +12,18 @@ public class MqttPublisher {
     //private static String content;
     //private static String sensorPayload = "0";   //placeholder payload of sensor to publish via mqtt
     private int qos = 1;
-    private String broker = "tcp://arankieskamp.com:1883";
-    private String publishClientId = "Groep7Publish";
+    private static String broker = "tcp://arankieskamp.com:1883";
+    private static String publishClientId = "Groep7Publish";
+    private String topic;
     MemoryPersistence persistence = new MemoryPersistence();
-
-    public void publish(String topic, String content) {
+    
+    public MqttPublisher(String topic)
+    {
+        this.topic = topic;
+        publishClientId += "I";
+    }
+    
+    public void publish(String content) {
         try {
             MqttClient sampleClient = new MqttClient(broker, publishClientId, persistence);
             MqttConnectOptions connOpts = new MqttConnectOptions();

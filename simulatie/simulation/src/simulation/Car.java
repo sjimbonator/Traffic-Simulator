@@ -64,6 +64,7 @@ public class Car implements WorldObject {
         for (WorldObject object : worldObjects) {
             if (!(object == this)) {
                 if (object instanceof TrafficLight) {
+                    
                     if (((TrafficLight) object).getColor() == "green") {
                         continue;
                     }
@@ -87,7 +88,7 @@ public class Car implements WorldObject {
 
         }
 
-        if ((destination.getX() >= x - speed && destination.getX() <= x) && (destination.getY() >= y - speed && destination.getY() <= y)) {
+        if ((destination.getX() >= x - speed && destination.getX() <= x + speed) && (destination.getY() >= y - speed && destination.getY() <= y + speed)) {
             pointReached = true;
         }
 
