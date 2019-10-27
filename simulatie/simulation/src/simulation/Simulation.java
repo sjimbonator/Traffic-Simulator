@@ -132,6 +132,8 @@ public class Simulation extends JPanel {
         frame.setLocationRelativeTo(null);
         Simulation sim = new Simulation();
         MqttSubscriber mqttsub = new MqttSubscriber();
+        //MqttPublisher mqttpub = new MqttPublisher();
+        //mqttpub.publish("7/motorised/1/traffic_light/10", "2");
         mqttsub.main(null);
         frame.setContentPane(sim);
         frame.pack();
