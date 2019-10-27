@@ -48,40 +48,6 @@ public class Simulation extends JPanel implements MqttCallback {
     private static ArrayList<String> topic_trafficlights = new ArrayList<String>();
     private static String mqttmessage;
     
-    //mqtt publish variables
-    private static String topic = "7/motorised/1/sensor/1";
-    private static String sensorPayload = "0";   //placeholder payload of sensor to publish via mqtt
-    private int qos = 1;
-    private String broker = "tcp://arankieskamp.com:1883";
-    private String publishClientId = "Groep7Publish";
-    MemoryPersistence persistence = new MemoryPersistence();
-
-    public void publish(String topic, String content) {
-        try {
-            MqttClient sampleClient = new MqttClient(broker, publishClientId, persistence);
-            MqttConnectOptions connOpts = new MqttConnectOptions();
-            connOpts.setCleanSession(true);
-            System.out.println("Connecting to broker: " + broker);
-            sampleClient.connect(connOpts);
-            System.out.println("Connected to broker");
-            System.out.println("Publishing message:" + content);
-            MqttMessage message = new MqttMessage(content.getBytes());
-            message.setQos(qos);
-            sampleClient.publish(topic, message);
-            System.out.println("Message published");
-            sampleClient.disconnect();
-            sampleClient.close();
-            //System.exit(0);
-        } catch (MqttException me) {
-            System.out.println("reason " + me.getReasonCode());
-            System.out.println("msg " + me.getMessage());
-            System.out.println("loc " + me.getLocalizedMessage());
-            System.out.println("cause " + me.getCause());
-            System.out.println("excep " + me);
-            me.printStackTrace();
-        }
-    }
-
     public void subscribe(ArrayList<String> topic_trafficlights) {
         MemoryPersistence persistence = new MemoryPersistence();
         topic_trafficlights.add("7/motorised/1/traffic_light/1");
@@ -236,7 +202,6 @@ public class Simulation extends JPanel implements MqttCallback {
         frame.setLocationRelativeTo(null);
         Simulation sim = new Simulation();
         sim.subscribe(topic_trafficlights);
-        sim.publish(topic, sensorPayload);
         frame.setContentPane(sim);
         frame.pack();
         frame.setVisible(true);

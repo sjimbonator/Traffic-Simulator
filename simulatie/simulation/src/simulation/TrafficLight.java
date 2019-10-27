@@ -20,8 +20,9 @@ public class TrafficLight implements WorldObject {
     private int rotation;
     private String color = "green";
     private static String mqttmessage;
+    private String topic = "7/motorised/1/sensor/1";
     
-    Simulation sim = new Simulation();
+    MqttPublisher publish = new MqttPublisher();
     
 
     public TrafficLight(int x, int y, int rotation, Image red, Image orange, Image green, Image white) {
@@ -53,11 +54,12 @@ public class TrafficLight implements WorldObject {
     @Override
     public Image getImage() {
         
-        if (color == "red" || mqttmessage != null && mqttmessage.contains("0")) {
+        if (color == "red" || (mqttmessage != null && mqttmessage.contains("0"))) {
+            publish.publish(topic, "0");
             return red;
-        } else if(color == "green" || mqttmessage != null && mqttmessage.contains("2")) {
+        } else if(color == "green" || (mqttmessage != null && mqttmessage.contains("2"))) {
             return green;
-        } else if(color == "orange" || mqttmessage != null && mqttmessage.contains("1")){
+        } else if(color == "orange" || (mqttmessage != null && mqttmessage.contains("1"))){
             return orange;
         } else{
             return white;
@@ -67,7 +69,6 @@ public class TrafficLight implements WorldObject {
     @Override
     public boolean update(ArrayList<WorldObject> worldObjects) {
         color = "red";
-        mqttmessage = sim.getMessage();
         return false;
     }
 
