@@ -54,12 +54,11 @@ public class Simulation extends JPanel {
         //MqttSubscriber trafficLightSub = new MqttSubscriber(topic1);
         
         //Filling the carRoutes ArrayList
-        ArrayList<Point2D> route1 = new ArrayList();
-        route1.add(new Point2D.Double(470,5));
-        route1.add(new Point2D.Double(470,190));
-        route1.add(new Point2D.Double(470,330));
-        route1.add(new Point2D.Double(0,330));
-        carRoutes.add(route1);
+        ArrayList<Point2D> route10 = new ArrayList();
+        route10.add(new Point2D.Double(470,5));
+        route10.add(new Point2D.Double(470,330));
+        route10.add(new Point2D.Double(0,330));
+        carRoutes.add(route10);
         
         //Creating traffic lights
         
