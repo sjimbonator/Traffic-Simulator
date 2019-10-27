@@ -21,14 +21,6 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
-import org.eclipse.paho.client.mqttv3.MqttCallback;
-import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
-import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
-
 public class Simulation extends JPanel {
 
     private ArrayList<WorldObject> worldObjects = new ArrayList();
@@ -152,6 +144,5 @@ public class Simulation extends JPanel {
                 Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
     }
 }
