@@ -13,15 +13,15 @@ public class MqttSubscriber implements MqttCallback {
     private static final String brokerUrl = "tcp://arankieskamp.com:1883";
     private static final String clientId = "Groep7Subscribe";
     private static String mqttmessage;
-    private static String topic1 = "7/motorised/1/traffic_light/#";
-
-    public void subscribe(String topic) {
+    private static String topic;
+    
+    private void subscribe() {
         MemoryPersistence persistence = new MemoryPersistence();
             try {
 
                 MqttClient sampleClient = new MqttClient(brokerUrl, clientId, persistence);
                 MqttConnectOptions connOpts = new MqttConnectOptions();
-                connOpts.setCleanSession(true);
+                connOpts.setCleanSession(false);
 
                 System.out.println("Mqtt connected to broker: " + brokerUrl);
                 sampleClient.connect(connOpts);
@@ -35,6 +35,13 @@ public class MqttSubscriber implements MqttCallback {
                 System.out.println(e);
             }
     }
+    
+    public MqttSubscriber(String topic)
+    {
+        this.topic = topic;
+        subscribe();
+    }
+
     
     //Called when the client lost the connection to the broker
     public void connectionLost(Throwable arg0) {
@@ -59,8 +66,5 @@ public class MqttSubscriber implements MqttCallback {
         return mqttmessage;
     }
 
-    public static void main(String[] args) {
-        System.out.println("Subscriber running");
-        new MqttSubscriber().subscribe(topic1);
-    }
+
 }

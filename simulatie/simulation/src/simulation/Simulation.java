@@ -22,7 +22,9 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class Simulation extends JPanel {
-
+    
+    private String groupID = "7";
+    
     private ArrayList<WorldObject> worldObjects = new ArrayList();
     private ArrayList<ArrayList<Point2D>> carRoutes = new ArrayList();
     
@@ -48,6 +50,9 @@ public class Simulation extends JPanel {
             e.printStackTrace();
         }
         
+        //Creating mqtt subscribers
+        //MqttSubscriber trafficLightSub = new MqttSubscriber(topic1);
+        
         //Filling the carRoutes ArrayList
         ArrayList<Point2D> route1 = new ArrayList();
         route1.add(new Point2D.Double(470,5));
@@ -59,33 +64,33 @@ public class Simulation extends JPanel {
         //Creating traffic lights
         
         //North
-        TrafficLight light0 = new TrafficLight(702, 470, 180, red, orange, green, white );
+        TrafficLight light0 = new TrafficLight(groupID + "/motorised/0/traffic_light/0", 702, 470, 180, red, orange, green, white );
         worldObjects.add(light0);
-        TrafficLight light1 = new TrafficLight(702, 421, 270, red, orange, green, white );
+        TrafficLight light1 = new TrafficLight(groupID + "/motorised/1/0/traffic_light/0", 702, 421, 270, red, orange, green, white );
         worldObjects.add(light1);
-        TrafficLight light2 = new TrafficLight(702, 342, 270, red, orange, green, white );
+        TrafficLight light2 = new TrafficLight(groupID + "/motorised/1/1/traffic_light/0", 702, 342, 270, red, orange, green, white );
         worldObjects.add(light2);
-        TrafficLight light3 = new TrafficLight(702, 293, 0, red, orange, green, white );
+        TrafficLight light3 = new TrafficLight(groupID + "/motorised/2/traffic_light/0", 702, 293, 0, red, orange, green, white );
         worldObjects.add(light3);
         
         //East
-        TrafficLight light4 = new TrafficLight(588, 698, 90, red, orange, green, white );
+        TrafficLight light4 = new TrafficLight(groupID + "/motorised/3/traffic_light/0", 588, 698, 90, red, orange, green, white );
         worldObjects.add(light4);
-        TrafficLight light5 = new TrafficLight(509, 698, 270, red, orange, green, white );
+        TrafficLight light5 = new TrafficLight(groupID + "/motorised/4/traffic_light/0", 509, 698, 270, red, orange, green, white );
         worldObjects.add(light5);
         
         //South
-        TrafficLight light6 = new TrafficLight(202, 505, 90, red, orange, green, white );
+        TrafficLight light6 = new TrafficLight(groupID + "/motorised/5/0/traffic_light/0", 202, 505, 90, red, orange, green, white );
         worldObjects.add(light6);
-        TrafficLight light7 = new TrafficLight(202, 584, 90, red, orange, green, white );
+        TrafficLight light7 = new TrafficLight(groupID + "/motorised/5/1/traffic_light/0", 202, 584, 90, red, orange, green, white );
         worldObjects.add(light7);
-        TrafficLight light8 = new TrafficLight(202, 438, 0, red, orange, green, white );
+        TrafficLight light8 = new TrafficLight(groupID + "/motorised/6/traffic_light/0", 202, 438, 0, red, orange, green, white );
         worldObjects.add(light8);
         
         //West
-        TrafficLight light9 = new TrafficLight(538, 202, 90, red, orange, green, white );
+        TrafficLight light9 = new TrafficLight(groupID + "/motorised/7/traffic_light/0", 538, 202, 90, red, orange, green, white );
         worldObjects.add(light9);
-        TrafficLight light10 = new TrafficLight(460, 202, 270, red, orange, green, white );
+        TrafficLight light10 = new TrafficLight(groupID + "/motorised/8/traffic_light/0", 460, 202, 270, red, orange, green, white );
         worldObjects.add(light10);
         
         
@@ -131,10 +136,8 @@ public class Simulation extends JPanel {
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         Simulation sim = new Simulation();
-        MqttSubscriber mqttsub = new MqttSubscriber();
         //MqttPublisher mqttpub = new MqttPublisher();
         //mqttpub.publish("7/motorised/1/traffic_light/10", "2");
-        mqttsub.main(null);
         frame.setContentPane(sim);
         frame.pack();
         frame.setVisible(true);

@@ -11,7 +11,8 @@ import javax.imageio.ImageIO;
 
 public class TrafficLight implements WorldObject {
     
-    MqttSubscriber mqttsub = new MqttSubscriber();
+    MqttSubscriber mqttsub;
+    
     private int x;
     private int y;
     private Image red;
@@ -20,9 +21,11 @@ public class TrafficLight implements WorldObject {
     private Image white;
     private int rotation;
     private String color;
-    private static String mqttMessage;
+    private String mqttMessage;
     
-    public TrafficLight(int x, int y, int rotation, Image red, Image orange, Image green, Image white) {
+    public TrafficLight(String topic, int x, int y, int rotation, Image red, Image orange, Image green, Image white) {
+        this.mqttsub = new MqttSubscriber(topic);
+        
         this.x = x;
         this.y = y;
         this.rotation = rotation;
