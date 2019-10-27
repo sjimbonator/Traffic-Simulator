@@ -21,9 +21,6 @@ public class TrafficLight implements WorldObject {
     private String color = "green";
     private static String mqttmessage;
     private String topic = "7/motorised/1/sensor/1";
-    
-    MqttPublisher publish = new MqttPublisher();
-    
 
     public TrafficLight(int x, int y, int rotation, Image red, Image orange, Image green, Image white) {
         this.x = x;
@@ -55,7 +52,6 @@ public class TrafficLight implements WorldObject {
     public Image getImage() {
         
         if (color == "red" || (mqttmessage != null && mqttmessage.contains("0"))) {
-            publish.publish(topic, "0");
             return red;
         } else if(color == "green" || (mqttmessage != null && mqttmessage.contains("2"))) {
             return green;
