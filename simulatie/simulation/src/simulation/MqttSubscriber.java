@@ -10,15 +10,15 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 public class MqttSubscriber implements MqttCallback {
     
-    private static final String brokerUrl = "tcp://arankieskamp.com:1883";
-    private static final String clientId = "Groep7Subscribe";
-    private static String mqttmessage;
-    private static String topic;
+    private final String brokerUrl = "tcp://arankieskamp.com:1883";
+    private static String clientId = "Groep7Subscribe";
+    private String mqttmessage;
+    private String topic;
     
     private void subscribe() {
         MemoryPersistence persistence = new MemoryPersistence();
             try {
-
+                System.out.println(clientId);
                 MqttClient sampleClient = new MqttClient(brokerUrl, clientId, persistence);
                 MqttConnectOptions connOpts = new MqttConnectOptions();
                 connOpts.setCleanSession(false);
@@ -39,6 +39,7 @@ public class MqttSubscriber implements MqttCallback {
     public MqttSubscriber(String topic)
     {
         this.topic = topic;
+        clientId += "I";
         subscribe();
     }
 
