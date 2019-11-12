@@ -1,14 +1,12 @@
 package simulation;
 
 import java.util.ArrayList;
-import javax.swing.SwingWorker;
 
 public class Sensor {
 
     private double x;
     private double y;
     private String topic;
-    private MqttPublisher publisher = new MqttPublisher(topic);
     
     private int payload = 0;
 
@@ -29,14 +27,9 @@ public class Sensor {
         }
         if(tempPayload != payload){
             payload = tempPayload;
-            SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
-            @Override
-            protected Void doInBackground() throws Exception {
-                publisher.publish("" + payload);
-                 return null;
-                }
+            MqttPublisher publisher = new MqttPublisher(topic, ("" + payload));
+            Thread t = new Thread(publisher);
+            t.start();
             };
-            worker.execute();
         }
     }
-}

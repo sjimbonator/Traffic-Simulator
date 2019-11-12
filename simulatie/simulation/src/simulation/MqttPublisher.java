@@ -6,7 +6,7 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
-public class MqttPublisher {
+public class MqttPublisher implements Runnable {
 
     //private static String topic;
     //private static String content;
@@ -16,15 +16,18 @@ public class MqttPublisher {
     private static String publishClientId = "Groep7Publish";
     private static Thread t = new Thread();
     private String topic;
+    private String content;
     MemoryPersistence persistence = new MemoryPersistence();
     
-    public MqttPublisher(String topic)
+    public MqttPublisher(String topic, String content)
     {
         this.topic = topic;
+        this.content = content;
         publishClientId += "I";
     }
-    
-    public void publish(String content) {
+
+    @Override
+    public void run() {
         try {
             MqttClient sampleClient = new MqttClient(broker, publishClientId, persistence);
             MqttConnectOptions connOpts = new MqttConnectOptions();
