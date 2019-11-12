@@ -7,7 +7,7 @@ import java.awt.geom.Point2D;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 
-public class Car implements WorldObject {
+public class Car implements DrawAbleObject {
 
     private double x;
     private double y;
@@ -58,10 +58,10 @@ public class Car implements WorldObject {
     }
 
     @Override
-    public boolean update(ArrayList<WorldObject> worldObjects) {
+    public boolean update(ArrayList<DrawAbleObject> worldObjects) {
         move();
 
-        for (WorldObject object : worldObjects) {
+        for (DrawAbleObject object : worldObjects) {
             if (!(object == this)) {
                 if (object instanceof TrafficLight) {
                     

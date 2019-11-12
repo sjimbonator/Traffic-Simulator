@@ -16,9 +16,9 @@ public class Sensor {
         this.y = y;
     }
 
-    public void update(ArrayList<WorldObject> worldObjects) {
+    public void update(ArrayList<DrawAbleObject> worldObjects) {
         int tempPayload = 0;
-        for (WorldObject object : worldObjects) {
+        for (DrawAbleObject object : worldObjects) {
             double objX = object.getX();
             double objY = object.getY();
             if ((objX >= (x - 30) && objX <= (x + 30)) && (objY >= (y - 30) && objY <= (y + 30))) {

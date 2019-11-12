@@ -19,7 +19,7 @@ public class Simulation extends JPanel {
     
     private String groupID = "7";
     
-    private ArrayList<WorldObject> worldObjects = new ArrayList();
+    private ArrayList<DrawAbleObject> worldObjects = new ArrayList();
     private ArrayList<Sensor> sensors = new ArrayList();
     private ArrayList<ArrayList<Point2D>> carRoutes = new ArrayList();
     
@@ -218,8 +218,8 @@ public class Simulation extends JPanel {
             random = (int) (Math.random() * 11);
             worldObjects.add(new Car(carRoutes.get(random), carImage));
         }
-        ArrayList<WorldObject> deleteList = new ArrayList();
-        for (WorldObject object : worldObjects) {
+        ArrayList<DrawAbleObject> deleteList = new ArrayList();
+        for (DrawAbleObject object : worldObjects) {
             if(object.update(worldObjects)) {deleteList.add(object);}
         }
         worldObjects.removeAll(deleteList);
@@ -235,7 +235,7 @@ public class Simulation extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
         AffineTransform xform = new AffineTransform();
         g2.drawImage(background, xform, this);
-        for (WorldObject object : worldObjects) {
+        for (DrawAbleObject object : worldObjects) {
             xform.setToTranslation((int) object.getX() - (object.getImage().getWidth(this) / 2), (int) object.getY() - (object.getImage().getHeight(this) / 2));
             double offset = (object.getImage().getWidth(this) - object.getImage().getHeight(this));
             xform.rotate(Math.toRadians((int) object.getRotation()), (object.getImage().getWidth(this) / 2), (object.getImage().getHeight(this) / 2));

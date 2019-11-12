@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
-public class TrafficLight implements WorldObject {
+public class TrafficLight implements DrawAbleObject {
     
     MqttSubscriber mqttsub;
     
@@ -70,7 +70,7 @@ public class TrafficLight implements WorldObject {
     }
 
     @Override
-    public boolean update(ArrayList<WorldObject> worldObjects) {
+    public boolean update(ArrayList<DrawAbleObject> worldObjects) {
         mqttMessage = mqttsub.getMessage();
         return false;
     }
