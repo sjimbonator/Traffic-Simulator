@@ -71,18 +71,27 @@ public class Car implements WorldObject {
                 }
                 double objX = object.getX();
                 double objY = object.getY();
-                if ((objX >= (x - 50) && objX <= (x + 50)) && (objY >= (y - 50) && objY <= (y + 50))) {
-                    double desy = y + speed * Math.cos((Math.toRadians(rotation)));
-                    double desx = x + speed * -Math.sin((Math.toRadians(rotation)));
-
-                    double desDifference = Math.pow((objY - desy), 2) + Math.pow((objX - desx), 2);
-                    double actualDifference = Math.pow((objY - y), 2) + Math.pow((objX - x), 2);
-
-                    if (actualDifference > desDifference) {
-                        deccelerate();
-                        return false;
-                    }
-
+                
+                double xCheckRange = 50 * -Math.sin((Math.toRadians(rotation)));
+                double yCheckRange= 50 * Math.cos((Math.toRadians(rotation)));
+                
+                double minX = Math.min(x, x + xCheckRange);
+                double maxX = Math.max(x, x + xCheckRange);
+                if((maxX - minX) <40){
+                    minX = x - 20;
+                    maxX = x + 20;
+                }
+                
+                double minY = Math.min(y, y + yCheckRange);
+                double maxY = Math.max(y, y + yCheckRange);
+                if((maxY - minY) <40){
+                    minY = y - 20;
+                    maxY = y + 20;
+                }
+                
+                if ((objX >= (minX) && objX <= (maxX)) && (objY >= (minY) && objY <= (maxY))) {                
+                    deccelerate();
+                    return false;
                 }
             }
 

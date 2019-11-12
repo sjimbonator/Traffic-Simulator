@@ -215,7 +215,7 @@ public class Simulation extends JPanel {
     public void update() {
         int random = (int) (Math.random() * 100 + 1);
         if (random == 10) {
-            random = (int) (Math.random() * 10);
+            random = (int) (Math.random() * 11);
             worldObjects.add(new Car(carRoutes.get(random), carImage));
         }
         ArrayList<WorldObject> deleteList = new ArrayList();

@@ -14,6 +14,7 @@ public class MqttPublisher {
     private int qos = 1;
     private static String broker = "tcp://arankieskamp.com:1883";
     private static String publishClientId = "Groep7Publish";
+    private static Thread t = new Thread();
     private String topic;
     MemoryPersistence persistence = new MemoryPersistence();
     
