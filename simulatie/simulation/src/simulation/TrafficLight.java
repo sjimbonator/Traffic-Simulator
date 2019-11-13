@@ -22,8 +22,9 @@ public class TrafficLight implements DrawAbleObject {
     private int rotation;
     private String color;
     private String mqttMessage;
+    private String type;
     
-    public TrafficLight(String topic, int x, int y, int rotation, Image red, Image orange, Image green, Image white) {
+    public TrafficLight(String topic, int x, int y, int rotation, Image red, Image orange, Image green, Image white, String type) {
         this.mqttsub = new MqttSubscriber(topic);
         
         this.x = x;
@@ -34,6 +35,8 @@ public class TrafficLight implements DrawAbleObject {
         this.orange = orange;
         this.green = green;
         this.white = white;
+        
+        this.type = type;
     }
 
     //function used to find color of the trafficlight for the cars
@@ -77,7 +80,7 @@ public class TrafficLight implements DrawAbleObject {
 
     @Override
     public String getType() {
-        return "trafficLight";
+        return type;
     }
 
     @Override
