@@ -66,7 +66,10 @@ namespace MqttController
                 case "cycle":
                     break;
                 case "motorised":
-                    Motorised motorised = new Motorised(topic, mqttMessage);
+                    if(mqttMessage == "1")
+                    {
+                        Motorised motorised = new Motorised(topic, mqttMessage, team_id);
+                    }
                     break;
                 case "vessel":
                     break;
