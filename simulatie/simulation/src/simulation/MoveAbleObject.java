@@ -60,7 +60,7 @@ public abstract class MoveAbleObject implements DrawAbleObject {
     @Override
     public boolean update(ArrayList<DrawAbleObject> worldObjects) {
         move();
-        if(!(type == "train") && !(type == "boat")){
+        if(!(type == "train")){
             for (DrawAbleObject object : worldObjects) {
                 if (!(object == this)) {
                     if (object instanceof TrafficLight) {

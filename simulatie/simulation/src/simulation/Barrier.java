@@ -11,18 +11,17 @@ import javax.imageio.ImageIO;
 
 public class Barrier implements DrawAbleObject {
 
-    MqttSubscriber mqttsub;
+    private String topic;
+    private String payLoad;
     private double x;
     private double y;
     private Image barrierOn;
     private Image barrierOff;
     private int rotation;
-    private String topic;
-    private String mqttMessage;
     private boolean active;
     
     public Barrier(String topic, double x, double y,Image barrierOff, Image barrierOn) {
-        this.mqttsub = new MqttSubscriber(topic);
+        this.topic = topic;
         this.x = x;
         this.y = y;
         this.topic = topic;
@@ -37,7 +36,7 @@ public class Barrier implements DrawAbleObject {
 
     @Override
     public boolean update(ArrayList<DrawAbleObject> worldObjects) {
-        mqttMessage = mqttsub.getMessage();
+        payLoad = MqttSubscriber.messages.get(topic);
         return false;
     }
 
@@ -63,7 +62,7 @@ public class Barrier implements DrawAbleObject {
 
     @Override
     public Image getImage() {
-        if (mqttMessage != null && mqttMessage.contains("1")) {
+        if (payLoad != null && payLoad.contains("1")) {
             active = true;
             return barrierOn;
         }

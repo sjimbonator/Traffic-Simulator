@@ -25,9 +25,11 @@ public class Simulation extends JPanel {
     private ArrayList<Sensor> sensors = new ArrayList();
     private ArrayList<ArrayList<Point2D>> carRoutes = new ArrayList();
     private ArrayList<ArrayList<Point2D>> trainRoutes = new ArrayList();
+    private ArrayList<ArrayList<Point2D>> boatRoutes = new ArrayList();
     
     private Image carImage;
     private Image trainImage;
+    private Image boatImage;
     
     private Image background;
     
@@ -42,11 +44,14 @@ public class Simulation extends JPanel {
     private Image orange;
     private Image green;
     private Image white;
+    
+    private MqttSubscriber subscriber = MqttSubscriber.getInstance(groupID + "/#");
 
     public Simulation() {
         try {
             carImage = ImageIO.read(new File("./car.png"));
             trainImage = ImageIO.read(new File("./train.png"));
+            boatImage = ImageIO.read(new File("./boat.png"));
             
             background = ImageIO.read(new File("./BACKGROUNDarrows.png"));
             
@@ -72,6 +77,11 @@ public class Simulation extends JPanel {
             //Track
             sensors.add(new Sensor(groupID + "/Track/0/sensor/0", 343, 10));
             sensors.add(new Sensor(groupID + "/Track/1/sensor/0", 343, 890));
+            
+            //Vessel
+            sensors.add(new Sensor(groupID + "/Vessel/0/sensor/0", 1129, 10));
+            sensors.add(new Sensor(groupID + "/Vessel/1/sensor/0", 1129, 890));
+        
         
             //Motorised
             //North
@@ -138,6 +148,17 @@ public class Simulation extends JPanel {
         routeT1.add(new Point2D.Double(343,1800));
         routeT1.add(new Point2D.Double(343,-800));     
         trainRoutes.add(routeT1);
+                
+        //Filling the boatRoutes ArrayList
+        ArrayList<Point2D> routeB0 = new ArrayList();
+        routeB0.add(new Point2D.Double(1129,-800));
+        routeB0.add(new Point2D.Double(1129,1800));
+        boatRoutes.add(routeB0);
+        
+        ArrayList<Point2D> routeB1 = new ArrayList();
+        routeB1.add(new Point2D.Double(1129,1800));
+        routeB1.add(new Point2D.Double(1129,-800));
+        boatRoutes.add(routeB1);
         
         //Filling the carRoutes ArrayList
         ArrayList<Point2D> route0 = new ArrayList();
@@ -268,6 +289,22 @@ public class Simulation extends JPanel {
         Barrier barrier8 = new Barrier(groupID + "/track/0/barrier/8", 310, 645, midbarrierOff, midbarrier);
         worldObjects.add(barrier8);
         
+        //Creating boat barriers
+        //West > East
+        Barrier vesbarrier0 = new Barrier(groupID + "/vessel/0/barrier/0", 1225, 372, longbarrierOff, longbarrier);
+        worldObjects.add(vesbarrier0);
+        Barrier vesbarrier1 = new Barrier(groupID + "/vessel/0/barrier/1", 1225, 465, midbarrierOff, midbarrier);
+        worldObjects.add(vesbarrier1);
+        Barrier vesbarrier2 = new Barrier(groupID + "/vessel/0/barrier/2", 1225, 552, longbarrierOff, longbarrier);
+        worldObjects.add(vesbarrier2);
+        Barrier vesbarrier3 = new Barrier(groupID + "/vessel/0/barrier/3", 1225, 643, midbarrierOff, midbarrier);
+        worldObjects.add(vesbarrier3);
+        Barrier vesbarrier4 = new Barrier(groupID + "/vessel/0/barrier/4", 1062, 372, longbarrierOff, longbarrier);
+        worldObjects.add(vesbarrier4);
+        Barrier vesbarrier6 = new Barrier(groupID + "/vessel/0/barrier/6", 1062, 552, longbarrierOff, longbarrier);
+        worldObjects.add(vesbarrier6);
+        Barrier vesbarrier7 = new Barrier(groupID + "/vessel/0/barrier/7", 1062, 643, midbarrierOff, midbarrier);
+        worldObjects.add(vesbarrier7);
         
         
     }
@@ -282,6 +319,11 @@ public class Simulation extends JPanel {
             int i = 0;
             if (tickCount % 7200 == 0){i=1;}
             worldObjects.add(new Train(trainRoutes.get(i), trainImage));
+        }
+        if (tickCount % 4800 == 0){
+            int i = 1;
+            if (tickCount % 9600 == 0){i=0;}
+            worldObjects.add(new Boat(boatRoutes.get(i), boatImage));
         }
         ArrayList<DrawAbleObject> deleteList = new ArrayList();
         for (DrawAbleObject object : worldObjects) {

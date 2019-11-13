@@ -1,5 +1,7 @@
 package simulation;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
@@ -10,9 +12,11 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 public class MqttSubscriber implements MqttCallback {
     
+    private static MqttSubscriber instance = null;
+    
     private final String brokerUrl = "tcp://arankieskamp.com:1883";
     private static String clientId = "Groep7Subscribe";
-    private String mqttmessage;
+    public static Map<String,String> messages = new HashMap<String, String>();
     private String topic;
     
     private void subscribe() {
@@ -36,11 +40,16 @@ public class MqttSubscriber implements MqttCallback {
             }
     }
     
-    public MqttSubscriber(String topic)
+    private MqttSubscriber(String topic)
     {
         this.topic = topic;
         clientId += "I";
         subscribe();
+    }
+    
+    public static MqttSubscriber getInstance(String topic){
+        if (instance == null) {instance = new MqttSubscriber(topic); }
+        return instance; 
     }
 
     
@@ -55,17 +64,10 @@ public class MqttSubscriber implements MqttCallback {
     }
 
     public void messageArrived(String topic, MqttMessage mqttmessage) throws Exception {
-
         System.out.println("| Topic:" + topic);
         System.out.println("| Message: " + mqttmessage.toString());
-        System.out.println("-------------------------------------------------");
-        this.mqttmessage = mqttmessage.toString();
-
+        System.out.println("-------------------------------------------------");      
+        messages.put(topic, mqttmessage.toString());
     }
-    
-    public String getMessage() {
-        return mqttmessage;
-    }
-
 
 }
