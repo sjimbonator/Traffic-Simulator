@@ -60,43 +60,48 @@ public abstract class MoveAbleObject implements DrawAbleObject {
     @Override
     public boolean update(ArrayList<DrawAbleObject> worldObjects) {
         move();
+        if(!(type == "train") && !(type == "boat")){
+            for (DrawAbleObject object : worldObjects) {
+                if (!(object == this)) {
+                    if (object instanceof TrafficLight) {
 
-        for (DrawAbleObject object : worldObjects) {
-            if (!(object == this)) {
-                if (object instanceof TrafficLight) {
-                    
-                    if ( ((TrafficLight) object).getColor() == "green" || ((TrafficLight) object).getType() != this.type) {
-                        continue;
+                        if ( ((TrafficLight) object).getColor() == "green" || ((TrafficLight) object).getType() != this.type) {
+                            continue;
+                        }
+                    }
+                    else if (object instanceof Barrier){
+                        if ( !(((Barrier) object).isActive())) {
+                            continue;
+                        }
+                    }
+                    double objX = object.getX();
+                    double objY = object.getY();
+
+                    double xCheckRange = 50 * -Math.sin((Math.toRadians(rotation)));
+                    double yCheckRange= 50 * Math.cos((Math.toRadians(rotation)));
+
+                    double minX = Math.min(x, x + xCheckRange);
+                    double maxX = Math.max(x, x + xCheckRange);
+                    if((maxX - minX) <40){
+                        minX = x - 20;
+                        maxX = x + 20;
+                    }
+
+                    double minY = Math.min(y, y + yCheckRange);
+                    double maxY = Math.max(y, y + yCheckRange);
+                    if((maxY - minY) <40){
+                        minY = y - 20;
+                        maxY = y + 20;
+                    }
+
+                    if ((objX >= (minX) && objX <= (maxX)) && (objY >= (minY) && objY <= (maxY))) {                
+                        deccelerate();
+                        return false;
                     }
                 }
-                double objX = object.getX();
-                double objY = object.getY();
-                
-                double xCheckRange = 50 * -Math.sin((Math.toRadians(rotation)));
-                double yCheckRange= 50 * Math.cos((Math.toRadians(rotation)));
-                
-                double minX = Math.min(x, x + xCheckRange);
-                double maxX = Math.max(x, x + xCheckRange);
-                if((maxX - minX) <40){
-                    minX = x - 20;
-                    maxX = x + 20;
-                }
-                
-                double minY = Math.min(y, y + yCheckRange);
-                double maxY = Math.max(y, y + yCheckRange);
-                if((maxY - minY) <40){
-                    minY = y - 20;
-                    maxY = y + 20;
-                }
-                
-                if ((objX >= (minX) && objX <= (maxX)) && (objY >= (minY) && objY <= (maxY))) {                
-                    deccelerate();
-                    return false;
-                }
+
             }
-
         }
-
         if ((destination.getX() >= x - speed && destination.getX() <= x + speed) && (destination.getY() >= y - speed && destination.getY() <= y + speed)) {
             pointReached = true;
         }

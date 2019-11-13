@@ -19,11 +19,16 @@ public class Simulation extends JPanel {
     
     private String groupID = "7";
     
+    private int tickCount = 0;
+    
     private ArrayList<DrawAbleObject> worldObjects = new ArrayList();
     private ArrayList<Sensor> sensors = new ArrayList();
     private ArrayList<ArrayList<Point2D>> carRoutes = new ArrayList();
+    private ArrayList<ArrayList<Point2D>> trainRoutes = new ArrayList();
     
     private Image carImage;
+    private Image trainImage;
+    
     private Image background;
     
     private Image shortbarrierOff;
@@ -41,6 +46,8 @@ public class Simulation extends JPanel {
     public Simulation() {
         try {
             carImage = ImageIO.read(new File("./car.png"));
+            trainImage = ImageIO.read(new File("./train.png"));
+            
             background = ImageIO.read(new File("./BACKGROUNDarrows.png"));
             
             
@@ -62,7 +69,11 @@ public class Simulation extends JPanel {
         }
         
         //Creating sensors
+            //Track
+            sensors.add(new Sensor(groupID + "/Track/0/sensor/0", 343, 10));
+            sensors.add(new Sensor(groupID + "/Track/1/sensor/0", 343, 890));
         
+            //Motorised
             //North
             
                 //North > East
@@ -116,6 +127,17 @@ public class Simulation extends JPanel {
                 //West > South
                 sensors.add(new Sensor(groupID + "/motorised/8/sensor/0", 470, 330));
                 sensors.add(new Sensor(groupID + "/motorised/8/sensor/1", 470, 35));
+                
+        //Filling the trainRoutes ArrayList
+        ArrayList<Point2D> routeT0 = new ArrayList();
+        routeT0.add(new Point2D.Double(343,-800));
+        routeT0.add(new Point2D.Double(343,1800));
+        trainRoutes.add(routeT0);
+        
+        ArrayList<Point2D> routeT1 = new ArrayList();
+        routeT1.add(new Point2D.Double(343,1800));
+        routeT1.add(new Point2D.Double(343,-800));     
+        trainRoutes.add(routeT1);
         
         //Filling the carRoutes ArrayList
         ArrayList<Point2D> route0 = new ArrayList();
@@ -225,26 +247,25 @@ public class Simulation extends JPanel {
         TrafficLight light10 = new TrafficLight(groupID + "/motorised/8/traffic_light/0", 460, 202, 270, red, orange, green, white, "car" );
         worldObjects.add(light10);
         
-        //Creating train barroers
-        
+        //Creating train barriers
         //West > East
-        Barrier barrier0 = new Barrier(groupID + "/track/0/barrier/0", 338, 240, shortbarrierOff, shortbarrier);
+        Barrier barrier0 = new Barrier(groupID + "/track/0/barrier/0", 375, 270, shortbarrierOff, shortbarrier);
         worldObjects.add(barrier0);
-        Barrier barrier1 = new Barrier(groupID + "/track/0/barrier/1", 290, 272, longbarrierOff, longbarrier);
+        Barrier barrier1 = new Barrier(groupID + "/track/0/barrier/1", 375, 365, longbarrierOff, longbarrier);
         worldObjects.add(barrier1);
-        Barrier barrier2 = new Barrier(groupID + "/track/0/barrier/2", 338, 595, shortbarrierOff, shortbarrier);
+        Barrier barrier2 = new Barrier(groupID + "/track/0/barrier/2", 375, 625, shortbarrierOff, shortbarrier);
         worldObjects.add(barrier2);
-        Barrier barrier3 = new Barrier(groupID + "/track/0/barrier/3", 338, 635, shortbarrierOff, shortbarrier);
+        Barrier barrier3 = new Barrier(groupID + "/track/0/barrier/3", 375, 665, shortbarrierOff, shortbarrier);
         worldObjects.add(barrier3);
-        Barrier barrier4 = new Barrier(groupID + "/track/0/barrier/4", 275, 205, shortbarrierOff, shortbarrier);
+        Barrier barrier4 = new Barrier(groupID + "/track/0/barrier/4", 310, 240, shortbarrierOff, shortbarrier);
         worldObjects.add(barrier4);
-        Barrier barrier5 = new Barrier(groupID + "/track/0/barrier/5", 275, 240, shortbarrierOff, shortbarrier);
+        Barrier barrier5 = new Barrier(groupID + "/track/0/barrier/5", 310, 270, shortbarrierOff, shortbarrier);
         worldObjects.add(barrier5);
-        Barrier barrier6 = new Barrier(groupID + "/track/0/barrier/6", 260, 405, midbarrierOff, midbarrier);
+        Barrier barrier6 = new Barrier(groupID + "/track/0/barrier/6", 310, 450, midbarrierOff, midbarrier);
         worldObjects.add(barrier6);
-        Barrier barrier7 = new Barrier(groupID + "/track/0/barrier/7", 227, 462, longbarrierOff, longbarrier);
+        Barrier barrier7 = new Barrier(groupID + "/track/0/barrier/7", 310, 547, longbarrierOff, longbarrier);
         worldObjects.add(barrier7);
-        Barrier barrier8 = new Barrier(groupID + "/track/0/barrier/8", 260, 588, midbarrierOff, midbarrier);
+        Barrier barrier8 = new Barrier(groupID + "/track/0/barrier/8", 310, 645, midbarrierOff, midbarrier);
         worldObjects.add(barrier8);
         
         
@@ -252,10 +273,15 @@ public class Simulation extends JPanel {
     }
 
     public void update() {
-        int random = (int) (Math.random() * 100 + 1);
-        if (random == 10) {
-            random = (int) (Math.random() * 11);
+        tickCount++;
+        if (tickCount % 100 == 0) {
+            int random = (int) (Math.random() * 11);
             worldObjects.add(new Car(carRoutes.get(random), carImage));
+        }
+        if (tickCount % 3600 == 0){
+            int i = 0;
+            if (tickCount % 7200 == 0){i=1;}
+            worldObjects.add(new Train(trainRoutes.get(i), trainImage));
         }
         ArrayList<DrawAbleObject> deleteList = new ArrayList();
         for (DrawAbleObject object : worldObjects) {
@@ -276,9 +302,7 @@ public class Simulation extends JPanel {
         g2.drawImage(background, xform, this);
         for (DrawAbleObject object : worldObjects) {
             xform.setToTranslation((int) object.getX() - (object.getImage().getWidth(this) / 2), (int) object.getY() - (object.getImage().getHeight(this) / 2));
-            double offset = (object.getImage().getWidth(this) - object.getImage().getHeight(this));
             xform.rotate(Math.toRadians((int) object.getRotation()), (object.getImage().getWidth(this) / 2), (object.getImage().getHeight(this) / 2));
-            xform.translate(-offset, -offset);
             g2.drawImage(object.getImage(), xform, this);
 
         }
