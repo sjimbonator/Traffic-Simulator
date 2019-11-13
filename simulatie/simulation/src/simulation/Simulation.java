@@ -26,6 +26,13 @@ public class Simulation extends JPanel {
     private Image carImage;
     private Image background;
     
+    private Image shortbarrierOff;
+    private Image shortbarrier;  // image for barrier with id 0, 2, 3, 4, 5
+    private Image midbarrierOff;
+    private Image midbarrier;  // image for barrier with id 6, 8
+    private Image longbarrierOff;
+    private Image longbarrier;  // image for barrier with id 1, 7
+    
     private Image red;
     private Image orange;
     private Image green;
@@ -36,10 +43,19 @@ public class Simulation extends JPanel {
             carImage = ImageIO.read(new File("./car.png"));
             background = ImageIO.read(new File("./BACKGROUNDarrows.png"));
             
+            
             red = ImageIO.read(new File("./red.png"));
             orange = ImageIO.read(new File("./orange.png"));
             green = ImageIO.read(new File("./green.png"));
             white = ImageIO.read(new File("./white.png"));
+            
+            shortbarrier = ImageIO.read(new File("./shortbarrier.png"));
+            shortbarrierOff = ImageIO.read(new File("./shortbarrierOff.png"));
+            midbarrier = ImageIO.read(new File("./midbarrier.png"));
+            midbarrierOff = ImageIO.read(new File("./midbarrierOff.png"));
+            longbarrier = ImageIO.read(new File("./longbarrier.png"));
+            longbarrierOff = ImageIO.read(new File("./longbarrierOff.png"));
+            
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -208,6 +224,29 @@ public class Simulation extends JPanel {
         worldObjects.add(light9);
         TrafficLight light10 = new TrafficLight(groupID + "/motorised/8/traffic_light/0", 460, 202, 270, red, orange, green, white );
         worldObjects.add(light10);
+        
+        //Creating train barroers
+        
+        //West > East
+        Barrier barrier0 = new Barrier(groupID + "/track/0/barrier/0", 338, 240, shortbarrierOff, shortbarrier);
+        worldObjects.add(barrier0);
+        Barrier barrier1 = new Barrier(groupID + "/track/0/barrier/1", 290, 272, longbarrierOff, longbarrier);
+        worldObjects.add(barrier1);
+        Barrier barrier2 = new Barrier(groupID + "/track/0/barrier/2", 338, 595, shortbarrierOff, shortbarrier);
+        worldObjects.add(barrier2);
+        Barrier barrier3 = new Barrier(groupID + "/track/0/barrier/3", 338, 635, shortbarrierOff, shortbarrier);
+        worldObjects.add(barrier3);
+        Barrier barrier4 = new Barrier(groupID + "/track/0/barrier/4", 275, 205, shortbarrierOff, shortbarrier);
+        worldObjects.add(barrier4);
+        Barrier barrier5 = new Barrier(groupID + "/track/0/barrier/5", 275, 240, shortbarrierOff, shortbarrier);
+        worldObjects.add(barrier5);
+        Barrier barrier6 = new Barrier(groupID + "/track/0/barrier/6", 260, 405, midbarrierOff, midbarrier);
+        worldObjects.add(barrier6);
+        Barrier barrier7 = new Barrier(groupID + "/track/0/barrier/7", 227, 462, longbarrierOff, longbarrier);
+        worldObjects.add(barrier7);
+        Barrier barrier8 = new Barrier(groupID + "/track/0/barrier/8", 260, 588, midbarrierOff, midbarrier);
+        worldObjects.add(barrier8);
+        
         
         
     }
