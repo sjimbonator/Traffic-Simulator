@@ -23,9 +23,13 @@ public class Simulation extends JPanel {
     
     private ArrayList<DrawAbleObject> worldObjects = new ArrayList();
     private ArrayList<Sensor> sensors = new ArrayList();
+    
     private ArrayList<ArrayList<Point2D>> carRoutes = new ArrayList();
     private ArrayList<ArrayList<Point2D>> trainRoutes = new ArrayList();
     private ArrayList<ArrayList<Point2D>> boatRoutes = new ArrayList();
+    
+    private ArrayList<Barrier> trainBarriers = new ArrayList();
+    private ArrayList<Barrier> boatBarriers = new ArrayList();
     
     private Image carImage;
     private Image trainImage;
@@ -272,39 +276,58 @@ public class Simulation extends JPanel {
         //West > East
         Barrier barrier0 = new Barrier(groupID + "/track/0/barrier/0", 375, 270, shortbarrierOff, shortbarrier);
         worldObjects.add(barrier0);
+        trainBarriers.add(barrier0);
         Barrier barrier1 = new Barrier(groupID + "/track/0/barrier/1", 375, 365, longbarrierOff, longbarrier);
         worldObjects.add(barrier1);
+        trainBarriers.add(barrier1);
         Barrier barrier2 = new Barrier(groupID + "/track/0/barrier/2", 375, 625, shortbarrierOff, shortbarrier);
         worldObjects.add(barrier2);
+        trainBarriers.add(barrier2);
         Barrier barrier3 = new Barrier(groupID + "/track/0/barrier/3", 375, 665, shortbarrierOff, shortbarrier);
         worldObjects.add(barrier3);
+        trainBarriers.add(barrier3);
         Barrier barrier4 = new Barrier(groupID + "/track/0/barrier/4", 310, 240, shortbarrierOff, shortbarrier);
         worldObjects.add(barrier4);
+        trainBarriers.add(barrier4);
         Barrier barrier5 = new Barrier(groupID + "/track/0/barrier/5", 310, 270, shortbarrierOff, shortbarrier);
         worldObjects.add(barrier5);
+        trainBarriers.add(barrier5);
         Barrier barrier6 = new Barrier(groupID + "/track/0/barrier/6", 310, 450, midbarrierOff, midbarrier);
         worldObjects.add(barrier6);
+        trainBarriers.add(barrier6);
         Barrier barrier7 = new Barrier(groupID + "/track/0/barrier/7", 310, 547, longbarrierOff, longbarrier);
         worldObjects.add(barrier7);
+        trainBarriers.add(barrier7);
         Barrier barrier8 = new Barrier(groupID + "/track/0/barrier/8", 310, 645, midbarrierOff, midbarrier);
         worldObjects.add(barrier8);
+        trainBarriers.add(barrier8);
         
         //Creating boat barriers
         //West > East
         Barrier vesbarrier0 = new Barrier(groupID + "/vessel/0/barrier/0", 1225, 372, longbarrierOff, longbarrier);
         worldObjects.add(vesbarrier0);
+        boatBarriers.add(vesbarrier0);
         Barrier vesbarrier1 = new Barrier(groupID + "/vessel/0/barrier/1", 1225, 465, midbarrierOff, midbarrier);
         worldObjects.add(vesbarrier1);
+        boatBarriers.add(vesbarrier1);
         Barrier vesbarrier2 = new Barrier(groupID + "/vessel/0/barrier/2", 1225, 552, longbarrierOff, longbarrier);
         worldObjects.add(vesbarrier2);
+        boatBarriers.add(vesbarrier2);
         Barrier vesbarrier3 = new Barrier(groupID + "/vessel/0/barrier/3", 1225, 643, midbarrierOff, midbarrier);
         worldObjects.add(vesbarrier3);
+        boatBarriers.add(vesbarrier3);
         Barrier vesbarrier4 = new Barrier(groupID + "/vessel/0/barrier/4", 1062, 372, longbarrierOff, longbarrier);
         worldObjects.add(vesbarrier4);
+        boatBarriers.add(vesbarrier4);
+        Barrier vesbarrier5 = new Barrier(groupID + "/vessel/0/barrier/5", 1062, 465, midbarrierOff, midbarrier);
+        worldObjects.add(vesbarrier5);
+        boatBarriers.add(vesbarrier5);
         Barrier vesbarrier6 = new Barrier(groupID + "/vessel/0/barrier/6", 1062, 552, longbarrierOff, longbarrier);
         worldObjects.add(vesbarrier6);
+        boatBarriers.add(vesbarrier6);
         Barrier vesbarrier7 = new Barrier(groupID + "/vessel/0/barrier/7", 1062, 643, midbarrierOff, midbarrier);
         worldObjects.add(vesbarrier7);
+        boatBarriers.add(vesbarrier7);
         
         
     }
