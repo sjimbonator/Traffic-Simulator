@@ -18,3 +18,13 @@ C:\Users\SuverNuver\Documents\GitHub\MqttController\MqttController\MqttControlle
 C:\Users\SuverNuver\Documents\GitHub\MqttController\MqttController\MqttController\bin\Debug\M2Mqtt.Net.dll
 C:\Users\SuverNuver\Documents\GitHub\MqttController\MqttController\MqttController\bin\Debug\M2Mqtt.Net.pdb
 C:\Users\SuverNuver\Documents\GitHub\MqttController\MqttController\MqttController\obj\Debug\MqttController.csproj.CopyComplete
+C:\Users\SuverNuver\Documents\GitHub\Groep7SDM\MqttController\MqttController\bin\Debug\MqttController.exe.config
+C:\Users\SuverNuver\Documents\GitHub\Groep7SDM\MqttController\MqttController\bin\Debug\MqttController.exe
+C:\Users\SuverNuver\Documents\GitHub\Groep7SDM\MqttController\MqttController\bin\Debug\MqttController.pdb
+C:\Users\SuverNuver\Documents\GitHub\Groep7SDM\MqttController\MqttController\bin\Debug\M2Mqtt.Net.dll
+C:\Users\SuverNuver\Documents\GitHub\Groep7SDM\MqttController\MqttController\bin\Debug\M2Mqtt.Net.pdb
+C:\Users\SuverNuver\Documents\GitHub\Groep7SDM\MqttController\MqttController\obj\Debug\MqttController.csprojAssemblyReference.cache
+C:\Users\SuverNuver\Documents\GitHub\Groep7SDM\MqttController\MqttController\obj\Debug\MqttController.csproj.CoreCompileInputs.cache
+C:\Users\SuverNuver\Documents\GitHub\Groep7SDM\MqttController\MqttController\obj\Debug\MqttController.csproj.CopyComplete
+C:\Users\SuverNuver\Documents\GitHub\Groep7SDM\MqttController\MqttController\obj\Debug\MqttController.exe
+C:\Users\SuverNuver\Documents\GitHub\Groep7SDM\MqttController\MqttController\obj\Debug\MqttController.pdb
