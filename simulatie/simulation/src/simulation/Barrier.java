@@ -19,8 +19,9 @@ public class Barrier implements DrawAbleObject {
     private Image barrierOff;
     private int rotation;
     private boolean active;
-    
-    public Barrier(String topic, double x, double y,Image barrierOff, Image barrierOn) {
+    private boolean override;
+
+    public Barrier(String topic, double x, double y, Image barrierOff, Image barrierOn) {
         this.topic = topic;
         this.x = x;
         this.y = y;
@@ -29,9 +30,13 @@ public class Barrier implements DrawAbleObject {
         this.barrierOn = barrierOn;
         rotation = 0;
     }
-    
-    public boolean isActive (){
+
+    public boolean isActive() {
         return active;
+    }
+
+    public void setOverride(boolean override) {
+        this.override = override;
     }
 
     @Override
@@ -62,13 +67,18 @@ public class Barrier implements DrawAbleObject {
 
     @Override
     public Image getImage() {
-        if (payLoad != null && payLoad.contains("1")) {
+        if (override) {
             active = true;
             return barrierOn;
+        } else {
+            if (payLoad != null && payLoad.contains("1")) {
+                active = true;
+                return barrierOn;
+            } else {
+                active = false;
+                return barrierOff;
+            }
         }
-        else {
-            active = false;
-            return barrierOff;
-        }
-}
+
+    }
 }
