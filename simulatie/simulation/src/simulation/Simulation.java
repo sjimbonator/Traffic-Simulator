@@ -27,6 +27,8 @@ public class Simulation extends JPanel {
     private ArrayList<ArrayList<Point2D>> carRoutes = new ArrayList();
     private ArrayList<ArrayList<Point2D>> trainRoutes = new ArrayList();
     private ArrayList<ArrayList<Point2D>> boatRoutes = new ArrayList();
+    private ArrayList<ArrayList<Point2D>> cyclistRoutes = new ArrayList();
+    private ArrayList<ArrayList<Point2D>> pedestrianRoutes = new ArrayList();
 
     private ArrayList<Barrier> trainBarriers = new ArrayList();
     private ArrayList<Barrier> boatBarriers = new ArrayList();
