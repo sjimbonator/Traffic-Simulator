@@ -21,10 +21,12 @@ public class TrafficLight implements DrawAbleObject {
     private Image white;
     private int rotation;
     private String color;
-    private String mqttMessage;
+    private String payLoad;
+    private String topic;
+    private String type;
     
-    public TrafficLight(String topic, int x, int y, int rotation, Image red, Image orange, Image green, Image white) {
-        this.mqttsub = new MqttSubscriber(topic);
+    public TrafficLight(String topic, int x, int y, int rotation, Image red, Image orange, Image green, Image white, String type) {
+        this.topic = topic;
         
         this.x = x;
         this.y = y;
@@ -34,6 +36,8 @@ public class TrafficLight implements DrawAbleObject {
         this.orange = orange;
         this.green = green;
         this.white = white;
+        
+        this.type = type;
     }
 
     //function used to find color of the trafficlight for the cars
@@ -53,16 +57,16 @@ public class TrafficLight implements DrawAbleObject {
 
     @Override
     public Image getImage() {
-        if (mqttMessage != null && mqttMessage.contains("0")) {
+        if (payLoad != null && payLoad.contains("0")) {
             color = "red";
             return red;
-        }else if(mqttMessage != null && mqttMessage.contains("1")){
+        }else if(payLoad != null && payLoad.contains("1")){
             color = "orange";
             return orange;
-        }else if(mqttMessage != null && mqttMessage.contains("2")) {
+        }else if(payLoad != null && payLoad.contains("2")) {
             color = "green";
             return green;
-        }else if(mqttMessage != null && mqttMessage.contains("3")) {
+        }else if(payLoad != null && payLoad.contains("3")) {
             return white;
         } else{
             return white;
@@ -71,13 +75,13 @@ public class TrafficLight implements DrawAbleObject {
 
     @Override
     public boolean update(ArrayList<DrawAbleObject> worldObjects) {
-        mqttMessage = mqttsub.getMessage();
+        payLoad = MqttSubscriber.messages.get(topic);
         return false;
     }
 
     @Override
     public String getType() {
-        return "trafficLight";
+        return type;
     }
 
     @Override
