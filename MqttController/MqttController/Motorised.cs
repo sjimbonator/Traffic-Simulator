@@ -13,7 +13,7 @@ namespace MqttController
         private string topic;
         private string team_id;
         private int direction;
-        private int north = 0, east = 0, south = 0, west = 0;
+        private int lastDirection;
         //2d array with sensor directions
         private string[,] trafficLightGroups =
         {
@@ -37,42 +37,16 @@ namespace MqttController
             int bound0 = trafficLightGroups.GetUpperBound(0);
             int bound1 = trafficLightGroups.GetUpperBound(1);
 
-            var t = new Task(() =>
-            {
-                PublishMotor();
-            }
-            );
-
-            var te = new Task(() =>
-            {
-                logDirections();
-            }
-            );
-
             //checks 2d array if it matches the topic, returns value of the row, which is also the direction.
             for (int i = 0; i <= bound0; i++)
             {
                 for (int x = 0; x <= bound1; x++)
                 {
-                    if (north >= 8)
-                    {
-                        direction = 0;
-
-                        te.RunSynchronously();
-                        t.RunSynchronously();
-                        te.Wait();
-                        t.Wait();
-                    }
-
-                    else if (topic.Contains(trafficLightGroups[i, x]) && trafficLightGroups[i, x] != "")
+                    if (topic.Contains(trafficLightGroups[i, x]) && trafficLightGroups[i, x] != "")
                     {
                         direction = i;
 
-                        te.RunSynchronously();
-                        t.RunSynchronously();
-                        te.Wait();
-                        t.Wait();
-
+                        PublishMotor();
                     }
                 }
             }
@@ -104,7 +78,6 @@ namespace MqttController
                     publishTrafficLight.publish("0", team_id + "/motorised/1/1/traffic_light/0");
                     publishTrafficLight.publish("0", team_id + "/motorised/2/traffic_light/0");
 
-                    north = 0;
                     break;
 
                 case 1: //east
@@ -121,7 +94,6 @@ namespace MqttController
                     publishTrafficLight.publish("0", team_id + "/motorised/3/traffic_light/0");
                     publishTrafficLight.publish("0", team_id + "/motorised/4/traffic_light/0");
 
-                    east = 0;
                     break;
                 case 2: //south
                     publishTrafficLight.publish("2", team_id + "/motorised/5/0/traffic_light/0");
@@ -140,7 +112,6 @@ namespace MqttController
                     publishTrafficLight.publish("0", team_id + "/motorised/5/1/traffic_light/0");
                     publishTrafficLight.publish("0", team_id + "/motorised/6/traffic_light/0");
 
-                    south = 0;
                     break;
                 case 3: //west
                     publishTrafficLight.publish("2", team_id + "/motorised/7/traffic_light/0");
@@ -156,28 +127,7 @@ namespace MqttController
                     publishTrafficLight.publish("0", team_id + "/motorised/7/traffic_light/0");
                     publishTrafficLight.publish("0", team_id + "/motorised/8/traffic_light/0");
 
-                    west = 0;
                     break;
-            }
-        }
-
-        private void logDirections()
-        {
-            if(direction == 0)
-            {
-                north++;
-            }
-            else if(direction == 1)
-            {
-                east++;
-            }
-            else if (direction == 2)
-            {
-                south++;
-            }
-            else if (direction == 3)
-            {
-                west++;
             }
         }
     }
