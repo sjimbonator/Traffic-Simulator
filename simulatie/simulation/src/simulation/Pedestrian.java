@@ -9,8 +9,8 @@ public class Pedestrian extends MoveAbleObject {
     public Pedestrian(ArrayList<Point2D> route, Image model) {
         super(route, model);
         type = "pedestrian";
-        acceleration = 0.15;
-        maxSpeed = 0.3;
+        acceleration = 1;
+        maxSpeed = 0.4;
 
     }
 }

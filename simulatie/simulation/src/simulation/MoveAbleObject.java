@@ -26,10 +26,12 @@ public abstract class MoveAbleObject implements DrawAbleObject {
     }
 
     protected void accelerate() {
-        if (!(speed > maxSpeed)) {
+        if (speed < maxSpeed) {
             speed += acceleration;
         }
-        else {speed = maxSpeed;}
+        if (speed > maxSpeed) {
+            speed = maxSpeed;
+        }
     }
 
     protected void turn() {
@@ -60,17 +62,16 @@ public abstract class MoveAbleObject implements DrawAbleObject {
     @Override
     public boolean update(ArrayList<DrawAbleObject> worldObjects) {
         move();
-        if(!(type == "train")){
+        if (!(type == "train")) {
             for (DrawAbleObject object : worldObjects) {
                 if (!(object == this)) {
                     if (object instanceof TrafficLight) {
 
-                        if ( ((TrafficLight) object).getColor() == "green" || ((TrafficLight) object).getType() != this.type) {
+                        if (((TrafficLight) object).getColor() == "green" || ((TrafficLight) object).getType() != this.type) {
                             continue;
                         }
-                    }
-                    else if (object instanceof Barrier){
-                        if ( !(((Barrier) object).isActive())) {
+                    } else if (object instanceof Barrier) {
+                        if (!(((Barrier) object).isActive())) {
                             continue;
                         }
                     }
@@ -78,23 +79,23 @@ public abstract class MoveAbleObject implements DrawAbleObject {
                     double objY = object.getY();
 
                     double xCheckRange = 50 * -Math.sin((Math.toRadians(rotation)));
-                    double yCheckRange= 50 * Math.cos((Math.toRadians(rotation)));
+                    double yCheckRange = 50 * Math.cos((Math.toRadians(rotation)));
 
                     double minX = Math.min(x, x + xCheckRange);
                     double maxX = Math.max(x, x + xCheckRange);
-                    if((maxX - minX) <40){
+                    if ((maxX - minX) < 40) {
                         minX = x - 20;
                         maxX = x + 20;
                     }
 
                     double minY = Math.min(y, y + yCheckRange);
                     double maxY = Math.max(y, y + yCheckRange);
-                    if((maxY - minY) <40){
+                    if ((maxY - minY) < 40) {
                         minY = y - 20;
                         maxY = y + 20;
                     }
 
-                    if ((objX >= (minX) && objX <= (maxX)) && (objY >= (minY) && objY <= (maxY))) {                
+                    if ((objX >= (minX) && objX <= (maxX)) && (objY >= (minY) && objY <= (maxY))) {
                         deccelerate();
                         return false;
                     }
@@ -144,5 +145,3 @@ public abstract class MoveAbleObject implements DrawAbleObject {
     }
 
 }
-
-

@@ -36,6 +36,7 @@ public class Simulation extends JPanel {
     private Image carImage;
     private Image trainImage;
     private Image boatImage;
+    private Image pedestrianImage;
 
     private Image background;
     private Image backgroundOpen;
@@ -61,6 +62,7 @@ public class Simulation extends JPanel {
             carImage = ImageIO.read(new File("./car.png"));
             trainImage = ImageIO.read(new File("./train.png"));
             boatImage = ImageIO.read(new File("./boat.png"));
+            pedestrianImage = ImageIO.read(new File("./monkey.png"));
 
             background = ImageIO.read(new File("./BACKGROUNDarrows.png"));
             backgroundOpen = ImageIO.read(new File("./BRIDGEOPEN.png"));
@@ -238,6 +240,26 @@ public class Simulation extends JPanel {
         route10.add(new Point2D.Double(470, 330));
         route10.add(new Point2D.Double(0, 330));
         carRoutes.add(route10);
+        
+        //Filling the pedestrianRoutes ArrayList
+//        ArrayList<Point2D> routeP0 = new ArrayList();
+//        routeP0.add(new Point2D.Double(-100, 660));
+//        routeP0.add(new Point2D.Double(1400, 660));
+//        pedestrianRoutes.add(routeP0);
+        
+        ArrayList<Point2D> routeP1 = new ArrayList();
+        routeP1.add(new Point2D.Double(-100, 665));
+        routeP1.add(new Point2D.Double(375, 665));
+        routeP1.add(new Point2D.Double(375, 1000));
+        pedestrianRoutes.add(routeP1);
+        
+        ArrayList<Point2D> routeP2 = new ArrayList();
+        routeP2.add(new Point2D.Double(660, -100));
+        routeP2.add(new Point2D.Double(660, 197));
+        routeP2.add(new Point2D.Double(930, 197));
+        routeP2.add(new Point2D.Double(1058, 348));
+        routeP2.add(new Point2D.Double(1400, 348));
+        pedestrianRoutes.add(routeP2);
 
         //Creating traffic lights
         //North
@@ -362,24 +384,23 @@ public class Simulation extends JPanel {
 
         //Car spawn
         if (tickCount % 100 == 0) {
-            int random = (int) (Math.random() * 11);
+            int random = (int) (Math.random() * carRoutes.size());
             worldObjects.add(new Car(carRoutes.get(random), carImage));
         }
         //Train spawn
         if (tickCount % 3600 == 0) {
-            int i = 0;
-            if (tickCount % 7200 == 0) {
-                i = 1;
-            }
-            worldObjects.add(new Train(trainRoutes.get(i), trainImage));
+            int random = (int) (Math.random() * trainRoutes.size());
+            worldObjects.add(new Train(trainRoutes.get(random), trainImage));
         }
         //Boat spawn
         if (tickCount % 4800 == 0) {
-            int i = 1;
-            if (tickCount % 9600 == 0) {
-                i = 0;
-            }
-            worldObjects.add(new Boat(boatRoutes.get(i), boatImage));
+            int random = (int) (Math.random() * boatRoutes.size());
+            worldObjects.add(new Boat(boatRoutes.get(random), boatImage));
+        }
+        //Pedestrian spawn
+        if (tickCount % 150 == 0) {
+            int random = (int) (Math.random() * pedestrianRoutes.size());
+            worldObjects.add(new Pedestrian(pedestrianRoutes.get(random), pedestrianImage));
         }
         ArrayList<DrawAbleObject> deleteList = new ArrayList();
         for (DrawAbleObject object : worldObjects) {
