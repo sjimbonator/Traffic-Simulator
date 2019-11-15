@@ -13,7 +13,6 @@ namespace MqttController
         private string topic;
         private string team_id;
         private int direction;
-        private int lastDirection;
         //2d array with sensor directions
         private string[,] trafficLightGroups =
         {
@@ -64,7 +63,7 @@ namespace MqttController
                     publishTrafficLight.publish("2", team_id + "/motorised/1/1/traffic_light/0");
                     publishTrafficLight.publish("2", team_id + "/motorised/2/traffic_light/0");
 
-                    System.Threading.Thread.Sleep(10000);
+                    System.Threading.Thread.Sleep(7500);
 
                     publishTrafficLight.publish("1", team_id + "/motorised/0/traffic_light/0");
                     publishTrafficLight.publish("1", team_id + "/motorised/1/0/traffic_light/0");
@@ -84,7 +83,7 @@ namespace MqttController
                     publishTrafficLight.publish("2", team_id + "/motorised/3/traffic_light/0");
                     publishTrafficLight.publish("2", team_id + "/motorised/4/traffic_light/0");
 
-                    System.Threading.Thread.Sleep(10000);
+                    System.Threading.Thread.Sleep(7500);
 
                     publishTrafficLight.publish("1", team_id + "/motorised/3/traffic_light/0");
                     publishTrafficLight.publish("1", team_id + "/motorised/4/traffic_light/0");
@@ -100,7 +99,7 @@ namespace MqttController
                     publishTrafficLight.publish("2", team_id + "/motorised/5/1/traffic_light/0");
                     publishTrafficLight.publish("2", team_id + "/motorised/6/traffic_light/0");
 
-                    System.Threading.Thread.Sleep(10000);
+                    System.Threading.Thread.Sleep(7500);
 
                     publishTrafficLight.publish("1", team_id + "/motorised/5/0/traffic_light/0");
                     publishTrafficLight.publish("1", team_id + "/motorised/5/1/traffic_light/0");
@@ -117,7 +116,7 @@ namespace MqttController
                     publishTrafficLight.publish("2", team_id + "/motorised/7/traffic_light/0");
                     publishTrafficLight.publish("2", team_id + "/motorised/8/traffic_light/0");
 
-                    System.Threading.Thread.Sleep(10000);
+                    System.Threading.Thread.Sleep(7500);
 
                     publishTrafficLight.publish("1", team_id + "/motorised/7/traffic_light/0");
                     publishTrafficLight.publish("1", team_id + "/motorised/8/traffic_light/0");

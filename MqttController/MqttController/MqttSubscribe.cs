@@ -72,8 +72,16 @@ namespace MqttController
                     }
                     break;
                 case "vessel":
+                    if(mqttMessage == "1")
+                    {
+                        Vessel vessel = new Vessel(topic, mqttMessage, team_id);
+                    }
                     break;
                 case "track":
+                    if(mqttMessage == "1")
+                    {
+                        Track track = new Track(topic, mqttMessage, team_id);
+                    }
                     break;
             }
 
