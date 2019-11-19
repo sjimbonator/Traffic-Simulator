@@ -11,6 +11,10 @@ public class Boat extends MoveAbleObject {
         type = "boat";
         acceleration = 0.08;
         maxSpeed = 0.8;
+        checkRange = 80;
+        width = 21;
+        height = 80;
+        buildHitBox();
 
     }
 

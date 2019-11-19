@@ -11,6 +11,10 @@ public class Train extends MoveAbleObject {
         type = "train";
         acceleration = 0.13;
         maxSpeed = 1.3;
+        checkRange = 0;
+        width = 40;
+        height = 400;
+        buildHitBox();
         
     }
     
