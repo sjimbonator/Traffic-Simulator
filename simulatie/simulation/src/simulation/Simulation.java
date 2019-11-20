@@ -4,8 +4,10 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -440,6 +442,11 @@ public class Simulation extends JPanel {
             xform.setToTranslation((int) object.getX() - (object.getImage().getWidth(this) / 2), (int) object.getY() - (object.getImage().getHeight(this) / 2));
             xform.rotate(Math.toRadians((int) object.getRotation()), (object.getImage().getWidth(this) / 2), (object.getImage().getHeight(this) / 2));
             g2.drawImage(object.getImage(), xform, this);
+            
+            if(object instanceof MoveAbleObject){
+                
+                Rectangle2D rect = ((MoveAbleObject) object).getHitbox();
+                g2.drawRect( (int) rect.getX() + 1, (int) rect.getY()+ 1,(int) rect.getWidth()+ 1,(int) rect.getHeight()+ 1 );}
 
         }
     }

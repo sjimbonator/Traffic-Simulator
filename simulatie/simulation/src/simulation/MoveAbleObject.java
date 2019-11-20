@@ -28,21 +28,34 @@ public abstract class MoveAbleObject implements DrawAbleObject {
 
     protected void buildHitBox() {
         Point2D[] points = new Point2D[4];
+        System.out.print(" x = " + x + " y= " + y + " width= "+ width +" height= " + height + " " );
         points[0] = rotatePoint(new Point2D.Double((x - (width / 2)), (y + (height / 2))));
         points[1] = rotatePoint(new Point2D.Double((x - (width / 2)), (y - (height / 2))));
         points[2] = rotatePoint(new Point2D.Double((x + (width / 2)), (y + (height / 2))));
         points[3] = rotatePoint(new Point2D.Double((x + (width / 2)), (y - (height / 2))));
         double[] minMaxX = getMinMax(points, 'x');
+        
         double[] minMaxY = getMinMax(points, 'y');
-        hitbox = new Rectangle((int) minMaxX[0], (int) minMaxY[1], (int) (minMaxX[1]-minMaxX[0] +1), (int) (minMaxY[1]-minMaxY[0] +1));
+        System.out.print(" maxY = " + minMaxY[1] + " minY= " +minMaxX[0] + " " );
+        hitbox = new Rectangle((int) minMaxX[0], (int) minMaxY[0], (int) ((minMaxX[1]-minMaxX[0])), (int) ((minMaxY[1]-minMaxY[0])));
 
     }
 
     protected Point2D rotatePoint(Point2D p) {
         double radian = Math.toRadians(rotation);
-        double rotatedX = Math.cos(radian) * (p.getX() - x) - Math.sin(radian) * (p.getY() - y) + x;
-        double rotatedY = Math.sin(radian) * (p.getX() - x) + Math.cos(radian) * (p.getY() - y) + y;
-        return new Point2D.Double(rotatedX, rotatedY);
+        double s = Math.sin(radian);
+        double c = Math.cos(radian);
+        
+        double xTemp = p.getX() - x;
+        double yTemp = p.getY() - y;
+        
+        double newX = xTemp * c - yTemp * s;
+        double newY = xTemp * s + yTemp * c;
+        
+        newX += x;
+        newY += y;
+
+        return new Point2D.Double(newX, newY);
     }
 
     protected void move() {
@@ -60,7 +73,6 @@ public abstract class MoveAbleObject implements DrawAbleObject {
     }
 
     protected void turn() {
-        buildHitBox();
         destination = route.get(routeIndex);
         rotation = Math.toDegrees(Math.atan2((x - destination.getX()), -(y - destination.getY())));
         pointReached = false;
@@ -77,6 +89,7 @@ public abstract class MoveAbleObject implements DrawAbleObject {
     protected double[] getMinMax(Point2D[] hitbox, char index) {
         double[] minmax = null;
         for (Point2D point : hitbox) {
+            
             double p;
             if (index == 'x') {
                 p = point.getX();
@@ -86,9 +99,9 @@ public abstract class MoveAbleObject implements DrawAbleObject {
 
             if (minmax == null) {
                 minmax = new double[2];
-                minmax[0] = point.getX();
-                minmax[1] = point.getX();
-                break;
+                minmax[0] = p;
+                minmax[1] = p;
+                continue;
             }
             if (p < minmax[0]) {
                 minmax[0] = p;
@@ -113,6 +126,7 @@ public abstract class MoveAbleObject implements DrawAbleObject {
 
     @Override
     public boolean update(ArrayList<DrawAbleObject> worldObjects) {
+        buildHitBox();
         move();
 
         for (DrawAbleObject object : worldObjects) {
@@ -128,7 +142,7 @@ public abstract class MoveAbleObject implements DrawAbleObject {
                     }
                 } else if (object instanceof MoveAbleObject) {
                     Rectangle2D objHitbox = ((MoveAbleObject) object).getHitbox();
-                    if (objHitbox.intersects(hitbox)) {
+                    if (hitbox.intersects(objHitbox)) {
                         deccelerate();
                          return false;
                     }
