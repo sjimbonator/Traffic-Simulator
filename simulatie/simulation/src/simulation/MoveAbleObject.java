@@ -34,12 +34,7 @@ public abstract class MoveAbleObject implements DrawAbleObject {
         points[3] = rotatePoint(new Point2D.Double((x + (width / 2)), (y - (height / 2))));
         double[] minMaxX = getMinMax(points, 'x');
         double[] minMaxY = getMinMax(points, 'y');
-        for (Point2D point : points) {
-            if ((point.getX() == minMaxX[0]) && (point.getY() == minMaxY[1])) {
-                System.out.print("REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
-                hitbox = new Rectangle((int) point.getX(), (int) point.getY(), width + 1, height + 1);
-            }
-        }
+        hitbox = new Rectangle((int) minMaxX[0], (int) minMaxY[1], (int) (minMaxX[1]-minMaxX[0] +1), (int) (minMaxY[1]-minMaxY[0] +1));
 
     }
 
@@ -135,6 +130,7 @@ public abstract class MoveAbleObject implements DrawAbleObject {
                     Rectangle2D objHitbox = ((MoveAbleObject) object).getHitbox();
                     if (objHitbox.intersects(hitbox)) {
                         deccelerate();
+                         return false;
                     }
                     continue;
 
