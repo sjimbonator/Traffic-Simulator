@@ -11,6 +11,10 @@ public class Car extends MoveAbleObject {
         type = "car";
         acceleration = 0.01;
         maxSpeed = 1;
+        checkRange = 50;
+        width = 18;
+        height = 36;
+        buildHitBox();
         
     }
     

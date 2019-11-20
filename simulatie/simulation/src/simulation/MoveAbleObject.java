@@ -1,24 +1,54 @@
 package simulation;
 
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 public abstract class MoveAbleObject implements DrawAbleObject {
 
     protected double x;
     protected double y;
+    protected Rectangle2D hitbox;
     protected double rotation;
     protected double speed = 0;
     protected double acceleration;
     protected double maxSpeed;
     protected String type;
+    protected int checkRange;
+    protected int width;
+    protected int height;
     protected ArrayList<Point2D> route;
     protected Point2D destination;
     protected int routeIndex = 0;
     protected boolean pointReached = true;
 
     protected Image model;
+
+    protected void buildHitBox() {
+        Point2D[] points = new Point2D[4];
+        points[0] = rotatePoint(new Point2D.Double((x - (width / 2)), (y + (height / 2))));
+        points[1] = rotatePoint(new Point2D.Double((x - (width / 2)), (y - (height / 2))));
+        points[2] = rotatePoint(new Point2D.Double((x + (width / 2)), (y + (height / 2))));
+        points[3] = rotatePoint(new Point2D.Double((x + (width / 2)), (y - (height / 2))));
+        double[] minMaxX = getMinMax(points, 'x');
+        double[] minMaxY = getMinMax(points, 'y');
+        for (Point2D point : points) {
+            if ((point.getX() == minMaxX[0]) && (point.getY() == minMaxY[1])) {
+                System.out.print("REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+                hitbox = new Rectangle((int) point.getX(), (int) point.getY(), width + 1, height + 1);
+            }
+        }
+
+    }
+
+    protected Point2D rotatePoint(Point2D p) {
+        double radian = Math.toRadians(rotation);
+        double rotatedX = Math.cos(radian) * (p.getX() - x) - Math.sin(radian) * (p.getY() - y) + x;
+        double rotatedY = Math.sin(radian) * (p.getX() - x) + Math.cos(radian) * (p.getY() - y) + y;
+        return new Point2D.Double(rotatedX, rotatedY);
+    }
 
     protected void move() {
         y += speed * Math.cos((Math.toRadians(rotation)));
@@ -35,9 +65,11 @@ public abstract class MoveAbleObject implements DrawAbleObject {
     }
 
     protected void turn() {
+        buildHitBox();
         destination = route.get(routeIndex);
         rotation = Math.toDegrees(Math.atan2((x - destination.getX()), -(y - destination.getY())));
         pointReached = false;
+
     }
 
     protected void deccelerate() {
@@ -45,6 +77,31 @@ public abstract class MoveAbleObject implements DrawAbleObject {
         if (speed < 0) {
             speed = 0;
         }
+    }
+
+    protected double[] getMinMax(Point2D[] hitbox, char index) {
+        double[] minmax = null;
+        for (Point2D point : hitbox) {
+            double p;
+            if (index == 'x') {
+                p = point.getX();
+            } else {
+                p = point.getY();
+            }
+
+            if (minmax == null) {
+                minmax = new double[2];
+                minmax[0] = point.getX();
+                minmax[1] = point.getX();
+                break;
+            }
+            if (p < minmax[0]) {
+                minmax[0] = p;
+            } else if (p > minmax[1]) {
+                minmax[1] = p;
+            }
+        }
+        return minmax;
     }
 
     public MoveAbleObject(ArrayList<Point2D> route, Image model) {
@@ -62,47 +119,55 @@ public abstract class MoveAbleObject implements DrawAbleObject {
     @Override
     public boolean update(ArrayList<DrawAbleObject> worldObjects) {
         move();
-        if (!(type == "train")) {
-            for (DrawAbleObject object : worldObjects) {
-                if (!(object == this)) {
-                    if (object instanceof TrafficLight) {
 
-                        if (((TrafficLight) object).getColor() == "green" || ((TrafficLight) object).getType() != this.type) {
-                            continue;
-                        }
-                    } else if (object instanceof Barrier) {
-                        if (!(((Barrier) object).isActive())) {
-                            continue;
-                        }
+        for (DrawAbleObject object : worldObjects) {
+            if (!(object == this)) {
+                if (object instanceof TrafficLight) {
+
+                    if (((TrafficLight) object).getColor() == "green" || ((TrafficLight) object).getType() != this.type) {
+                        continue;
                     }
-                    double objX = object.getX();
-                    double objY = object.getY();
-
-                    double xCheckRange = 50 * -Math.sin((Math.toRadians(rotation)));
-                    double yCheckRange = 50 * Math.cos((Math.toRadians(rotation)));
-
-                    double minX = Math.min(x, x + xCheckRange);
-                    double maxX = Math.max(x, x + xCheckRange);
-                    if ((maxX - minX) < 40) {
-                        minX = x - 20;
-                        maxX = x + 20;
+                } else if (object instanceof Barrier) {
+                    if (!(((Barrier) object).isActive())) {
+                        continue;
                     }
-
-                    double minY = Math.min(y, y + yCheckRange);
-                    double maxY = Math.max(y, y + yCheckRange);
-                    if ((maxY - minY) < 40) {
-                        minY = y - 20;
-                        maxY = y + 20;
-                    }
-
-                    if ((objX >= (minX) && objX <= (maxX)) && (objY >= (minY) && objY <= (maxY))) {
+                } else if (object instanceof MoveAbleObject) {
+                    Rectangle2D objHitbox = ((MoveAbleObject) object).getHitbox();
+                    if (objHitbox.intersects(hitbox)) {
                         deccelerate();
-                        return false;
                     }
+                    continue;
+
+                }
+                double objX = object.getX();
+                double objY = object.getY();
+
+                double xCheckRange = checkRange * -Math.sin((Math.toRadians(rotation)));
+                double yCheckRange = checkRange * Math.cos((Math.toRadians(rotation)));
+
+                double minX = Math.min(x, x + xCheckRange);
+                double maxX = Math.max(x, x + xCheckRange);
+                if ((maxX - minX) < 40) {
+                    minX = x - 20;
+                    maxX = x + 20;
+                }
+
+                double minY = Math.min(y, y + yCheckRange);
+                double maxY = Math.max(y, y + yCheckRange);
+                if ((maxY - minY) < 40) {
+                    minY = y - 20;
+                    maxY = y + 20;
+                }
+
+                if ((objX >= (minX) && objX <= (maxX)) && (objY >= (minY) && objY <= (maxY))) {
+                    deccelerate();
+                    return false;
                 }
 
             }
+
         }
+
         if ((destination.getX() >= x - speed && destination.getX() <= x + speed) && (destination.getY() >= y - speed && destination.getY() <= y + speed)) {
             pointReached = true;
         }
@@ -117,6 +182,10 @@ public abstract class MoveAbleObject implements DrawAbleObject {
         }
         accelerate();
         return false;
+    }
+
+    public Rectangle2D getHitbox() {
+        return hitbox;
     }
 
     @Override

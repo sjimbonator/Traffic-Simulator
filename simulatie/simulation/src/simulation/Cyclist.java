@@ -11,6 +11,10 @@ public class Cyclist extends MoveAbleObject {
         type = "cyclist";
         acceleration = 0.15;
         maxSpeed = 0.6;
+        checkRange = 10;
+        width = 15;
+        height = 28;
+        buildHitBox();
 
     }
 }
