@@ -247,29 +247,19 @@ public class Simulation extends JPanel {
 //        routeP0.add(new Point2D.Double(1400, 660));
 //        pedestrianRoutes.add(routeP0);
         
-//        ArrayList<Point2D> routeP1 = new ArrayList();
-//        routeP1.add(new Point2D.Double(-100, 665));
-//        routeP1.add(new Point2D.Double(375, 665));
-//        routeP1.add(new Point2D.Double(375, 1000));
-//        pedestrianRoutes.add(routeP1);
-
         ArrayList<Point2D> routeP1 = new ArrayList();
         routeP1.add(new Point2D.Double(-100, 665));
-        routeP1.add(new Point2D.Double(1400, 665));
+        routeP1.add(new Point2D.Double(375, 665));
+        routeP1.add(new Point2D.Double(375, 1000));
         pedestrianRoutes.add(routeP1);
         
         ArrayList<Point2D> routeP2 = new ArrayList();
-        routeP2.add(new Point2D.Double(1400, 650));
-        routeP2.add(new Point2D.Double(-100, 650));
+        routeP2.add(new Point2D.Double(660, -100));
+        routeP2.add(new Point2D.Double(660, 197));
+        routeP2.add(new Point2D.Double(930, 197));
+        routeP2.add(new Point2D.Double(1058, 348));
+        routeP2.add(new Point2D.Double(1400, 348));
         pedestrianRoutes.add(routeP2);
-        
-//        ArrayList<Point2D> routeP2 = new ArrayList();
-//        routeP2.add(new Point2D.Double(660, -100));
-//        routeP2.add(new Point2D.Double(660, 197));
-//        routeP2.add(new Point2D.Double(930, 197));
-//        routeP2.add(new Point2D.Double(1058, 348));
-//        routeP2.add(new Point2D.Double(1400, 348));
-//        pedestrianRoutes.add(routeP2);
 
         //Creating traffic lights
         //North
