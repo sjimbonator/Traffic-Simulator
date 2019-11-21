@@ -187,8 +187,8 @@ public class Simulation extends JPanel {
         //Filling the carRoutes ArrayList
         ArrayList<Point2D> route0 = new ArrayList();
         route0.add(new Point2D.Double(1300, 460));
-        route0.add(new Point2D.Double(710, 460));
-        route0.add(new Point2D.Double(470, 460));
+        route0.add(new Point2D.Double(580, 460));
+        route0.add(new Point2D.Double(470, 570));
         route0.add(new Point2D.Double(470, 900));
         carRoutes.add(route0);
 
@@ -227,7 +227,8 @@ public class Simulation extends JPanel {
 
         ArrayList<Point2D> route5 = new ArrayList();
         route5.add(new Point2D.Double(520, 900));
-        route5.add(new Point2D.Double(520, 380));
+        route5.add(new Point2D.Double(520, 500));
+        route5.add(new Point2D.Double(450, 380));
         route5.add(new Point2D.Double(0, 380));
         carRoutes.add(route5);
 
@@ -243,14 +244,16 @@ public class Simulation extends JPanel {
         carRoutes.add(route7);
 
         ArrayList<Point2D> route8 = new ArrayList();
-        route8.add(new Point2D.Double(5, 450));
-        route8.add(new Point2D.Double(570, 450));
+        route8.add(new Point2D.Double(-100, 450));
+        route8.add(new Point2D.Double(470, 450));
+        route8.add(new Point2D.Double(570, 372));
         route8.add(new Point2D.Double(570, 0));
         carRoutes.add(route8);
 
         ArrayList<Point2D> route9 = new ArrayList();
-        route9.add(new Point2D.Double(522, 5));
-        route9.add(new Point2D.Double(522, 570));
+        route9.add(new Point2D.Double(522, -100));
+        route9.add(new Point2D.Double(522, 415));
+        route9.add(new Point2D.Double(665, 570));
         route9.add(new Point2D.Double(1300, 570));
         carRoutes.add(route9);
 
@@ -415,13 +418,6 @@ public class Simulation extends JPanel {
         routeC5.add(new Point2D.Double(602, 261));
         routeC5.add(new Point2D.Double(-100, 261));
         cyclistRoutes.add(routeC5);
-        ArrayList<Point2D> routeC6 = new ArrayList();
-        routeC6.add(new Point2D.Double(1400, 375));
-        routeC6.add(new Point2D.Double(1040, 375));
-        routeC6.add(new Point2D.Double(916, 227));
-        routeC6.add(new Point2D.Double(620, 227));
-        routeC6.add(new Point2D.Double(620, 950));
-        cyclistRoutes.add(routeC6);
 
         //Creating traffic lights
         //North
