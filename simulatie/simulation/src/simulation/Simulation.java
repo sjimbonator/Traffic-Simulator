@@ -629,7 +629,7 @@ public class Simulation extends JPanel {
         //Boat spawn
         if (tickCount % 4800 == 0) {
             int random = (int) (Math.random() * boatRoutes.size());
-            worldObjects.add(new Boat(boatRoutes.get(random), boatImage));
+            worldObjects.add(new Boat(boatRoutes.get(0), boatImage));
         }
         //Pedestrian spawn
         if (tickCount % 150 == 0) {
