@@ -457,29 +457,29 @@ public class Simulation extends JPanel {
         
         //Cyclist lights
         //South side
-        TrafficLight lightC0 = new TrafficLight(groupID + "/cycle/8/traffic_light/0", 245, 598, 0,redBike, whiteBike, greenBike, whiteBike, "bike");
+        TrafficLight lightC0 = new TrafficLight(groupID + "/cycle/8/traffic_light/0", 245, 598, 0,redBike, whiteBike, greenBike, whiteBike, "cyclist");
         worldObjects.add(lightC0);
         TrafficLight lightP0 = new TrafficLight(groupID + "/foot/8/traffic_light/0", 275, 598, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
         worldObjects.add(lightP0);
-        TrafficLight lightC1 = new TrafficLight(groupID + "/cycle/8/traffic_light/0", 228, 302, 0, redBike, whiteBike, greenBike, whiteBike, "bike");
+        TrafficLight lightC1 = new TrafficLight(groupID + "/cycle/8/traffic_light/0", 228, 302, 0, redBike, whiteBike, greenBike, whiteBike, "cyclist");
         worldObjects.add(lightC1);
         TrafficLight lightP1 = new TrafficLight(groupID + "/foot/8/traffic_light/0", 275, 302, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
         worldObjects.add(lightP1);
-        TrafficLight lightC2 = new TrafficLight(groupID + "/cycle/8/traffic_light/0", 400, 305, 0, redBike, whiteBike, greenBike, whiteBike, "bike");
+        TrafficLight lightC2 = new TrafficLight(groupID + "/cycle/8/traffic_light/0", 400, 305, 0, redBike, whiteBike, greenBike, whiteBike, "cyclist");
         worldObjects.add(lightC2);
         
         //North side
-        TrafficLight lightC3 = new TrafficLight(groupID + "/cycle/8/traffic_light/0", 638, 585, 0, redBike, whiteBike, greenBike, whiteBike, "bike");
+        TrafficLight lightC3 = new TrafficLight(groupID + "/cycle/8/traffic_light/0", 638, 585, 0, redBike, whiteBike, greenBike, whiteBike, "cyclist");
         worldObjects.add(lightC3);
         
         //East side
-        TrafficLight lightC4 = new TrafficLight(groupID + "/cycle/8/traffic_light/0", 450, 635, 0, redBike, whiteBike, greenBike, whiteBike, "bike");
+        TrafficLight lightC4 = new TrafficLight(groupID + "/cycle/8/traffic_light/0", 450, 635, 0, redBike, whiteBike, greenBike, whiteBike, "cyclist");
         worldObjects.add(lightC4);
         
         //West side
-        TrafficLight lightC5 = new TrafficLight(groupID + "/cycle/8/traffic_light/0", 440, 280, 0, redBike, whiteBike, greenBike, whiteBike, "bike");
+        TrafficLight lightC5 = new TrafficLight(groupID + "/cycle/8/traffic_light/0", 440, 280, 0, redBike, whiteBike, greenBike, whiteBike, "cyclist");
         worldObjects.add(lightC5);
-        TrafficLight lightC6 = new TrafficLight(groupID + "/cycle/8/traffic_light/0", 600, 260, 0, redBike, whiteBike, greenBike, whiteBike, "bike");
+        TrafficLight lightC6 = new TrafficLight(groupID + "/cycle/8/traffic_light/0", 600, 260, 0, redBike, whiteBike, greenBike, whiteBike, "cyclist");
         worldObjects.add(lightC6);
         
         //Pedestrian lights
