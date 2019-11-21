@@ -670,17 +670,17 @@ public class Simulation extends JPanel {
             xform.rotate(Math.toRadians((int) object.getRotation()), (object.getImage().getWidth(this) / 2), (object.getImage().getHeight(this) / 2));
             g2.drawImage(object.getImage(), xform, this);
 
-            if (object instanceof MoveAbleObject) {
-
-                Rectangle2D rect = ((MoveAbleObject) object).getHitbox();
-                g2.drawRect((int) rect.getX(), (int) rect.getY(), (int) rect.getWidth(), (int) rect.getHeight());
-
-                rect = ((MoveAbleObject) object).predictbox;
-                g2.setColor(Color.RED);
-                g2.drawRect((int) rect.getX(), (int) rect.getY(), (int) rect.getWidth(), (int) rect.getHeight());
-                g2.setColor(Color.BLACK);
-
-            }
+//            if (object instanceof MoveAbleObject) {
+//
+//                Rectangle2D rect = ((MoveAbleObject) object).getHitbox();
+//                g2.drawRect((int) rect.getX(), (int) rect.getY(), (int) rect.getWidth(), (int) rect.getHeight());
+//
+//                rect = ((MoveAbleObject) object).predictbox;
+//                g2.setColor(Color.RED);
+//                g2.drawRect((int) rect.getX(), (int) rect.getY(), (int) rect.getWidth(), (int) rect.getHeight());
+//                g2.setColor(Color.BLACK);
+//
+//            }
         }
     }
 

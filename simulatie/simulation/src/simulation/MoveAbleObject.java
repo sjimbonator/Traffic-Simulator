@@ -24,7 +24,7 @@ public abstract class MoveAbleObject implements DrawAbleObject {
     protected int routeIndex = 0;
     protected boolean pointReached = true;
     
-    public Rectangle2D predictbox;
+    //public Rectangle2D predictbox;
 
     protected Image model;
 
@@ -48,13 +48,14 @@ public abstract class MoveAbleObject implements DrawAbleObject {
     protected Rectangle2D predictHitbox(){
         double xTemp = x;
         double yTemp = y;
-        
-        
-        yTemp += (( (maxSpeed) * Math.cos((Math.toRadians(rotation))) ) *10);
-        xTemp += (( (maxSpeed) * -Math.sin((Math.toRadians(rotation)))) *10);
-        
-        Rectangle2D temprect = buildRect(xTemp, yTemp);
-        predictbox = temprect;
+        double speedTemp = speed;
+        speed = maxSpeed;
+        for(int i = 0; i< 20; i++){move();}
+        Rectangle2D temprect = buildRect(x, y);
+        x = xTemp;
+        y = yTemp;  
+        speed = speedTemp;
+        //predictbox = temprect;
         return temprect;
     }
 
@@ -145,7 +146,7 @@ public abstract class MoveAbleObject implements DrawAbleObject {
     public boolean update(ArrayList<DrawAbleObject> worldObjects) {
         buildHitBox();
         move();
-        Rectangle2D predictBox = predictHitbox();
+        //Rectangle2D predictBox = predictHitbox();
         
 
         for (DrawAbleObject object : worldObjects) {
@@ -162,7 +163,7 @@ public abstract class MoveAbleObject implements DrawAbleObject {
                 } else if (object instanceof MoveAbleObject) {
                     Rectangle2D objHitbox = ((MoveAbleObject) object).getHitbox();
                     
-                    if (predictBox.intersects(objHitbox)) {
+                    if (predictHitbox().intersects(objHitbox)) {
                         deccelerate();
                          return false;
                     }
