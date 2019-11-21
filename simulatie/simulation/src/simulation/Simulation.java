@@ -457,55 +457,74 @@ public class Simulation extends JPanel {
         
         //Cyclist lights
         //South side
-        TrafficLight lightC0 = new TrafficLight(groupID + "/cycle/8/traffic_light/0", 245, 598, 0,redBike, whiteBike, greenBike, whiteBike, "cyclist");
+        TrafficLight lightC0 = new TrafficLight(groupID + "/cycle/3/0/traffic_light/0", 245, 598, 0,redBike, whiteBike, greenBike, whiteBike, "cyclist");
+        sensors.add(new Sensor(groupID + "/cycle/3/0/sensor/0", 245, 598));
         worldObjects.add(lightC0);
-        TrafficLight lightP0 = new TrafficLight(groupID + "/foot/8/traffic_light/0", 275, 598, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
-        worldObjects.add(lightP0);
-        TrafficLight lightC1 = new TrafficLight(groupID + "/cycle/8/traffic_light/0", 228, 302, 0, redBike, whiteBike, greenBike, whiteBike, "cyclist");
+        TrafficLight lightC1 = new TrafficLight(groupID + "/cycle/3/1/traffic_light/0", 228, 302, 0, redBike, whiteBike, greenBike, whiteBike, "cyclist");
+        sensors.add(new Sensor(groupID + "/cycle/3/1/sensor/0", 228, 302));
         worldObjects.add(lightC1);
-        TrafficLight lightP1 = new TrafficLight(groupID + "/foot/8/traffic_light/0", 275, 302, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
-        worldObjects.add(lightP1);
-        TrafficLight lightC2 = new TrafficLight(groupID + "/cycle/8/traffic_light/0", 400, 305, 0, redBike, whiteBike, greenBike, whiteBike, "cyclist");
+        TrafficLight lightC2 = new TrafficLight(groupID + "/cycle/2/traffic_light/0", 400, 305, 0, redBike, whiteBike, greenBike, whiteBike, "cyclist");
+        sensors.add(new Sensor(groupID + "/cycle/2/sensor/0", 400, 305));
         worldObjects.add(lightC2);
         
         //North side
-        TrafficLight lightC3 = new TrafficLight(groupID + "/cycle/8/traffic_light/0", 638, 585, 0, redBike, whiteBike, greenBike, whiteBike, "cyclist");
+        TrafficLight lightC3 = new TrafficLight(groupID + "/cycle/0/traffic_light/0", 638, 585, 0, redBike, whiteBike, greenBike, whiteBike, "cyclist");
+        sensors.add(new Sensor(groupID + "/cycle/0/sensor/0", 638, 585));
         worldObjects.add(lightC3);
         
         //East side
-        TrafficLight lightC4 = new TrafficLight(groupID + "/cycle/8/traffic_light/0", 450, 635, 0, redBike, whiteBike, greenBike, whiteBike, "cyclist");
+        TrafficLight lightC4 = new TrafficLight(groupID + "/cycle/1/traffic_light/0", 450, 635, 0, redBike, whiteBike, greenBike, whiteBike, "cyclist");
+        sensors.add(new Sensor(groupID + "/cycle/1/sensor/0", 450, 635));
         worldObjects.add(lightC4);
         
         //West side
-        TrafficLight lightC5 = new TrafficLight(groupID + "/cycle/8/traffic_light/0", 440, 280, 0, redBike, whiteBike, greenBike, whiteBike, "cyclist");
+        TrafficLight lightC5 = new TrafficLight(groupID + "/cycle/5/traffic_light/0", 440, 280, 0, redBike, whiteBike, greenBike, whiteBike, "cyclist");
+        sensors.add(new Sensor(groupID + "/cycle/5/sensor/0", 440, 280));
         worldObjects.add(lightC5);
-        TrafficLight lightC6 = new TrafficLight(groupID + "/cycle/8/traffic_light/0", 600, 260, 0, redBike, whiteBike, greenBike, whiteBike, "cyclist");
+        TrafficLight lightC6 = new TrafficLight(groupID + "/cycle/4/traffic_light/0", 600, 260, 0, redBike, whiteBike, greenBike, whiteBike, "cyclist");
+        sensors.add(new Sensor(groupID + "/cycle/4/sensor/0", 600, 260));
         worldObjects.add(lightC6);
         
         //Pedestrian lights
         //East side
-        TrafficLight lightP2 = new TrafficLight(groupID + "/foot/8/traffic_light/0", 440, 675, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        TrafficLight lightP2 = new TrafficLight(groupID + "/foot/3/traffic_light/0", 440, 675, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        sensors.add(new Sensor(groupID + "/foot/3/sensor/0", 440, 675));
         worldObjects.add(lightP2);
-        TrafficLight lightP3 = new TrafficLight(groupID + "/foot/8/traffic_light/0", 600, 657, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        TrafficLight lightP3 = new TrafficLight(groupID + "/foot/2/traffic_light/0", 600, 657, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        sensors.add(new Sensor(groupID + "/foot/2/sensor/0", 600, 657));
         worldObjects.add(lightP3);
         
         //West side
-        TrafficLight lightP4 = new TrafficLight(groupID + "/foot/8/traffic_light/0", 440, 235, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        TrafficLight lightP4 = new TrafficLight(groupID + "/foot/7/traffic_light/0", 440, 235, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        sensors.add(new Sensor(groupID + "/foot/7/sensor/0", 440, 235));
         worldObjects.add(lightP4);
-        TrafficLight lightP5 = new TrafficLight(groupID + "/foot/8/traffic_light/0", 605, 220, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        TrafficLight lightP5 = new TrafficLight(groupID + "/foot/6/traffic_light/0", 605, 220, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        sensors.add(new Sensor(groupID + "/foot/6/sensor/0", 605, 220));
         worldObjects.add(lightP5);
         
         //South side
-        TrafficLight lightP6 = new TrafficLight(groupID + "/foot/8/traffic_light/0", 274, 416, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        TrafficLight lightP0 = new TrafficLight(groupID + "/foot/4/0/traffic_light/0", 275, 598, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        sensors.add(new Sensor(groupID + "/foot/4/0/sensor/0", 275, 598));
+        worldObjects.add(lightP0);
+        TrafficLight lightP1 = new TrafficLight(groupID + "/foot/5/0/traffic_light/0", 275, 302, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        sensors.add(new Sensor(groupID + "/foot/5/0/sensor/0", 275, 302));
+        worldObjects.add(lightP1);
+        TrafficLight lightP6 = new TrafficLight(groupID + "/foot/4/1/traffic_light/0", 274, 416, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        sensors.add(new Sensor(groupID + "/foot/4/1/sensor/0", 274, 416));
         worldObjects.add(lightP6);
-        TrafficLight lightP7 = new TrafficLight(groupID + "/foot/8/traffic_light/0", 274, 487, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        TrafficLight lightP7 = new TrafficLight(groupID + "/foot/4/2/traffic_light/0", 274, 487, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        sensors.add(new Sensor(groupID + "/foot/4/2/sensor/0", 274, 487));
         worldObjects.add(lightP7);
         
-        TrafficLight lightP8 = new TrafficLight(groupID + "/foot/8/traffic_light/0", 665, 285, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        //North side
+        TrafficLight lightP8 = new TrafficLight(groupID + "/foot/1/0/traffic_light/0", 665, 285, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        sensors.add(new Sensor(groupID + "/foot/1/0/sensor/0", 665, 285));
         worldObjects.add(lightP8);
-        TrafficLight lightP9 = new TrafficLight(groupID + "/foot/8/traffic_light/0", 675, 595, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        TrafficLight lightP9 = new TrafficLight(groupID + "/foot/0/0/traffic_light/0", 675, 595, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        sensors.add(new Sensor(groupID + "/foot/0/0/sensor/0", 675, 595));
         worldObjects.add(lightP9);
-        TrafficLight lightP10 = new TrafficLight(groupID + "/foot/8/traffic_light/0", 670, 487, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        TrafficLight lightP10 = new TrafficLight(groupID + "/foot/0/1/traffic_light/0", 670, 487, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        sensors.add(new Sensor(groupID + "/foot/0/1/sensor/0", 670, 487));
         worldObjects.add(lightP10);
 
         //Creating train barriers

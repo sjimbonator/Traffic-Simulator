@@ -70,6 +70,7 @@ public class TrafficLight implements DrawAbleObject {
             return white;
         } else{
             return white;
+            
         }
     }
 

@@ -28,7 +28,7 @@ public abstract class MoveAbleObject implements DrawAbleObject {
 
     protected void buildHitBox() {
         Point2D[] points = new Point2D[4];
-        System.out.print(" x = " + x + " y= " + y + " width= "+ width +" height= " + height + " " );
+        //System.out.print(" x = " + x + " y= " + y + " width= "+ width +" height= " + height + " " );
         points[0] = rotatePoint(new Point2D.Double((x - (width / 2)), (y + (height / 2))));
         points[1] = rotatePoint(new Point2D.Double((x - (width / 2)), (y - (height / 2))));
         points[2] = rotatePoint(new Point2D.Double((x + (width / 2)), (y + (height / 2))));
@@ -36,7 +36,7 @@ public abstract class MoveAbleObject implements DrawAbleObject {
         double[] minMaxX = getMinMax(points, 'x');
         
         double[] minMaxY = getMinMax(points, 'y');
-        System.out.print(" maxY = " + minMaxY[1] + " minY= " +minMaxX[0] + " " );
+        //System.out.print(" maxY = " + minMaxY[1] + " minY= " +minMaxX[0] + " " );
         hitbox = new Rectangle((int) minMaxX[0], (int) minMaxY[0], (int) ((minMaxX[1]-minMaxX[0])), (int) ((minMaxY[1]-minMaxY[0])));
 
     }
