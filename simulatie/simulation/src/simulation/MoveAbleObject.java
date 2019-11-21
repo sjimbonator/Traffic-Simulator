@@ -23,22 +23,39 @@ public abstract class MoveAbleObject implements DrawAbleObject {
     protected Point2D destination;
     protected int routeIndex = 0;
     protected boolean pointReached = true;
+    
+    public Rectangle2D predictbox;
 
     protected Image model;
 
-    protected void buildHitBox() {
+    protected Rectangle2D buildRect(double x, double y) {
         Point2D[] points = new Point2D[4];
-        System.out.print(" x = " + x + " y= " + y + " width= "+ width +" height= " + height + " " );
         points[0] = rotatePoint(new Point2D.Double((x - (width / 2)), (y + (height / 2))));
         points[1] = rotatePoint(new Point2D.Double((x - (width / 2)), (y - (height / 2))));
         points[2] = rotatePoint(new Point2D.Double((x + (width / 2)), (y + (height / 2))));
         points[3] = rotatePoint(new Point2D.Double((x + (width / 2)), (y - (height / 2))));
         double[] minMaxX = getMinMax(points, 'x');
-        
         double[] minMaxY = getMinMax(points, 'y');
-        System.out.print(" maxY = " + minMaxY[1] + " minY= " +minMaxX[0] + " " );
-        hitbox = new Rectangle((int) minMaxX[0], (int) minMaxY[0], (int) ((minMaxX[1]-minMaxX[0])), (int) ((minMaxY[1]-minMaxY[0])));
+        Rectangle2D rect = new Rectangle((int) minMaxX[0], (int) minMaxY[0], (int) ((minMaxX[1]-minMaxX[0])), (int) ((minMaxY[1]-minMaxY[0])));
+        return rect;
 
+    }
+    
+    protected void buildHitBox(){
+        hitbox = buildRect(x, y);
+    }
+    
+    protected Rectangle2D predictHitbox(){
+        double xTemp = x;
+        double yTemp = y;
+        
+        
+        yTemp += (( (maxSpeed) * Math.cos((Math.toRadians(rotation))) ) *10);
+        xTemp += (( (maxSpeed) * -Math.sin((Math.toRadians(rotation)))) *10);
+        
+        Rectangle2D temprect = buildRect(xTemp, yTemp);
+        predictbox = temprect;
+        return temprect;
     }
 
     protected Point2D rotatePoint(Point2D p) {
@@ -128,6 +145,8 @@ public abstract class MoveAbleObject implements DrawAbleObject {
     public boolean update(ArrayList<DrawAbleObject> worldObjects) {
         buildHitBox();
         move();
+        Rectangle2D predictBox = predictHitbox();
+        
 
         for (DrawAbleObject object : worldObjects) {
             if (!(object == this)) {
@@ -142,7 +161,8 @@ public abstract class MoveAbleObject implements DrawAbleObject {
                     }
                 } else if (object instanceof MoveAbleObject) {
                     Rectangle2D objHitbox = ((MoveAbleObject) object).getHitbox();
-                    if (hitbox.intersects(objHitbox)) {
+                    
+                    if (predictBox.intersects(objHitbox)) {
                         deccelerate();
                          return false;
                     }
