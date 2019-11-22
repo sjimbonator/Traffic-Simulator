@@ -55,33 +55,7 @@ namespace MqttController
             Console.WriteLine("Message: " + mqttMessage);
             Console.WriteLine("");
 
-            ////splits topic string to determine topic type
-            //string[] delimiters = { "/" };
-            //string[] pieces = topic.Split(delimiters, StringSplitOptions.None);
-
-            //switch (pieces[1])
-            //{
-            //    case "foot":
-            //        break;
-            //    case "cycle":
-            //        break;
-            //    case "motorised":
-            //        if (mqttMessage == "1")
-            //        {
-            //            Motorised motorised = new Motorised(topic, mqttMessage, team_id);
-            //        }
-            //        break;
-            //    case "vessel":
-            //        if (mqttMessage == "1")
-            //        {
-            //        }
-            //        break;
-            //    case "track":
-            //        if (mqttMessage == "1")
-            //        {
-            //        }
-            //        break;
-            //}
+            GroupDecide groupDecide = new GroupDecide(topic, mqttMessage, team_id);
 
         }
     }

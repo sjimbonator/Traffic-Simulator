@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GroupDecide.cs" />
     <Compile Include="Motorised.cs" />
     <Compile Include="MqttPublish.cs" />
     <Compile Include="MqttSubscribe.cs" />
