@@ -69,6 +69,7 @@ public class TrafficLight implements DrawAbleObject {
         }else if(payLoad != null && payLoad.contains("3")) {
             return white;
         } else{
+            
             return white;
             
         }
