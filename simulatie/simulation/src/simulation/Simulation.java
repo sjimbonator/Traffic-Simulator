@@ -1,11 +1,14 @@
 package simulation;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,6 +30,8 @@ public class Simulation extends JPanel {
     private ArrayList<ArrayList<Point2D>> carRoutes = new ArrayList();
     private ArrayList<ArrayList<Point2D>> trainRoutes = new ArrayList();
     private ArrayList<ArrayList<Point2D>> boatRoutes = new ArrayList();
+    private ArrayList<ArrayList<Point2D>> cyclistRoutes = new ArrayList();
+    private ArrayList<ArrayList<Point2D>> pedestrianRoutes = new ArrayList();
 
     private ArrayList<Barrier> trainBarriers = new ArrayList();
     private ArrayList<Barrier> boatBarriers = new ArrayList();
@@ -34,6 +39,8 @@ public class Simulation extends JPanel {
     private Image carImage;
     private Image trainImage;
     private Image boatImage;
+    private Image pedestrianImage;
+    private Image bikeImage;
 
     private Image background;
     private Image backgroundOpen;
@@ -50,6 +57,14 @@ public class Simulation extends JPanel {
     private Image green;
     private Image white;
 
+    private Image redBike;
+    private Image whiteBike;
+    private Image greenBike;
+
+    private Image redPedestrian;
+    private Image whitePedestrian;
+    private Image greenPedestrian;
+
     private MqttSubscriber subscriber = MqttSubscriber.getInstance(groupID + "/#");
 
     public static boolean openBridge = false;
@@ -59,6 +74,8 @@ public class Simulation extends JPanel {
             carImage = ImageIO.read(new File("./car.png"));
             trainImage = ImageIO.read(new File("./train.png"));
             boatImage = ImageIO.read(new File("./boat.png"));
+            pedestrianImage = ImageIO.read(new File("./monkey.png"));
+            bikeImage = ImageIO.read(new File("./bike.png"));
 
             background = ImageIO.read(new File("./BACKGROUNDarrows.png"));
             backgroundOpen = ImageIO.read(new File("./BRIDGEOPEN.png"));
@@ -67,6 +84,12 @@ public class Simulation extends JPanel {
             orange = ImageIO.read(new File("./orange.png"));
             green = ImageIO.read(new File("./green.png"));
             white = ImageIO.read(new File("./white.png"));
+            redBike = ImageIO.read(new File("./redBike.png"));
+            greenBike = ImageIO.read(new File("./greenBike.png"));
+            whiteBike = ImageIO.read(new File("./whiteBike.png"));
+            redPedestrian = ImageIO.read(new File("./redPedestrian.png"));
+            greenPedestrian = ImageIO.read(new File("./greenPedestrian.png"));
+            whitePedestrian = ImageIO.read(new File("./whitePedestrian.png"));
 
             shortbarrier = ImageIO.read(new File("./shortbarrier.png"));
             shortbarrierOff = ImageIO.read(new File("./shortbarrierOff.png"));
@@ -164,8 +187,8 @@ public class Simulation extends JPanel {
         //Filling the carRoutes ArrayList
         ArrayList<Point2D> route0 = new ArrayList();
         route0.add(new Point2D.Double(1300, 460));
-        route0.add(new Point2D.Double(710, 460));
-        route0.add(new Point2D.Double(470, 460));
+        route0.add(new Point2D.Double(580, 460));
+        route0.add(new Point2D.Double(470, 570));
         route0.add(new Point2D.Double(470, 900));
         carRoutes.add(route0);
 
@@ -204,7 +227,8 @@ public class Simulation extends JPanel {
 
         ArrayList<Point2D> route5 = new ArrayList();
         route5.add(new Point2D.Double(520, 900));
-        route5.add(new Point2D.Double(520, 380));
+        route5.add(new Point2D.Double(520, 500));
+        route5.add(new Point2D.Double(450, 380));
         route5.add(new Point2D.Double(0, 380));
         carRoutes.add(route5);
 
@@ -220,14 +244,16 @@ public class Simulation extends JPanel {
         carRoutes.add(route7);
 
         ArrayList<Point2D> route8 = new ArrayList();
-        route8.add(new Point2D.Double(5, 450));
-        route8.add(new Point2D.Double(570, 450));
+        route8.add(new Point2D.Double(-100, 450));
+        route8.add(new Point2D.Double(470, 450));
+        route8.add(new Point2D.Double(570, 372));
         route8.add(new Point2D.Double(570, 0));
         carRoutes.add(route8);
 
         ArrayList<Point2D> route9 = new ArrayList();
-        route9.add(new Point2D.Double(522, 5));
-        route9.add(new Point2D.Double(522, 570));
+        route9.add(new Point2D.Double(522, -100));
+        route9.add(new Point2D.Double(522, 415));
+        route9.add(new Point2D.Double(665, 570));
         route9.add(new Point2D.Double(1300, 570));
         carRoutes.add(route9);
 
@@ -236,6 +262,162 @@ public class Simulation extends JPanel {
         route10.add(new Point2D.Double(470, 330));
         route10.add(new Point2D.Double(0, 330));
         carRoutes.add(route10);
+
+        //Filling the pedestrianRoutes ArrayList
+        //North left side
+        ArrayList<Point2D> routeP0 = new ArrayList();
+        routeP0.add(new Point2D.Double(1400, 334));
+        routeP0.add(new Point2D.Double(1061, 334));
+        routeP0.add(new Point2D.Double(936, 187));
+        routeP0.add(new Point2D.Double(662, 187));
+        routeP0.add(new Point2D.Double(662, 668));
+        routeP0.add(new Point2D.Double(1350, 668));
+        pedestrianRoutes.add(routeP0);
+        ArrayList<Point2D> routeP1 = new ArrayList();
+        routeP1.add(new Point2D.Double(1400, 336));
+        routeP1.add(new Point2D.Double(1058, 336));
+        routeP1.add(new Point2D.Double(937, 190));
+        routeP1.add(new Point2D.Double(677, 190));
+        routeP1.add(new Point2D.Double(600, 222));
+        routeP1.add(new Point2D.Double(450, 222));
+        routeP1.add(new Point2D.Double(397, 231));
+        routeP1.add(new Point2D.Double(-50, 231));
+        pedestrianRoutes.add(routeP1);
+
+        //West side
+        ArrayList<Point2D> routeP2 = new ArrayList();
+        routeP2.add(new Point2D.Double(657, -100));
+        routeP2.add(new Point2D.Double(657, 210));
+        routeP2.add(new Point2D.Double(662, 290));
+        routeP2.add(new Point2D.Double(662, 668));
+        routeP2.add(new Point2D.Double(1350, 668));
+        pedestrianRoutes.add(routeP2);
+
+        //South left side
+        ArrayList<Point2D> routeP3 = new ArrayList();
+        routeP3.add(new Point2D.Double(-100, 248));
+        routeP3.add(new Point2D.Double(268, 248));
+        routeP3.add(new Point2D.Double(268, 668));
+        routeP3.add(new Point2D.Double(374, 668));
+        routeP3.add(new Point2D.Double(374, 950));
+        pedestrianRoutes.add(routeP3);
+        ArrayList<Point2D> routeP4 = new ArrayList();
+        routeP4.add(new Point2D.Double(-100, 248));
+        routeP4.add(new Point2D.Double(400, 248));
+        routeP4.add(new Point2D.Double(450, 238));
+        routeP4.add(new Point2D.Double(630, 238));
+        routeP4.add(new Point2D.Double(650, 205));
+        routeP4.add(new Point2D.Double(930, 205));
+        routeP4.add(new Point2D.Double(1053, 355));
+        routeP4.add(new Point2D.Double(1350, 355));
+        pedestrianRoutes.add(routeP4);
+        ArrayList<Point2D> routeP5 = new ArrayList();
+        routeP5.add(new Point2D.Double(-100, 248));
+        routeP5.add(new Point2D.Double(268, 248));
+        routeP5.add(new Point2D.Double(268, 668));
+        routeP5.add(new Point2D.Double(374, 668));
+        routeP5.add(new Point2D.Double(434, 675));
+        routeP5.add(new Point2D.Double(600, 675));
+        routeP5.add(new Point2D.Double(650, 668));
+        routeP5.add(new Point2D.Double(1350, 668));
+        pedestrianRoutes.add(routeP5);
+
+        //North right side
+        ArrayList<Point2D> routeP6 = new ArrayList();
+        routeP6.add(new Point2D.Double(1400, 651));
+        routeP6.add(new Point2D.Double(650, 651));
+        routeP6.add(new Point2D.Double(600, 659));
+        routeP6.add(new Point2D.Double(435, 659));
+        routeP6.add(new Point2D.Double(397, 651));
+        routeP6.add(new Point2D.Double(-100, 651));
+        pedestrianRoutes.add(routeP6);
+        ArrayList<Point2D> routeP7 = new ArrayList();
+        routeP7.add(new Point2D.Double(1400, 651));
+        routeP7.add(new Point2D.Double(678, 651));
+        routeP7.add(new Point2D.Double(678, -100));
+        pedestrianRoutes.add(routeP7);
+
+        //East side
+        ArrayList<Point2D> routeP8 = new ArrayList();
+        routeP8.add(new Point2D.Double(392, 1000));
+        routeP8.add(new Point2D.Double(392, 675));
+        routeP8.add(new Point2D.Double(600, 675));
+        routeP8.add(new Point2D.Double(650, 668));
+        routeP8.add(new Point2D.Double(1400, 668));
+        pedestrianRoutes.add(routeP8);
+        ArrayList<Point2D> routeP9 = new ArrayList();
+        routeP9.add(new Point2D.Double(392, 1000));
+        routeP9.add(new Point2D.Double(392, 651));
+        routeP9.add(new Point2D.Double(284, 651));
+        routeP9.add(new Point2D.Double(284, 230));
+        routeP9.add(new Point2D.Double(-100, 230));
+        pedestrianRoutes.add(routeP9);
+        ArrayList<Point2D> routeP10 = new ArrayList();
+        routeP10.add(new Point2D.Double(392, 1000));
+        routeP10.add(new Point2D.Double(392, 651));
+        routeP10.add(new Point2D.Double(284, 651));
+        routeP10.add(new Point2D.Double(284, 230));
+        routeP10.add(new Point2D.Double(397, 230));
+        routeP10.add(new Point2D.Double(450, 238));
+        routeP10.add(new Point2D.Double(650, 238));
+        routeP10.add(new Point2D.Double(675, 207));
+        routeP10.add(new Point2D.Double(675, -100));
+        pedestrianRoutes.add(routeP10);
+
+        //South right side
+        ArrayList<Point2D> routeP11 = new ArrayList();
+        routeP11.add(new Point2D.Double(-100, 668));
+        routeP11.add(new Point2D.Double(392, 668));
+        routeP11.add(new Point2D.Double(434, 675));
+        routeP11.add(new Point2D.Double(600, 675));
+        routeP11.add(new Point2D.Double(650, 668));
+        routeP11.add(new Point2D.Double(1400, 668));
+        pedestrianRoutes.add(routeP11);
+        ArrayList<Point2D> routeP12 = new ArrayList();
+        routeP12.add(new Point2D.Double(-100, 668));
+        routeP12.add(new Point2D.Double(392, 668));
+        routeP12.add(new Point2D.Double(434, 675));
+        routeP12.add(new Point2D.Double(600, 675));
+        routeP12.add(new Point2D.Double(650, 668));
+        routeP12.add(new Point2D.Double(678, 668));
+        routeP12.add(new Point2D.Double(678, -100));
+        pedestrianRoutes.add(routeP12);
+
+        //Cyclist routes
+        //South right side
+        ArrayList<Point2D> routeC0 = new ArrayList();
+        routeC0.add(new Point2D.Double(-100, 632));
+        routeC0.add(new Point2D.Double(1350, 632));
+        cyclistRoutes.add(routeC0);
+
+        ArrayList<Point2D> routeC2 = new ArrayList();
+        routeC2.add(new Point2D.Double(-100, 632));
+        routeC2.add(new Point2D.Double(248, 632));
+        routeC2.add(new Point2D.Double(248, 282));
+        routeC2.add(new Point2D.Double(642, 282));
+        routeC2.add(new Point2D.Double(642, -100));
+        cyclistRoutes.add(routeC2);
+
+        //West right side
+        ArrayList<Point2D> routeC3 = new ArrayList();
+        routeC3.add(new Point2D.Double(404, -100));
+        routeC3.add(new Point2D.Double(404, 950));
+        cyclistRoutes.add(routeC3);
+        ArrayList<Point2D> routeC7 = new ArrayList();
+        routeC7.add(new Point2D.Double(404, -100));
+        routeC7.add(new Point2D.Double(404, 632));
+        routeC7.add(new Point2D.Double(1350, 632));
+        cyclistRoutes.add(routeC7);
+
+        //North left side
+        ArrayList<Point2D> routeC5 = new ArrayList();
+        routeC5.add(new Point2D.Double(1400, 375));
+        routeC5.add(new Point2D.Double(1040, 375));
+        routeC5.add(new Point2D.Double(916, 227));
+        routeC5.add(new Point2D.Double(650, 227));
+        routeC5.add(new Point2D.Double(602, 261));
+        routeC5.add(new Point2D.Double(-100, 261));
+        cyclistRoutes.add(routeC5);
 
         //Creating traffic lights
         //North
@@ -267,6 +449,90 @@ public class Simulation extends JPanel {
         worldObjects.add(light9);
         TrafficLight light10 = new TrafficLight(groupID + "/motorised/8/traffic_light/0", 460, 202, 270, red, orange, green, white, "car");
         worldObjects.add(light10);
+
+        //Cyclist lights
+        //South side
+        TrafficLight lightC0 = new TrafficLight(groupID + "/cycle/3/0/traffic_light/0", 245, 598, 0,redBike, whiteBike, greenBike, whiteBike, "cyclist");
+        sensors.add(new Sensor(groupID + "/cycle/3/0/sensor/0", 245, 598));
+        worldObjects.add(lightC0);
+        TrafficLight lightC1 = new TrafficLight(groupID + "/cycle/3/1/traffic_light/0", 228, 302, 0, redBike, whiteBike, greenBike, whiteBike, "cyclist");
+        sensors.add(new Sensor(groupID + "/cycle/3/1/sensor/0", 228, 302));
+        worldObjects.add(lightC1);
+        TrafficLight lightC2 = new TrafficLight(groupID + "/cycle/2/traffic_light/0", 400, 305, 0, redBike, whiteBike, greenBike, whiteBike, "cyclist");
+        sensors.add(new Sensor(groupID + "/cycle/2/sensor/0", 400, 305));
+        worldObjects.add(lightC2);
+
+        //North side
+        TrafficLight lightC3 = new TrafficLight(groupID + "/cycle/0/traffic_light/0", 638, 585, 0, redBike, whiteBike, greenBike, whiteBike, "cyclist");
+        sensors.add(new Sensor(groupID + "/cycle/0/sensor/0", 638, 585));
+        worldObjects.add(lightC3);
+
+        //East side
+        TrafficLight lightC4 = new TrafficLight(groupID + "/cycle/1/traffic_light/0", 450, 635, 0, redBike, whiteBike, greenBike, whiteBike, "cyclist");
+        sensors.add(new Sensor(groupID + "/cycle/1/sensor/0", 450, 635));
+        worldObjects.add(lightC4);
+
+        //West side
+        TrafficLight lightC5 = new TrafficLight(groupID + "/cycle/5/traffic_light/0", 440, 280, 0, redBike, whiteBike, greenBike, whiteBike, "cyclist");
+        sensors.add(new Sensor(groupID + "/cycle/5/sensor/0", 440, 280));
+        worldObjects.add(lightC5);
+        TrafficLight lightC6 = new TrafficLight(groupID + "/cycle/4/traffic_light/0", 600, 260, 0, redBike, whiteBike, greenBike, whiteBike, "cyclist");
+        sensors.add(new Sensor(groupID + "/cycle/4/sensor/0", 600, 260));
+        worldObjects.add(lightC6);
+
+        //Pedestrian lights
+        //East side
+        TrafficLight lightP2 = new TrafficLight(groupID + "/foot/3/traffic_light/0", 440, 675, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        sensors.add(new Sensor(groupID + "/foot/3/sensor/0", 440, 675));
+        worldObjects.add(lightP2);
+        TrafficLight lightP3 = new TrafficLight(groupID + "/foot/2/traffic_light/0", 600, 657, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        sensors.add(new Sensor(groupID + "/foot/2/sensor/0", 600, 657));
+        worldObjects.add(lightP3);
+
+        //West side
+        TrafficLight lightP4 = new TrafficLight(groupID + "/foot/7/traffic_light/0", 440, 235, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        sensors.add(new Sensor(groupID + "/foot/7/sensor/0", 440, 235));
+        worldObjects.add(lightP4);
+        TrafficLight lightP5 = new TrafficLight(groupID + "/foot/6/traffic_light/0", 605, 220, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        sensors.add(new Sensor(groupID + "/foot/6/sensor/0", 605, 220));
+        worldObjects.add(lightP5);
+
+        //South side
+        
+        TrafficLight lightP1 = new TrafficLight(groupID + "/foot/5/0/traffic_light/0", 264, 302, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        sensors.add(new Sensor(groupID + "/foot/5/0/sensor/0", 275, 302));
+        worldObjects.add(lightP1);
+        TrafficLight lightP6 = new TrafficLight(groupID + "/foot/4/1/traffic_light/0", 264, 411, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        sensors.add(new Sensor(groupID + "/foot/4/1/sensor/0", 274, 416));
+        worldObjects.add(lightP6);
+        TrafficLight lightP12 = new TrafficLight(groupID + "/foot/4/2/traffic_light/0", 264, 492, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        sensors.add(new Sensor(groupID + "/foot/4/2/sensor/0", 274, 487));
+        worldObjects.add(lightP12);
+        
+        TrafficLight lightP0 = new TrafficLight(groupID + "/foot/4/0/traffic_light/0", 285, 598, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        sensors.add(new Sensor(groupID + "/foot/4/0/sensor/0", 275, 598));
+        worldObjects.add(lightP0);
+        TrafficLight lightP7 = new TrafficLight(groupID + "/foot/5/2/traffic_light/0", 285, 482, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        sensors.add(new Sensor(groupID + "/foot/4/2/sensor/0", 274, 487));
+        worldObjects.add(lightP7);
+        TrafficLight lightP13 = new TrafficLight(groupID + "/foot/5/1/traffic_light/0", 285, 421, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        sensors.add(new Sensor(groupID + "/foot/4/1/sensor/0", 274, 416));
+        worldObjects.add(lightP13);
+        
+        
+        //North side
+        TrafficLight lightP9 = new TrafficLight(groupID + "/foot/0/0/traffic_light/0", 682, 595, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        sensors.add(new Sensor(groupID + "/foot/0/0/sensor/0", 682, 595));
+        worldObjects.add(lightP9);
+        TrafficLight lightP10 = new TrafficLight(groupID + "/foot/0/1/traffic_light/0", 682, 486, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        sensors.add(new Sensor(groupID + "/foot/0/0/sensor/0", 682, 486));
+        worldObjects.add(lightP10);
+        TrafficLight lightP8 = new TrafficLight(groupID + "/foot/1/0/traffic_light/0", 661, 285, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        sensors.add(new Sensor(groupID + "/foot/1/0/sensor/0", 661, 285));
+        worldObjects.add(lightP8);
+        TrafficLight lightP11 = new TrafficLight(groupID + "/foot/1/1/traffic_light/0", 661, 496, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
+        sensors.add(new Sensor(groupID + "/foot/0/1/sensor/0", 661, 496));
+        worldObjects.add(lightP11);
 
         //Creating train barriers
         //West > East
@@ -360,24 +626,28 @@ public class Simulation extends JPanel {
 
         //Car spawn
         if (tickCount % 100 == 0) {
-            int random = (int) (Math.random() * 11);
+            int random = (int) (Math.random() * carRoutes.size());
             worldObjects.add(new Car(carRoutes.get(random), carImage));
         }
         //Train spawn
         if (tickCount % 3600 == 0) {
-            int i = 0;
-            if (tickCount % 7200 == 0) {
-                i = 1;
-            }
-            worldObjects.add(new Train(trainRoutes.get(i), trainImage));
+            int random = (int) (Math.random() * trainRoutes.size());
+            worldObjects.add(new Train(trainRoutes.get(random), trainImage));
         }
         //Boat spawn
         if (tickCount % 4800 == 0) {
-            int i = 1;
-            if (tickCount % 9600 == 0) {
-                i = 0;
-            }
-            worldObjects.add(new Boat(boatRoutes.get(i), boatImage));
+            int random = (int) (Math.random() * boatRoutes.size());
+            worldObjects.add(new Boat(boatRoutes.get(0), boatImage));
+        }
+        //Pedestrian spawn
+        if (tickCount % 150 == 0) {
+            int random = (int) (Math.random() * pedestrianRoutes.size());
+            worldObjects.add(new Pedestrian(pedestrianRoutes.get(random), pedestrianImage));
+        }
+
+        if (tickCount % 150 == 0) {
+            int random = (int) (Math.random() * cyclistRoutes.size());
+            worldObjects.add(new Cyclist(cyclistRoutes.get(random), bikeImage));
         }
         ArrayList<DrawAbleObject> deleteList = new ArrayList();
         for (DrawAbleObject object : worldObjects) {
@@ -408,6 +678,17 @@ public class Simulation extends JPanel {
             xform.rotate(Math.toRadians((int) object.getRotation()), (object.getImage().getWidth(this) / 2), (object.getImage().getHeight(this) / 2));
             g2.drawImage(object.getImage(), xform, this);
 
+//            if (object instanceof MoveAbleObject) {
+//
+//                Rectangle2D rect = ((MoveAbleObject) object).getHitbox();
+//                g2.drawRect((int) rect.getX(), (int) rect.getY(), (int) rect.getWidth(), (int) rect.getHeight());
+//
+//                rect = ((MoveAbleObject) object).predictbox;
+//                g2.setColor(Color.RED);
+//                g2.drawRect((int) rect.getX(), (int) rect.getY(), (int) rect.getWidth(), (int) rect.getHeight());
+//                g2.setColor(Color.BLACK);
+//
+//            }
         }
     }
 
