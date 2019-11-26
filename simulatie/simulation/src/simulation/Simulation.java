@@ -55,14 +55,11 @@ public class Simulation extends JPanel {
     private Image red;
     private Image orange;
     private Image green;
-    private Image white;
-
+    
     private Image redBike;
-    private Image whiteBike;
     private Image greenBike;
 
     private Image redPedestrian;
-    private Image whitePedestrian;
     private Image greenPedestrian;
 
     private MqttSubscriber subscriber = MqttSubscriber.getInstance(groupID + "/#");
@@ -83,13 +80,10 @@ public class Simulation extends JPanel {
             red = ImageIO.read(new File("./red.png"));
             orange = ImageIO.read(new File("./orange.png"));
             green = ImageIO.read(new File("./green.png"));
-            white = ImageIO.read(new File("./white.png"));
             redBike = ImageIO.read(new File("./redBike.png"));
             greenBike = ImageIO.read(new File("./greenBike.png"));
-            whiteBike = ImageIO.read(new File("./whiteBike.png"));
             redPedestrian = ImageIO.read(new File("./redPedestrian.png"));
             greenPedestrian = ImageIO.read(new File("./greenPedestrian.png"));
-            whitePedestrian = ImageIO.read(new File("./whitePedestrian.png"));
 
             shortbarrier = ImageIO.read(new File("./shortbarrier.png"));
             shortbarrierOff = ImageIO.read(new File("./shortbarrierOff.png"));
@@ -104,12 +98,12 @@ public class Simulation extends JPanel {
 
         //Creating sensors
         //Track
-        sensors.add(new Sensor(groupID + "/Track/0/sensor/0", 343, 10));
-        sensors.add(new Sensor(groupID + "/Track/1/sensor/0", 343, 890));
+        sensors.add(new Sensor(groupID + "/track/0/sensor/2", 343, 10));
+        sensors.add(new Sensor(groupID + "/track/0/sensor/0", 343, 890));
 
         //Vessel
-        sensors.add(new Sensor(groupID + "/Vessel/0/sensor/0", 1129, 10));
-        sensors.add(new Sensor(groupID + "/Vessel/1/sensor/0", 1129, 890));
+        sensors.add(new Sensor(groupID + "/vessel/0/sensor/2", 1129, 10));
+        sensors.add(new Sensor(groupID + "/vessel/0/sensor/0", 1129, 890));
 
         //Motorised
         //North
@@ -119,12 +113,12 @@ public class Simulation extends JPanel {
 
         //North >South
         //East Lane
-        sensors.add(new Sensor(groupID + "/motorised/1/0/sensor/0", 872, 407));
-        sensors.add(new Sensor(groupID + "/motorised/1/0/sensor/1", 714, 407));
+        sensors.add(new Sensor(groupID + "/motorised/1/sensor/0", 872, 407));
+        sensors.add(new Sensor(groupID + "/motorised/1/sensor/1", 714, 407));
 
         //West Lane
-        sensors.add(new Sensor(groupID + "/motorised/1/1/sensor/0", 872, 360));
-        sensors.add(new Sensor(groupID + "/motorised/1/1/sensor/1", 714, 360));
+        sensors.add(new Sensor(groupID + "/motorised/1/sensor/2", 872, 360));
+        sensors.add(new Sensor(groupID + "/motorised/1/sensor/3", 714, 360));
 
         //North > West
         sensors.add(new Sensor(groupID + "/motorised/2/sensor/0", 872, 300));
@@ -142,12 +136,12 @@ public class Simulation extends JPanel {
         //South
         //South > North & East
         //South > North
-        sensors.add(new Sensor(groupID + "/motorised/5/0/sensor/0", 35, 520));
-        sensors.add(new Sensor(groupID + "/motorised/5/0/sensor/1", 166, 520));
+        sensors.add(new Sensor(groupID + "/motorised/5/sensor/3", 35, 520));
+        sensors.add(new Sensor(groupID + "/motorised/5/sensor/2", 166, 520));
 
         //South > East
-        sensors.add(new Sensor(groupID + "/motorised/5/1/sensor/0", 35, 573));
-        sensors.add(new Sensor(groupID + "/motorised/5/1/sensor/1", 166, 573));
+        sensors.add(new Sensor(groupID + "/motorised/5/sensor/1", 35, 573));
+        sensors.add(new Sensor(groupID + "/motorised/5/sensor/0", 166, 573));
 
         //South > West
         sensors.add(new Sensor(groupID + "/motorised/6/sensor/0", 35, 452));
@@ -161,6 +155,51 @@ public class Simulation extends JPanel {
         //West > South
         sensors.add(new Sensor(groupID + "/motorised/8/sensor/0", 470, 330));
         sensors.add(new Sensor(groupID + "/motorised/8/sensor/1", 470, 35));
+        
+        //Cyclist sensors
+        //South
+        sensors.add(new Sensor(groupID + "/cycle/3/sensor/0", 245, 598));
+        sensors.add(new Sensor(groupID + "/cycle/3/sensor/1", 228, 302));
+        sensors.add(new Sensor(groupID + "/cycle/2/sensor/0", 400, 305));
+        
+        //North
+        sensors.add(new Sensor(groupID + "/cycle/0/sensor/0", 638, 585));
+        
+        //East
+        sensors.add(new Sensor(groupID + "/cycle/1/sensor/0", 450, 635));
+        
+        //West
+        sensors.add(new Sensor(groupID + "/cycle/4/sensor/1", 440, 280));
+        sensors.add(new Sensor(groupID + "/cycle/4/sensor/0", 600, 260));
+        
+        //Pedestrian sensors
+        //North
+        sensors.add(new Sensor(groupID + "/foot/0/sensor/0", 682, 595));
+        sensors.add(new Sensor(groupID + "/foot/0/sensor/1", 661, 496));
+        sensors.add(new Sensor(groupID + "/foot/1/sensor/0", 661, 285));
+        sensors.add(new Sensor(groupID + "/foot/1/sensor/1", 682, 486));
+        
+        
+        //East
+        sensors.add(new Sensor(groupID + "/foot/2/sensor/1", 440, 675));
+        sensors.add(new Sensor(groupID + "/foot/2/sensor/0", 600, 657));
+        
+        //South
+        sensors.add(new Sensor(groupID + "/foot/3/sensor/0", 264, 492));
+        sensors.add(new Sensor(groupID + "/foot/3/sensor/1", 285, 598));
+        sensors.add(new Sensor(groupID + "/foot/4/sensor/0", 264, 411));
+        sensors.add(new Sensor(groupID + "/foot/4/sensor/1", 285, 482));
+        sensors.add(new Sensor(groupID + "/foot/5/sensor/0", 264, 302));
+        sensors.add(new Sensor(groupID + "/foot/5/sensor/1", 285, 421));
+        
+        //West
+        sensors.add(new Sensor(groupID + "/foot/6/sensor/1", 440, 235));
+        sensors.add(new Sensor(groupID + "/foot/6/sensor/0", 605, 220));
+        
+        
+        
+        
+        
 
         //Filling the trainRoutes ArrayList
         ArrayList<Point2D> routeT0 = new ArrayList();
@@ -421,117 +460,96 @@ public class Simulation extends JPanel {
 
         //Creating traffic lights
         //North
-        TrafficLight light0 = new TrafficLight(groupID + "/motorised/0/traffic_light/0", 702, 470, 180, red, orange, green, white, "car");
+        TrafficLight light0 = new TrafficLight(groupID + "/motorised/0/traffic_light/0", 702, 470, 180, red, orange, green, "car");
         worldObjects.add(light0);
-        TrafficLight light1 = new TrafficLight(groupID + "/motorised/1/0/traffic_light/0", 702, 421, 270, red, orange, green, white, "car");
+        TrafficLight light1 = new TrafficLight(groupID + "/motorised/1/traffic_light/0", 702, 421, 270, red, orange, green, "car");
         worldObjects.add(light1);
-        TrafficLight light2 = new TrafficLight(groupID + "/motorised/1/1/traffic_light/0", 702, 342, 270, red, orange, green, white, "car");
+        TrafficLight light2 = new TrafficLight(groupID + "/motorised/1/traffic_light/0", 702, 342, 270, red, orange, green, "car");
         worldObjects.add(light2);
-        TrafficLight light3 = new TrafficLight(groupID + "/motorised/2/traffic_light/0", 702, 293, 0, red, orange, green, white, "car");
+        TrafficLight light3 = new TrafficLight(groupID + "/motorised/2/traffic_light/0", 702, 293, 0, red, orange, green, "car");
         worldObjects.add(light3);
 
         //East
-        TrafficLight light4 = new TrafficLight(groupID + "/motorised/3/traffic_light/0", 588, 698, 90, red, orange, green, white, "car");
+        TrafficLight light4 = new TrafficLight(groupID + "/motorised/3/traffic_light/0", 588, 698, 90, red, orange, green, "car");
         worldObjects.add(light4);
-        TrafficLight light5 = new TrafficLight(groupID + "/motorised/4/traffic_light/0", 509, 698, 270, red, orange, green, white, "car");
+        TrafficLight light5 = new TrafficLight(groupID + "/motorised/4/traffic_light/0", 509, 698, 270, red, orange, green, "car");
         worldObjects.add(light5);
 
         //South
-        TrafficLight light6 = new TrafficLight(groupID + "/motorised/5/0/traffic_light/0", 202, 505, 90, red, orange, green, white, "car");
+        TrafficLight light6 = new TrafficLight(groupID + "/motorised/5/traffic_light/0", 202, 505, 90, red, orange, green, "car");
         worldObjects.add(light6);
-        TrafficLight light7 = new TrafficLight(groupID + "/motorised/5/1/traffic_light/0", 202, 584, 90, red, orange, green, white, "car");
+        TrafficLight light7 = new TrafficLight(groupID + "/motorised/5/traffic_light/0", 202, 584, 90, red, orange, green, "car");
         worldObjects.add(light7);
-        TrafficLight light8 = new TrafficLight(groupID + "/motorised/6/traffic_light/0", 202, 438, 0, red, orange, green, white, "car");
+        TrafficLight light8 = new TrafficLight(groupID + "/motorised/6/traffic_light/0", 202, 438, 0, red, orange, green, "car");
         worldObjects.add(light8);
 
         //West
-        TrafficLight light9 = new TrafficLight(groupID + "/motorised/7/traffic_light/0", 538, 202, 90, red, orange, green, white, "car");
+        TrafficLight light9 = new TrafficLight(groupID + "/motorised/8/traffic_light/0", 538, 202, 90, red, orange, green, "car");
         worldObjects.add(light9);
-        TrafficLight light10 = new TrafficLight(groupID + "/motorised/8/traffic_light/0", 460, 202, 270, red, orange, green, white, "car");
+        TrafficLight light10 = new TrafficLight(groupID + "/motorised/7/traffic_light/0", 460, 202, 270, red, orange, green, "car");
         worldObjects.add(light10);
-
+        
+        
         //Cyclist lights
         //South side
-        TrafficLight lightC0 = new TrafficLight(groupID + "/cycle/3/0/traffic_light/0", 245, 598, 0,redBike, whiteBike, greenBike, whiteBike, "cyclist");
-        sensors.add(new Sensor(groupID + "/cycle/3/0/sensor/0", 245, 598));
+        TrafficLight lightC0 = new TrafficLight(groupID + "/cycle/3/traffic_light/0", 245, 598, 0,redBike, redBike, greenBike, "cyclist");
         worldObjects.add(lightC0);
-        TrafficLight lightC1 = new TrafficLight(groupID + "/cycle/3/1/traffic_light/0", 228, 302, 0, redBike, whiteBike, greenBike, whiteBike, "cyclist");
-        sensors.add(new Sensor(groupID + "/cycle/3/1/sensor/0", 228, 302));
+        TrafficLight lightC1 = new TrafficLight(groupID + "/cycle/3/traffic_light/0", 228, 302, 0, redBike, redBike, greenBike, "cyclist");
         worldObjects.add(lightC1);
-        TrafficLight lightC2 = new TrafficLight(groupID + "/cycle/2/traffic_light/0", 400, 305, 0, redBike, whiteBike, greenBike, whiteBike, "cyclist");
-        sensors.add(new Sensor(groupID + "/cycle/2/sensor/0", 400, 305));
+        TrafficLight lightC2 = new TrafficLight(groupID + "/cycle/2/traffic_light/0", 400, 305, 0, redBike, redBike, greenBike, "cyclist");
         worldObjects.add(lightC2);
 
         //North side
-        TrafficLight lightC3 = new TrafficLight(groupID + "/cycle/0/traffic_light/0", 638, 585, 0, redBike, whiteBike, greenBike, whiteBike, "cyclist");
-        sensors.add(new Sensor(groupID + "/cycle/0/sensor/0", 638, 585));
+        TrafficLight lightC3 = new TrafficLight(groupID + "/cycle/0/traffic_light/0", 638, 585, 0, redBike, redBike, greenBike, "cyclist");
         worldObjects.add(lightC3);
 
         //East side
-        TrafficLight lightC4 = new TrafficLight(groupID + "/cycle/1/traffic_light/0", 450, 635, 0, redBike, whiteBike, greenBike, whiteBike, "cyclist");
-        sensors.add(new Sensor(groupID + "/cycle/1/sensor/0", 450, 635));
+        TrafficLight lightC4 = new TrafficLight(groupID + "/cycle/1/traffic_light/0", 450, 635, 0, redBike, redBike, greenBike, "cyclist");
         worldObjects.add(lightC4);
 
         //West side
-        TrafficLight lightC5 = new TrafficLight(groupID + "/cycle/5/traffic_light/0", 440, 280, 0, redBike, whiteBike, greenBike, whiteBike, "cyclist");
-        sensors.add(new Sensor(groupID + "/cycle/5/sensor/0", 440, 280));
+        TrafficLight lightC5 = new TrafficLight(groupID + "/cycle/4/traffic_light/0", 440, 280, 0, redBike, redBike, greenBike, "cyclist");
         worldObjects.add(lightC5);
-        TrafficLight lightC6 = new TrafficLight(groupID + "/cycle/4/traffic_light/0", 600, 260, 0, redBike, whiteBike, greenBike, whiteBike, "cyclist");
-        sensors.add(new Sensor(groupID + "/cycle/4/sensor/0", 600, 260));
+        TrafficLight lightC6 = new TrafficLight(groupID + "/cycle/4/traffic_light/0", 600, 260, 0, redBike, redBike, greenBike, "cyclist");
         worldObjects.add(lightC6);
+        
 
         //Pedestrian lights
         //East side
-        TrafficLight lightP2 = new TrafficLight(groupID + "/foot/3/traffic_light/0", 440, 675, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
-        sensors.add(new Sensor(groupID + "/foot/3/sensor/0", 440, 675));
+        TrafficLight lightP2 = new TrafficLight(groupID + "/foot/2/traffic_light/0", 440, 675, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
         worldObjects.add(lightP2);
-        TrafficLight lightP3 = new TrafficLight(groupID + "/foot/2/traffic_light/0", 600, 657, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
-        sensors.add(new Sensor(groupID + "/foot/2/sensor/0", 600, 657));
+        TrafficLight lightP3 = new TrafficLight(groupID + "/foot/2/traffic_light/0", 600, 657, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
         worldObjects.add(lightP3);
 
         //West side
-        TrafficLight lightP4 = new TrafficLight(groupID + "/foot/7/traffic_light/0", 440, 235, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
-        sensors.add(new Sensor(groupID + "/foot/7/sensor/0", 440, 235));
+        TrafficLight lightP4 = new TrafficLight(groupID + "/foot/6/traffic_light/0", 440, 235, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
         worldObjects.add(lightP4);
-        TrafficLight lightP5 = new TrafficLight(groupID + "/foot/6/traffic_light/0", 605, 220, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
-        sensors.add(new Sensor(groupID + "/foot/6/sensor/0", 605, 220));
+        TrafficLight lightP5 = new TrafficLight(groupID + "/foot/6/traffic_light/0", 605, 220, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
         worldObjects.add(lightP5);
-
+        
         //South side
-        
-        TrafficLight lightP1 = new TrafficLight(groupID + "/foot/5/0/traffic_light/0", 264, 302, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
-        sensors.add(new Sensor(groupID + "/foot/5/0/sensor/0", 275, 302));
+        TrafficLight lightP1 = new TrafficLight(groupID + "/foot/5/traffic_light/0", 264, 302, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
         worldObjects.add(lightP1);
-        TrafficLight lightP6 = new TrafficLight(groupID + "/foot/4/1/traffic_light/0", 264, 411, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
-        sensors.add(new Sensor(groupID + "/foot/4/1/sensor/0", 274, 416));
+        TrafficLight lightP6 = new TrafficLight(groupID + "/foot/4/traffic_light/0", 264, 411, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
         worldObjects.add(lightP6);
-        TrafficLight lightP12 = new TrafficLight(groupID + "/foot/4/2/traffic_light/0", 264, 492, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
-        sensors.add(new Sensor(groupID + "/foot/4/2/sensor/0", 274, 487));
+        TrafficLight lightP12 = new TrafficLight(groupID + "/foot/3/traffic_light/0", 264, 492, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
         worldObjects.add(lightP12);
-        
-        TrafficLight lightP0 = new TrafficLight(groupID + "/foot/4/0/traffic_light/0", 285, 598, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
-        sensors.add(new Sensor(groupID + "/foot/4/0/sensor/0", 275, 598));
+        TrafficLight lightP0 = new TrafficLight(groupID + "/foot/3/traffic_light/0", 285, 598, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
         worldObjects.add(lightP0);
-        TrafficLight lightP7 = new TrafficLight(groupID + "/foot/5/2/traffic_light/0", 285, 482, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
-        sensors.add(new Sensor(groupID + "/foot/4/2/sensor/0", 274, 487));
+        TrafficLight lightP7 = new TrafficLight(groupID + "/foot/4/traffic_light/0", 285, 482, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
         worldObjects.add(lightP7);
-        TrafficLight lightP13 = new TrafficLight(groupID + "/foot/5/1/traffic_light/0", 285, 421, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
-        sensors.add(new Sensor(groupID + "/foot/4/1/sensor/0", 274, 416));
+        TrafficLight lightP13 = new TrafficLight(groupID + "/foot/5/traffic_light/0", 285, 421, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
         worldObjects.add(lightP13);
         
         
         //North side
-        TrafficLight lightP9 = new TrafficLight(groupID + "/foot/0/0/traffic_light/0", 682, 595, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
-        sensors.add(new Sensor(groupID + "/foot/0/0/sensor/0", 682, 595));
+        TrafficLight lightP9 = new TrafficLight(groupID + "/foot/0/traffic_light/0", 682, 595, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
         worldObjects.add(lightP9);
-        TrafficLight lightP10 = new TrafficLight(groupID + "/foot/0/1/traffic_light/0", 682, 486, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
-        sensors.add(new Sensor(groupID + "/foot/0/0/sensor/0", 682, 486));
+        TrafficLight lightP10 = new TrafficLight(groupID + "/foot/1/traffic_light/0", 682, 486, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
         worldObjects.add(lightP10);
-        TrafficLight lightP8 = new TrafficLight(groupID + "/foot/1/0/traffic_light/0", 661, 285, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
-        sensors.add(new Sensor(groupID + "/foot/1/0/sensor/0", 661, 285));
+        TrafficLight lightP8 = new TrafficLight(groupID + "/foot/1/traffic_light/0", 661, 285, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
         worldObjects.add(lightP8);
-        TrafficLight lightP11 = new TrafficLight(groupID + "/foot/1/1/traffic_light/0", 661, 496, 0, redPedestrian, whitePedestrian, greenPedestrian, whitePedestrian, "pedestrian");
-        sensors.add(new Sensor(groupID + "/foot/0/1/sensor/0", 661, 496));
+        TrafficLight lightP11 = new TrafficLight(groupID + "/foot/0/traffic_light/0", 661, 496, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
         worldObjects.add(lightP11);
 
         //Creating train barriers
@@ -539,28 +557,28 @@ public class Simulation extends JPanel {
         Barrier barrier0 = new Barrier(groupID + "/track/0/barrier/0", 375, 270, shortbarrierOff, shortbarrier);
         worldObjects.add(barrier0);
         trainBarriers.add(barrier0);
-        Barrier barrier1 = new Barrier(groupID + "/track/0/barrier/1", 375, 365, longbarrierOff, longbarrier);
+        Barrier barrier1 = new Barrier(groupID + "/track/0/barrier/0", 375, 365, longbarrierOff, longbarrier);
         worldObjects.add(barrier1);
         trainBarriers.add(barrier1);
-        Barrier barrier2 = new Barrier(groupID + "/track/0/barrier/2", 375, 625, shortbarrierOff, shortbarrier);
+        Barrier barrier2 = new Barrier(groupID + "/track/0/barrier/0", 375, 625, shortbarrierOff, shortbarrier);
         worldObjects.add(barrier2);
         trainBarriers.add(barrier2);
-        Barrier barrier3 = new Barrier(groupID + "/track/0/barrier/3", 375, 665, shortbarrierOff, shortbarrier);
+        Barrier barrier3 = new Barrier(groupID + "/track/0/barrier/0", 375, 665, shortbarrierOff, shortbarrier);
         worldObjects.add(barrier3);
         trainBarriers.add(barrier3);
-        Barrier barrier4 = new Barrier(groupID + "/track/0/barrier/4", 310, 240, shortbarrierOff, shortbarrier);
+        Barrier barrier4 = new Barrier(groupID + "/track/0/barrier/0", 310, 240, shortbarrierOff, shortbarrier);
         worldObjects.add(barrier4);
         trainBarriers.add(barrier4);
-        Barrier barrier5 = new Barrier(groupID + "/track/0/barrier/5", 310, 270, shortbarrierOff, shortbarrier);
+        Barrier barrier5 = new Barrier(groupID + "/track/0/barrier/0", 310, 270, shortbarrierOff, shortbarrier);
         worldObjects.add(barrier5);
         trainBarriers.add(barrier5);
-        Barrier barrier6 = new Barrier(groupID + "/track/0/barrier/6", 310, 450, midbarrierOff, midbarrier);
+        Barrier barrier6 = new Barrier(groupID + "/track/0/barrier/0", 310, 450, midbarrierOff, midbarrier);
         worldObjects.add(barrier6);
         trainBarriers.add(barrier6);
-        Barrier barrier7 = new Barrier(groupID + "/track/0/barrier/7", 310, 547, longbarrierOff, longbarrier);
+        Barrier barrier7 = new Barrier(groupID + "/track/0/barrier/0", 310, 547, longbarrierOff, longbarrier);
         worldObjects.add(barrier7);
         trainBarriers.add(barrier7);
-        Barrier barrier8 = new Barrier(groupID + "/track/0/barrier/8", 310, 645, midbarrierOff, midbarrier);
+        Barrier barrier8 = new Barrier(groupID + "/track/0/barrier/0", 310, 645, midbarrierOff, midbarrier);
         worldObjects.add(barrier8);
         trainBarriers.add(barrier8);
 
@@ -569,27 +587,30 @@ public class Simulation extends JPanel {
         Barrier vesbarrier0 = new Barrier(groupID + "/vessel/0/barrier/0", 1225, 372, longbarrierOff, longbarrier);
         worldObjects.add(vesbarrier0);
         boatBarriers.add(vesbarrier0);
-        Barrier vesbarrier1 = new Barrier(groupID + "/vessel/0/barrier/1", 1225, 465, midbarrierOff, midbarrier);
+        Barrier vesbarrier1 = new Barrier(groupID + "/vessel/0/barrier/0", 1225, 465, midbarrierOff, midbarrier);
         worldObjects.add(vesbarrier1);
         boatBarriers.add(vesbarrier1);
-        Barrier vesbarrier2 = new Barrier(groupID + "/vessel/0/barrier/2", 1225, 552, longbarrierOff, longbarrier);
+        Barrier vesbarrier2 = new Barrier(groupID + "/vessel/0/barrier/0", 1225, 552, longbarrierOff, longbarrier);
         worldObjects.add(vesbarrier2);
         boatBarriers.add(vesbarrier2);
-        Barrier vesbarrier3 = new Barrier(groupID + "/vessel/0/barrier/3", 1225, 643, midbarrierOff, midbarrier);
+        Barrier vesbarrier3 = new Barrier(groupID + "/vessel/0/barrier/0", 1225, 643, midbarrierOff, midbarrier);
         worldObjects.add(vesbarrier3);
         boatBarriers.add(vesbarrier3);
-        Barrier vesbarrier4 = new Barrier(groupID + "/vessel/0/barrier/4", 1062, 372, longbarrierOff, longbarrier);
+        Barrier vesbarrier4 = new Barrier(groupID + "/vessel/0/barrier/0", 1062, 372, longbarrierOff, longbarrier);
         worldObjects.add(vesbarrier4);
         boatBarriers.add(vesbarrier4);
-        Barrier vesbarrier5 = new Barrier(groupID + "/vessel/0/barrier/5", 1062, 465, midbarrierOff, midbarrier);
+        Barrier vesbarrier5 = new Barrier(groupID + "/vessel/0/barrier/0", 1062, 465, midbarrierOff, midbarrier);
         worldObjects.add(vesbarrier5);
         boatBarriers.add(vesbarrier5);
-        Barrier vesbarrier6 = new Barrier(groupID + "/vessel/0/barrier/6", 1062, 552, longbarrierOff, longbarrier);
+        Barrier vesbarrier6 = new Barrier(groupID + "/vessel/0/barrier/0", 1062, 552, longbarrierOff, longbarrier);
         worldObjects.add(vesbarrier6);
         boatBarriers.add(vesbarrier6);
-        Barrier vesbarrier7 = new Barrier(groupID + "/vessel/0/barrier/7", 1062, 643, midbarrierOff, midbarrier);
+        Barrier vesbarrier7 = new Barrier(groupID + "/vessel/0/barrier/0", 1062, 643, midbarrierOff, midbarrier);
         worldObjects.add(vesbarrier7);
         boatBarriers.add(vesbarrier7);
+        
+        sensors.add(new Sensor(groupID + "/vessel/0/sensor/1", 1150, 500));
+        sensors.add(new Sensor(groupID + "/track/0/sensor/1", 345, 445));
 
     }
 

@@ -18,14 +18,13 @@ public class TrafficLight implements DrawAbleObject {
     private Image red;
     private Image orange;
     private Image green;
-    private Image white;
     private int rotation;
     private String color;
     private String payLoad;
     private String topic;
     private String type;
     
-    public TrafficLight(String topic, int x, int y, int rotation, Image red, Image orange, Image green, Image white, String type) {
+    public TrafficLight(String topic, int x, int y, int rotation, Image red, Image orange, Image green , String type) {
         this.topic = topic;
         
         this.x = x;
@@ -35,7 +34,6 @@ public class TrafficLight implements DrawAbleObject {
         this.red = red;
         this.orange = orange;
         this.green = green;
-        this.white = white;
         
         this.type = type;
     }
@@ -66,12 +64,8 @@ public class TrafficLight implements DrawAbleObject {
         }else if(payLoad != null && payLoad.contains("2")) {
             color = "green";
             return green;
-        }else if(payLoad != null && payLoad.contains("3")) {
-            return white;
-        } else{
-            
-            return white;
-            
+        }else{
+            return red;
         }
     }
 
