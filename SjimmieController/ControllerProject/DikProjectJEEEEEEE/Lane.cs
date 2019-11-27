@@ -13,6 +13,7 @@ namespace Controller
     {
         private string[][] sensors;
         private string group;
+        public string GetGroup() { return group; }
         private string trafficLightTopic;
         private string trafficLightMessage = "0";
         private Thread publishThread;
@@ -68,7 +69,6 @@ namespace Controller
 
             this.group = group;
             trafficLightTopic = Program.group_id + "/" + group + "/traffic_light/0";
-            GreenLight();
         }
 
         public int GetPriority()
@@ -83,7 +83,7 @@ namespace Controller
                     if (Program.messages.TryGetValue(sensor, out value)) { if (value == "1") { priority++; } }
                 }
             }
-            return 100;
+            return priority;
         }
 
         public void RedLight()

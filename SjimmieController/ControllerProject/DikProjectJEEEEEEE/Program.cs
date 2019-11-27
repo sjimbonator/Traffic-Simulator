@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
 
+
 namespace Controller
 {
     class Program
@@ -71,6 +72,63 @@ namespace Controller
             }
         }
 
+        private static Lane FindHighestPrio( string[] keys)
+        {
+            Lane lane = null;
+            foreach (string key in keys)
+            {
+                Lane value;
+                if (lanes.TryGetValue(key, out value))
+                {
+                    if (lane == null) { lane = value; continue; }
+                    if (value.GetPriority() > lane.GetPriority()) { lane = value; }
+                }
+            }
+
+            return lane;
+        }
+
+        private static List<Lane> FindCompatibleHighestPrio()
+        {
+            List<Lane> prioLanes= new List<Lane>();
+            //Adds the lane with the highest priority of all the lanes to the list.
+            Lane highestPrio = FindHighestPrio(lanes.Keys.ToArray());
+            prioLanes.Add(highestPrio);
+
+            List<Lane> compatibleLanes(Lane parent, string[] compatibleKeys)
+            {
+                Lane prio = FindHighestPrio(compatibleKeys);
+
+                bool isCompatible = true;
+                foreach (Lane lane in prioLanes)
+                {
+                    if (!(lane.GetGroupedLanes().Contains(prio.GetGroup()))) { isCompatible = false; break; }
+                }
+                if (isCompatible) { prioLanes.Add(prio); }
+
+                string stringToRemove = prio.GetGroup();
+                compatibleKeys = compatibleKeys.Where(val => val != stringToRemove).ToArray();
+                if (compatibleKeys.Length == 0) { return prioLanes; }
+                return compatibleLanes(parent, compatibleKeys);
+            }
+            return prioLanes;
+        }
+
+        private static void setAllToRed()
+        {
+            foreach (KeyValuePair<string, Lane> entry in lanes)
+            {
+                entry.Value.RedLight();
+            }
+        }
+
+        private static void setListToGreen(List<Lane> laneList)
+        {
+            foreach (Lane lane in laneList)
+            {
+                lane.GreenLight();
+            }
+        }
 
         private static void CleanUp()
         {
@@ -115,12 +173,18 @@ namespace Controller
             lanes.Add("foot/6", new Lane("foot/6", 1, 1, new int[] {0,1,3,4,5}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
 
             Subscribe();
-
+            setAllToRed();
             //Main loop
             Console.WriteLine("Starting Main Loop use the enter key to exit.");
             while (Console.ReadKey().Key != ConsoleKey.Enter)
             {
-
+                Console.WriteLine("BIEM.");
+                setListToGreen(FindCompatibleHighestPrio());
+                Console.WriteLine("BATS.");
+                System.Threading.Thread.Sleep(10000);
+                Console.WriteLine("BAm.");
+                setAllToRed();
+                Console.WriteLine("BOEM.");
             }
             CleanUp();
 

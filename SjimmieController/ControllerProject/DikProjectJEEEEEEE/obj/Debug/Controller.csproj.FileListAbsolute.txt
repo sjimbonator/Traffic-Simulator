@@ -8,3 +8,13 @@ D:\git\git\Groep7SDM\SjimmieController\ControllerProject\DikProjectJEEEEEEE\obj\
 D:\git\git\Groep7SDM\SjimmieController\ControllerProject\DikProjectJEEEEEEE\obj\Debug\Controller.csproj.CopyComplete
 D:\git\git\Groep7SDM\SjimmieController\ControllerProject\DikProjectJEEEEEEE\obj\Debug\ControllerProject.exe
 D:\git\git\Groep7SDM\SjimmieController\ControllerProject\DikProjectJEEEEEEE\obj\Debug\ControllerProject.pdb
+C:\Users\Sjimmie\Documents\GitHub\Groep7SDM\SjimmieController\ControllerProject\DikProjectJEEEEEEE\bin\Debug\ControllerProject.exe.config
+C:\Users\Sjimmie\Documents\GitHub\Groep7SDM\SjimmieController\ControllerProject\DikProjectJEEEEEEE\bin\Debug\ControllerProject.exe
+C:\Users\Sjimmie\Documents\GitHub\Groep7SDM\SjimmieController\ControllerProject\DikProjectJEEEEEEE\bin\Debug\ControllerProject.pdb
+C:\Users\Sjimmie\Documents\GitHub\Groep7SDM\SjimmieController\ControllerProject\DikProjectJEEEEEEE\bin\Debug\M2Mqtt.Net.dll
+C:\Users\Sjimmie\Documents\GitHub\Groep7SDM\SjimmieController\ControllerProject\DikProjectJEEEEEEE\bin\Debug\M2Mqtt.Net.pdb
+C:\Users\Sjimmie\Documents\GitHub\Groep7SDM\SjimmieController\ControllerProject\DikProjectJEEEEEEE\obj\Debug\Controller.csprojAssemblyReference.cache
+C:\Users\Sjimmie\Documents\GitHub\Groep7SDM\SjimmieController\ControllerProject\DikProjectJEEEEEEE\obj\Debug\Controller.csproj.CoreCompileInputs.cache
+C:\Users\Sjimmie\Documents\GitHub\Groep7SDM\SjimmieController\ControllerProject\DikProjectJEEEEEEE\obj\Debug\Controller.csproj.CopyComplete
+C:\Users\Sjimmie\Documents\GitHub\Groep7SDM\SjimmieController\ControllerProject\DikProjectJEEEEEEE\obj\Debug\ControllerProject.exe
+C:\Users\Sjimmie\Documents\GitHub\Groep7SDM\SjimmieController\ControllerProject\DikProjectJEEEEEEE\obj\Debug\ControllerProject.pdb
