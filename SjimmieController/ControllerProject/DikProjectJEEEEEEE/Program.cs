@@ -75,6 +75,7 @@ namespace Controller
         private static void CleanUp()
         {
             //WIP
+            Environment.Exit(0);
         }
 
         static void Main(string[] args)
@@ -105,13 +106,13 @@ namespace Controller
             lanes.Add("cycle/3", new Lane("cycle/3", 1, 1, new int[] {0,2,3,7}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
             lanes.Add("cycle/4", new Lane("cycle/4", 1, 1, new int[] {0,1,3,4,5}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
 
-            lanes.Add("foot/0", new Lane("foot/0", 1, 1));
-            lanes.Add("foot/1", new Lane("foot/1", 1, 1));
-            lanes.Add("foot/2", new Lane("foot/2", 1, 1));
-            lanes.Add("foot/3", new Lane("foot/3", 1, 1));
-            lanes.Add("foot/4", new Lane("foot/4", 1, 1));
-            lanes.Add("foot/5", new Lane("foot/5", 1, 1));
-            lanes.Add("foot/6", new Lane("foot/6", 1, 1));
+            lanes.Add("foot/0", new Lane("foot/0", 1, 1, new int[] {4,6,8}, new int[] {0, 1, 2, 3, 4 }, new int[] {0,1,2,3,4,5,6}));
+            lanes.Add("foot/1", new Lane("foot/1", 1, 1, new int[] {4,6,8}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
+            lanes.Add("foot/2", new Lane("foot/2", 1, 1, new int[] {1,2,6,7,8}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
+            lanes.Add("foot/3", new Lane("foot/3", 1, 1, new int[] {0,2,3,7}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
+            lanes.Add("foot/4", new Lane("foot/4", 1, 1, new int[] {0,2,3,7}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
+            lanes.Add("foot/5", new Lane("foot/5", 1, 1, new int[] {0,2,3,7}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
+            lanes.Add("foot/6", new Lane("foot/6", 1, 1, new int[] {0,1,3,4,5}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
 
             Subscribe();
 

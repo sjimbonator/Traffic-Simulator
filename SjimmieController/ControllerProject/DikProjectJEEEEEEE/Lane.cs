@@ -17,6 +17,10 @@ namespace Controller
         private string trafficLightMessage = "0";
         private Thread publishThread;
 
+        //Array of all lanes that can cross at the same time as this lane.
+        private string[] groupedLanes;
+        public string[] GetGroupedLanes() { return groupedLanes; }
+
         private void Publish()
         {
             // Create Client instance
@@ -45,6 +49,23 @@ namespace Controller
                 }
             }
 
+            groupedLanes = new string[motorisedNumbers.Length + cycleNumbers.Length + footNumbers.Length];
+
+            for (int i = 0; i < motorisedNumbers.Length; i++)
+            {
+                groupedLanes[i] = "motorised/" + Convert.ToString(motorisedNumbers[i]);
+            }
+
+            for (int i = 0; i < cycleNumbers.Length; i++)
+            {
+                groupedLanes[i + motorisedNumbers.Length] = "cycle/" + Convert.ToString(cycleNumbers[i]);
+            }
+
+            for (int i = 0; i < footNumbers.Length; i++)
+            {
+                groupedLanes[i + motorisedNumbers.Length + cycleNumbers.Length] = "foot/" + Convert.ToString(footNumbers[i]);
+            }
+
             this.group = group;
             trafficLightTopic = Program.group_id + "/" + group + "/traffic_light/0";
             GreenLight();
@@ -52,7 +73,16 @@ namespace Controller
 
         public int GetPriority()
         {
-            //WIP
+            //WIP er kan beter een systeem komen dat telt hoelang de sensors al aan staan
+            int priority = 0;
+            foreach (string[] lane in sensors)
+            {
+                foreach (string sensor in lane)
+                {
+                    string value = "";
+                    if (Program.messages.TryGetValue(sensor, out value)) { if (value == "1") { priority++; } }
+                }
+            }
             return 100;
         }
 
@@ -74,6 +104,5 @@ namespace Controller
             publishThread = new Thread(Publish);
             publishThread.Start();
         }
-
     }
 }
