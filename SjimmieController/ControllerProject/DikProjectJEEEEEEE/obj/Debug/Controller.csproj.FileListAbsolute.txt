@@ -1,0 +1,10 @@
+D:\git\git\Groep7SDM\SjimmieController\ControllerProject\DikProjectJEEEEEEE\bin\Debug\ControllerProject.exe.config
+D:\git\git\Groep7SDM\SjimmieController\ControllerProject\DikProjectJEEEEEEE\bin\Debug\ControllerProject.exe
+D:\git\git\Groep7SDM\SjimmieController\ControllerProject\DikProjectJEEEEEEE\bin\Debug\ControllerProject.pdb
+D:\git\git\Groep7SDM\SjimmieController\ControllerProject\DikProjectJEEEEEEE\bin\Debug\M2Mqtt.Net.dll
+D:\git\git\Groep7SDM\SjimmieController\ControllerProject\DikProjectJEEEEEEE\bin\Debug\M2Mqtt.Net.pdb
+D:\git\git\Groep7SDM\SjimmieController\ControllerProject\DikProjectJEEEEEEE\obj\Debug\Controller.csprojAssemblyReference.cache
+D:\git\git\Groep7SDM\SjimmieController\ControllerProject\DikProjectJEEEEEEE\obj\Debug\Controller.csproj.CoreCompileInputs.cache
+D:\git\git\Groep7SDM\SjimmieController\ControllerProject\DikProjectJEEEEEEE\obj\Debug\Controller.csproj.CopyComplete
+D:\git\git\Groep7SDM\SjimmieController\ControllerProject\DikProjectJEEEEEEE\obj\Debug\ControllerProject.exe
+D:\git\git\Groep7SDM\SjimmieController\ControllerProject\DikProjectJEEEEEEE\obj\Debug\ControllerProject.pdb

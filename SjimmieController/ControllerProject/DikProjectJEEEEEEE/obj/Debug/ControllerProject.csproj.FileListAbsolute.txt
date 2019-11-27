@@ -1,0 +1,6 @@
+D:\git\git\Groep7SDM\SjimmieController\DikProjectJEEEEEEE\DikProjectJEEEEEEE\bin\Debug\ControllerProject.exe.config
+D:\git\git\Groep7SDM\SjimmieController\DikProjectJEEEEEEE\DikProjectJEEEEEEE\bin\Debug\ControllerProject.exe
+D:\git\git\Groep7SDM\SjimmieController\DikProjectJEEEEEEE\DikProjectJEEEEEEE\bin\Debug\ControllerProject.pdb
+D:\git\git\Groep7SDM\SjimmieController\DikProjectJEEEEEEE\DikProjectJEEEEEEE\obj\Debug\ControllerProject.csproj.CoreCompileInputs.cache
+D:\git\git\Groep7SDM\SjimmieController\DikProjectJEEEEEEE\DikProjectJEEEEEEE\obj\Debug\ControllerProject.exe
+D:\git\git\Groep7SDM\SjimmieController\DikProjectJEEEEEEE\DikProjectJEEEEEEE\obj\Debug\ControllerProject.pdb

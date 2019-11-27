@@ -4,15 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{29F8A728-A886-4235-8D93-11B629CB92A5}</ProjectGuid>
+    <ProjectGuid>{93D0A8AE-8A3D-4FEF-8820-753408A68868}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>MqttController</RootNamespace>
-    <AssemblyName>MqttController</AssemblyName>
+    <RootNamespace>Controller</RootNamespace>
+    <AssemblyName>ControllerProject</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -47,10 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GroupDecide.cs" />
-    <Compile Include="Motorised.cs" />
-    <Compile Include="MqttPublish.cs" />
-    <Compile Include="MqttSubscribe.cs" />
+    <Compile Include="Lane.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
