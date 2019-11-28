@@ -66,6 +66,7 @@ namespace Controller
                 if (messages.TryGetValue(topic, out value))
                 {
                     messages[topic] = mqttMessage;
+                    Console.WriteLine("De message is-" + mqttMessage + "-");
                 }
                 else { messages.Add(topic, mqttMessage); }
                 
@@ -90,6 +91,7 @@ namespace Controller
 
         private static List<Lane> FindCompatibleHighestPrio()
         {
+            Console.WriteLine("HIGHPRIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
             List<Lane> prioLanes= new List<Lane>();
             //Adds the lane with the highest priority of all the lanes to the list.
             Lane highestPrio = FindHighestPrio(lanes.Keys.ToArray());
@@ -176,7 +178,7 @@ namespace Controller
             setAllToRed();
             //Main loop
             Console.WriteLine("Starting Main Loop use the enter key to exit.");
-            while (Console.ReadKey().Key != ConsoleKey.Enter)
+            while (true)
             {
                 Console.WriteLine("BIEM.");
                 setListToGreen(FindCompatibleHighestPrio());

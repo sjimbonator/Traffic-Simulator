@@ -28,7 +28,7 @@ namespace Controller
             MqttClient client = new MqttClient(Program.brokerAddress);
 
             byte code = client.Connect(Guid.NewGuid().ToString());
-            Console.WriteLine(trafficLightTopic);
+            Console.WriteLine(trafficLightTopic + "gonna publish here");
 
             ushort msgId = client.Publish(trafficLightTopic, // topic
                               Encoding.UTF8.GetBytes(trafficLightMessage), // message body
@@ -45,7 +45,7 @@ namespace Controller
                 sensors[i] = new string[sensorAmount];
                 for (int j = 0; j < sensorAmount; j++)
                 {
-                    sensors[i][j] =group + "/sensor/" + Convert.ToString(id);
+                    sensors[i][j] =Program.group_id + "/" + group + "/sensor/" + Convert.ToString(id);
                     id++;
                 }
             }
@@ -83,6 +83,7 @@ namespace Controller
                     if (Program.messages.TryGetValue(sensor, out value)) { if (value == "1") { priority++; } }
                 }
             }
+            Console.WriteLine(Convert.ToString(priority)+ " = PRIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOORITYY");
             return priority;
         }
 
