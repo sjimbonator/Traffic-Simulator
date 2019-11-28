@@ -17,6 +17,14 @@ namespace Controller
         private string trafficLightTopic;
         private string trafficLightMessage = "0";
         private Thread publishThread;
+        private int[] priority;
+        public int GetPriority()
+        {
+            int totalPriority = 0;
+            foreach (int priority in this.priority) { totalPriority += priority; }
+            Console.WriteLine("totalPriority= " + totalPriority);
+            return totalPriority;
+        }
 
         //Array of all lanes that can cross at the same time as this lane.
         private string[] groupedLanes;
@@ -40,6 +48,8 @@ namespace Controller
         {
             int id = 0;
             sensors = new string[laneSize][];
+            priority = new int[laneSize * sensorAmount];
+            for (int i =0; i < priority.Length; i++) { priority[i] = 0; }
             for (int i = 0; i < laneSize; i++)
             {
                 sensors[i] = new string[sensorAmount];
@@ -71,20 +81,26 @@ namespace Controller
             trafficLightTopic = Program.group_id + "/" + group + "/traffic_light/0";
         }
 
-        public int GetPriority()
+        public void CheckPriority()
         {
-            //WIP er kan beter een systeem komen dat telt hoelang de sensors al aan staan
-            int priority = 0;
-            foreach (string[] lane in sensors)
+
+            for (int i = 0; i < sensors.Length; i++)
             {
-                foreach (string sensor in lane)
+                for (int j = 0; j < sensors[i].Length; j++)
                 {
+                    int increment = 2 / sensors.Length;
                     string value = "";
-                    if (Program.messages.TryGetValue(sensor, out value)) { if (value == "1") { priority++; } }
+                    if (Program.messages.TryGetValue(sensors[i][j], out value)) {
+                        Console.WriteLine("TEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEESTTTTTTTTTTTTT value= " + value + " increment = "+ increment + " length = " + sensors[i].Length);
+                        if (value == "1") { priority[i + j] += increment; }
+                        else if(value == "0") { priority[i + j] = 0; }
+                    }
                 }
             }
-            Console.WriteLine(Convert.ToString(priority)+ " = PRIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOORITYY");
-            return priority;
+
+
+                
+            
         }
 
         public void RedLight()

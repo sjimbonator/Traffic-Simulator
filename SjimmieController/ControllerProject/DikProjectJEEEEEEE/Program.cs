@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
@@ -99,6 +100,7 @@ namespace Controller
 
             List<Lane> compatibleLanes(Lane parent, string[] compatibleKeys)
             {
+                Console.WriteLine("RECUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUURRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSSIIIIIIIIIIIIIIIIIVVVVVVVVVVVVVVVVEEEEEEEEEEEE");
                 Lane prio = FindHighestPrio(compatibleKeys);
 
                 bool isCompatible = true;
@@ -113,10 +115,24 @@ namespace Controller
                 if (compatibleKeys.Length == 0) { return prioLanes; }
                 return compatibleLanes(parent, compatibleKeys);
             }
+
+            compatibleLanes(highestPrio, highestPrio.GetGroupedLanes());
             return prioLanes;
         }
 
-        private static void setAllToRed()
+        private static void UpdateLanes()
+        {
+            while (true)
+            {
+                foreach (KeyValuePair<string, Lane> entry in lanes)
+                {
+                    entry.Value.CheckPriority();
+                }
+            }
+            
+        }
+
+        private static void SetAllToRed()
         {
             foreach (KeyValuePair<string, Lane> entry in lanes)
             {
@@ -124,7 +140,7 @@ namespace Controller
             }
         }
 
-        private static void setListToGreen(List<Lane> laneList)
+        private static void SetListToGreen(List<Lane> laneList)
         {
             foreach (Lane lane in laneList)
             {
@@ -174,18 +190,21 @@ namespace Controller
             lanes.Add("foot/5", new Lane("foot/5", 1, 1, new int[] {0,2,3,7}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
             lanes.Add("foot/6", new Lane("foot/6", 1, 1, new int[] {0,1,3,4,5}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
 
-            Subscribe();
-            setAllToRed();
+            Thread subscribeThread = new Thread(Subscribe);
+            subscribeThread.Start();
+            SetAllToRed();
+            Thread updateThread = new Thread(UpdateLanes);
+            updateThread.Start();
             //Main loop
             Console.WriteLine("Starting Main Loop use the enter key to exit.");
             while (true)
             {
                 Console.WriteLine("BIEM.");
-                setListToGreen(FindCompatibleHighestPrio());
+                SetListToGreen(FindCompatibleHighestPrio());
                 Console.WriteLine("BATS.");
                 System.Threading.Thread.Sleep(10000);
                 Console.WriteLine("BAm.");
-                setAllToRed();
+                SetAllToRed();
                 Console.WriteLine("BOEM.");
             }
             CleanUp();
