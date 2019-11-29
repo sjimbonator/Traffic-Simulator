@@ -67,7 +67,6 @@ namespace Controller
                 if (messages.TryGetValue(topic, out value))
                 {
                     messages[topic] = mqttMessage;
-                    Console.WriteLine("De message is-" + mqttMessage + "-");
                 }
                 else { messages.Add(topic, mqttMessage); }
                 
@@ -83,7 +82,7 @@ namespace Controller
                 if (lanes.TryGetValue(key, out value))
                 {
                     if (lane == null) { lane = value; continue; }
-                    if (value.GetPriority() > lane.GetPriority()) { lane = value; }
+                    if (value.GetPriority() >= lane.GetPriority()) { lane = value; }
                 }
             }
 
@@ -92,7 +91,6 @@ namespace Controller
 
         private static List<Lane> FindCompatibleHighestPrio()
         {
-            Console.WriteLine("HIGHPRIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
             List<Lane> prioLanes= new List<Lane>();
             //Adds the lane with the highest priority of all the lanes to the list.
             Lane highestPrio = FindHighestPrio(lanes.Keys.ToArray());
@@ -100,7 +98,6 @@ namespace Controller
 
             List<Lane> compatibleLanes(Lane parent, string[] compatibleKeys)
             {
-                Console.WriteLine("RECUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUURRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSSIIIIIIIIIIIIIIIIIVVVVVVVVVVVVVVVVEEEEEEEEEEEE");
                 Lane prio = FindHighestPrio(compatibleKeys);
 
                 bool isCompatible = true;
@@ -199,13 +196,10 @@ namespace Controller
             Console.WriteLine("Starting Main Loop use the enter key to exit.");
             while (true)
             {
-                Console.WriteLine("BIEM.");
                 SetListToGreen(FindCompatibleHighestPrio());
-                Console.WriteLine("BATS.");
                 System.Threading.Thread.Sleep(10000);
-                Console.WriteLine("BAm.");
                 SetAllToRed();
-                Console.WriteLine("BOEM.");
+                System.Threading.Thread.Sleep(500);
             }
             CleanUp();
 
