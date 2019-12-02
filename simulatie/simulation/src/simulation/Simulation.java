@@ -245,7 +245,7 @@ public class Simulation extends JPanel {
         route2.add(new Point2D.Double(1010, 460));
         route2.add(new Point2D.Double(880, 359));
         route2.add(new Point2D.Double(710, 359));
-        route2.add(new Point2D.Double(200, 380));
+        route2.add(new Point2D.Double(200, 329));
         route2.add(new Point2D.Double(0, 380));
         carRoutes.add(route2);
 
