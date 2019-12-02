@@ -18,11 +18,13 @@ namespace Controller
         private string trafficLightMessage = "0";
         private Thread publishThread;
         private int[] priority;
+        private bool greenLight = false;
+
         public int GetPriority()
         {
             int totalPriority = 0;
             foreach (int priority in this.priority) { totalPriority += priority; }
-            Console.WriteLine("totalPriority= " + totalPriority);
+            Console.WriteLine("totalPriority van " + trafficLightTopic + "= " + totalPriority);
             return totalPriority;
         }
 
@@ -83,7 +85,6 @@ namespace Controller
 
         public void CheckPriority()
         {
-
             for (int i = 0; i < sensors.Length; i++)
             {
                 for (int j = 0; j < sensors[i].Length; j++)
@@ -91,9 +92,8 @@ namespace Controller
                     int increment = 2 / sensors.Length;
                     string value = "";
                     if (Program.messages.TryGetValue(sensors[i][j], out value)) {
-                        Console.WriteLine("TEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEESTTTTTTTTTTTTT value= " + value + " increment = "+ increment + " length = " + sensors[i].Length);
-                        if (value == "1") { priority[i + j] += increment; }
-                        else if(value == "0") { priority[i + j] = 0; }
+                        if (value == "1" && !greenLight) { priority[i + j] += increment; }
+                        else { priority[i + j] = 0; }
                     }
                 }
             }
@@ -108,18 +108,21 @@ namespace Controller
             trafficLightMessage = "0";
             publishThread = new Thread(Publish);
             publishThread.Start();
+            greenLight = false;
         }
         public void OrangeLight()
         {
             trafficLightMessage = "1";
             publishThread = new Thread(Publish);
             publishThread.Start();
+            greenLight = false;
         }
         public void GreenLight()
         {
             trafficLightMessage = "2";
             publishThread = new Thread(Publish);
             publishThread.Start();
+            greenLight = true;
         }
     }
 }
