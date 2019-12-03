@@ -98,12 +98,17 @@ public class Simulation extends JPanel {
 
         //Creating sensors
         //Track
-        sensors.add(new Sensor(groupID + "/track/0/sensor/2", 343, 10, "track"));
         sensors.add(new Sensor(groupID + "/track/0/sensor/0", 343, 890, "track"));
+        sensors.add(new Sensor(groupID + "/track/0/sensor/1", 345, 445, "track"));
+        sensors.add(new Sensor(groupID + "/track/0/sensor/2", 343, 285, "track"));
+
+
 
         //Vessel
+        sensors.add(new Sensor(groupID + "/vessel/0/sensor/0", 1129, 708, "vessel"));
+        sensors.add(new Sensor(groupID + "/vessel/0/sensor/1", 1150, 500, "vessel"));
         sensors.add(new Sensor(groupID + "/vessel/0/sensor/2", 1129, 10, "vessel"));
-        sensors.add(new Sensor(groupID + "/vessel/0/sensor/0", 1129, 890, "vessel"));
+        sensors.add(new Sensor(groupID + "/vessel/0/sensor/3", 1150, 500, "car"));
 
         //Motorised
         //North
@@ -615,10 +620,6 @@ public class Simulation extends JPanel {
         Barrier vesbarrier7 = new Barrier(groupID + "/vessel/0/barrier/0", 1062, 643, midbarrierOff, midbarrier);
         worldObjects.add(vesbarrier7);
         boatBarriers.add(vesbarrier7);
-
-        sensors.add(new Sensor(groupID + "/vessel/0/sensor/1", 1150, 500, "vessel"));
-        sensors.add(new Sensor(groupID + "/track/0/sensor/1", 345, 445, "track"));
-
     }
 
     public void update() {

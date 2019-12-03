@@ -190,7 +190,7 @@ public abstract class MoveAbleObject implements DrawAbleObject {
                     maxY = y + 20;
                 }
 
-                if ((object.getType() == this.type) && (objX >= (minX) && objX <= (maxX)) && (objY >= (minY) && objY <= (maxY))) {
+                if ((objX >= (minX) && objX <= (maxX)) && (objY >= (minY) && objY <= (maxY))) {
                     deccelerate();
                     return false;
                 }

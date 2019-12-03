@@ -12,6 +12,7 @@ public class Sensor {
     private double y;
     private String topic;
     private MqttClient publishclient;
+    private String type;
 
     private int payload = 0;
 
@@ -19,6 +20,7 @@ public class Sensor {
         this.x = x;
         this.y = y;
         this.topic = topic;
+        this.type = type;
         try {
             MemoryPersistence persistence = new MemoryPersistence();
             String broker = "tcp://arankieskamp.com:1883";
