@@ -225,14 +225,14 @@ public class Simulation extends JPanel {
 
         //Filling the carRoutes ArrayList
         ArrayList<Point2D> route0 = new ArrayList();
-        route0.add(new Point2D.Double(1300, 460));
+        route0.add(new Point2D.Double(1400, 460));
         route0.add(new Point2D.Double(580, 460));
         route0.add(new Point2D.Double(470, 570));
         route0.add(new Point2D.Double(470, 900));
         carRoutes.add(route0);
 
         ArrayList<Point2D> route1 = new ArrayList();
-        route1.add(new Point2D.Double(1300, 460));
+        route1.add(new Point2D.Double(1400, 460));
         route1.add(new Point2D.Double(1010, 460));
         route1.add(new Point2D.Double(880, 408));
         route1.add(new Point2D.Double(710, 408));
@@ -241,21 +241,21 @@ public class Simulation extends JPanel {
         carRoutes.add(route1);
 
         ArrayList<Point2D> route2 = new ArrayList();
-        route2.add(new Point2D.Double(1300, 460));
+        route2.add(new Point2D.Double(1400, 460));
         route2.add(new Point2D.Double(1010, 460));
         route2.add(new Point2D.Double(880, 359));
         route2.add(new Point2D.Double(710, 359));
         route2.add(new Point2D.Double(200, 329));
-        route2.add(new Point2D.Double(0, 380));
+        route2.add(new Point2D.Double(0, 329));
         carRoutes.add(route2);
 
         ArrayList<Point2D> route3 = new ArrayList();
-        route3.add(new Point2D.Double(1300, 460));
+        route3.add(new Point2D.Double(1400, 460));
         route3.add(new Point2D.Double(1010, 460));
         route3.add(new Point2D.Double(880, 304));
         route3.add(new Point2D.Double(710, 304));
-        route3.add(new Point2D.Double(575, 311));
-        route3.add(new Point2D.Double(575, 0));
+        route3.add(new Point2D.Double(575, 304));
+        route3.add(new Point2D.Double(575, -50));
         carRoutes.add(route3);
 
         ArrayList<Point2D> route4 = new ArrayList();
@@ -272,12 +272,12 @@ public class Simulation extends JPanel {
         carRoutes.add(route5);
 
         ArrayList<Point2D> route6 = new ArrayList();
-        route6.add(new Point2D.Double(5, 520));
+        route6.add(new Point2D.Double(-100, 520));
         route6.add(new Point2D.Double(1300, 520));
         carRoutes.add(route6);
 
         ArrayList<Point2D> route7 = new ArrayList();
-        route7.add(new Point2D.Double(5, 575));
+        route7.add(new Point2D.Double(-100, 575));
         route7.add(new Point2D.Double(475, 575));
         route7.add(new Point2D.Double(475, 900));
         carRoutes.add(route7);
@@ -297,7 +297,7 @@ public class Simulation extends JPanel {
         carRoutes.add(route9);
 
         ArrayList<Point2D> route10 = new ArrayList();
-        route10.add(new Point2D.Double(470, 5));
+        route10.add(new Point2D.Double(470, -100));
         route10.add(new Point2D.Double(470, 330));
         route10.add(new Point2D.Double(0, 330));
         carRoutes.add(route10);
@@ -646,7 +646,7 @@ public class Simulation extends JPanel {
         }
 
         //Car spawn
-        if (tickCount % 100 == 0) {
+        if (tickCount % 150 == 0) {
             int random = (int) (Math.random() * carRoutes.size());
             worldObjects.add(new Car(carRoutes.get(random), carImage));
         }
@@ -661,12 +661,12 @@ public class Simulation extends JPanel {
             worldObjects.add(new Boat(boatRoutes.get(0), boatImage));
         }
         //Pedestrian spawn
-        if (tickCount % 150 == 0) {
+        if (tickCount % 450 == 0) {
             int random = (int) (Math.random() * pedestrianRoutes.size());
             worldObjects.add(new Pedestrian(pedestrianRoutes.get(random), pedestrianImage));
         }
 
-        if (tickCount % 150 == 0) {
+        if (tickCount % 400 == 0) {
             int random = (int) (Math.random() * cyclistRoutes.size());
             worldObjects.add(new Cyclist(cyclistRoutes.get(random), bikeImage));
         }
