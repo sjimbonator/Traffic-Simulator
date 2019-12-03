@@ -126,12 +126,12 @@ public class Simulation extends JPanel {
 
         //East
         //East > North
-        sensors.add(new Sensor(groupID + "/motorised/3/sensor/0", 880, 574));
-        sensors.add(new Sensor(groupID + "/motorised/3/sensor/1", 714, 574));
+        sensors.add(new Sensor(groupID + "/motorised/3/sensor/0", 570, 730));
+        sensors.add(new Sensor(groupID + "/motorised/3/sensor/1", 570, 833));
 
         //East > South
-        sensors.add(new Sensor(groupID + "/motorised/4/sensor/0", 880, 522));
-        sensors.add(new Sensor(groupID + "/motorised/4/sensor/1", 714, 522));
+        sensors.add(new Sensor(groupID + "/motorised/4/sensor/0", 516, 730));
+        sensors.add(new Sensor(groupID + "/motorised/4/sensor/1", 522, 833));
 
         //South
         //South > North & East
@@ -149,12 +149,12 @@ public class Simulation extends JPanel {
 
         //West
         //West > North
-        sensors.add(new Sensor(groupID + "/motorised/7/sensor/0", 516, 330));
-        sensors.add(new Sensor(groupID + "/motorised/7/sensor/1", 516, 35));
+        sensors.add(new Sensor(groupID + "/motorised/7/sensor/0", 520, 190));
+        sensors.add(new Sensor(groupID + "/motorised/7/sensor/1", 520, 70));
 
         //West > South
-        sensors.add(new Sensor(groupID + "/motorised/8/sensor/0", 470, 330));
-        sensors.add(new Sensor(groupID + "/motorised/8/sensor/1", 470, 35));
+        sensors.add(new Sensor(groupID + "/motorised/8/sensor/0", 470, 190));
+        sensors.add(new Sensor(groupID + "/motorised/8/sensor/1", 470, 70));
 
         //Cyclist sensors
         //South
