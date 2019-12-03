@@ -646,7 +646,7 @@ public class Simulation extends JPanel {
         }
 
         //Car spawn
-        if (tickCount % 100 == 0) {
+        if (tickCount % 150 == 0) {
             int random = (int) (Math.random() * carRoutes.size());
             worldObjects.add(new Car(carRoutes.get(random), carImage));
         }
@@ -661,12 +661,12 @@ public class Simulation extends JPanel {
             worldObjects.add(new Boat(boatRoutes.get(0), boatImage));
         }
         //Pedestrian spawn
-        if (tickCount % 150 == 0) {
+        if (tickCount % 450 == 0) {
             int random = (int) (Math.random() * pedestrianRoutes.size());
             worldObjects.add(new Pedestrian(pedestrianRoutes.get(random), pedestrianImage));
         }
 
-        if (tickCount % 150 == 0) {
+        if (tickCount % 600 == 0) {
             int random = (int) (Math.random() * cyclistRoutes.size());
             worldObjects.add(new Cyclist(cyclistRoutes.get(random), bikeImage));
         }
