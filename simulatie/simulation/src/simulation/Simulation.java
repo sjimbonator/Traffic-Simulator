@@ -108,21 +108,25 @@ public class Simulation extends JPanel {
         //Motorised
         //North
         //North > East
-        sensors.add(new Sensor(groupID + "/motorised/0/sensor/0", 872, 470));
-        sensors.add(new Sensor(groupID + "/motorised/0/sensor/1", 714, 470));
+        sensors.add(new Sensor(groupID + "/motorised/0/sensor/0", 714, 470));
+        sensors.add(new Sensor(groupID + "/motorised/0/sensor/1", 872, 470));
+       
 
         //North >South
         //East Lane
-        sensors.add(new Sensor(groupID + "/motorised/1/sensor/0", 872, 407));
-        sensors.add(new Sensor(groupID + "/motorised/1/sensor/1", 714, 407));
+        sensors.add(new Sensor(groupID + "/motorised/1/sensor/0", 714, 407));
+        sensors.add(new Sensor(groupID + "/motorised/1/sensor/1", 872, 407));
+        
 
         //West Lane
-        sensors.add(new Sensor(groupID + "/motorised/1/sensor/2", 872, 360));
-        sensors.add(new Sensor(groupID + "/motorised/1/sensor/3", 714, 360));
+        sensors.add(new Sensor(groupID + "/motorised/1/sensor/2", 714, 360));
+        sensors.add(new Sensor(groupID + "/motorised/1/sensor/3", 872, 360));
+        
 
         //North > West
-        sensors.add(new Sensor(groupID + "/motorised/2/sensor/0", 872, 300));
-        sensors.add(new Sensor(groupID + "/motorised/2/sensor/1", 714, 300));
+        sensors.add(new Sensor(groupID + "/motorised/2/sensor/0", 714, 300));
+        sensors.add(new Sensor(groupID + "/motorised/2/sensor/1", 872, 300));
+        
 
         //East
         //East > North
@@ -137,15 +141,16 @@ public class Simulation extends JPanel {
         //South > North & East
         //South > North
         sensors.add(new Sensor(groupID + "/motorised/5/sensor/3", 35, 520));
-        sensors.add(new Sensor(groupID + "/motorised/5/sensor/2", 166, 520));
+        sensors.add(new Sensor(groupID + "/motorised/5/sensor/2", 176, 520));
 
         //South > East
         sensors.add(new Sensor(groupID + "/motorised/5/sensor/1", 35, 573));
-        sensors.add(new Sensor(groupID + "/motorised/5/sensor/0", 166, 573));
+        sensors.add(new Sensor(groupID + "/motorised/5/sensor/0", 176, 573));
 
         //South > West
-        sensors.add(new Sensor(groupID + "/motorised/6/sensor/0", 35, 452));
-        sensors.add(new Sensor(groupID + "/motorised/6/sensor/1", 166, 452));
+        sensors.add(new Sensor(groupID + "/motorised/6/sensor/0", 176, 452));
+        sensors.add(new Sensor(groupID + "/motorised/6/sensor/1", 35, 452));
+        
 
         //West
         //West > North
