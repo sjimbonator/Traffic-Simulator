@@ -98,108 +98,108 @@ public class Simulation extends JPanel {
 
         //Creating sensors
         //Track
-        sensors.add(new Sensor(groupID + "/track/0/sensor/2", 343, 10));
-        sensors.add(new Sensor(groupID + "/track/0/sensor/0", 343, 890));
+        sensors.add(new Sensor(groupID + "/track/0/sensor/2", 343, 10, "track"));
+        sensors.add(new Sensor(groupID + "/track/0/sensor/0", 343, 890, "track"));
 
         //Vessel
-        sensors.add(new Sensor(groupID + "/vessel/0/sensor/2", 1129, 10));
-        sensors.add(new Sensor(groupID + "/vessel/0/sensor/0", 1129, 890));
+        sensors.add(new Sensor(groupID + "/vessel/0/sensor/2", 1129, 10, "vessel"));
+        sensors.add(new Sensor(groupID + "/vessel/0/sensor/0", 1129, 890, "vessel"));
 
         //Motorised
         //North
         //North > East
-        sensors.add(new Sensor(groupID + "/motorised/0/sensor/0", 714, 470));
-        sensors.add(new Sensor(groupID + "/motorised/0/sensor/1", 872, 470));
+        sensors.add(new Sensor(groupID + "/motorised/0/sensor/0", 714, 470, "car"));
+        sensors.add(new Sensor(groupID + "/motorised/0/sensor/1", 872, 470, "car"));
        
 
         //North >South
         //East Lane
-        sensors.add(new Sensor(groupID + "/motorised/1/sensor/0", 714, 407));
-        sensors.add(new Sensor(groupID + "/motorised/1/sensor/1", 872, 407));
+        sensors.add(new Sensor(groupID + "/motorised/1/sensor/0", 714, 407, "car"));
+        sensors.add(new Sensor(groupID + "/motorised/1/sensor/1", 872, 407, "car"));
         
 
         //West Lane
-        sensors.add(new Sensor(groupID + "/motorised/1/sensor/2", 714, 360));
-        sensors.add(new Sensor(groupID + "/motorised/1/sensor/3", 872, 360));
+        sensors.add(new Sensor(groupID + "/motorised/1/sensor/2", 714, 360, "car"));
+        sensors.add(new Sensor(groupID + "/motorised/1/sensor/3", 872, 360, "car"));
         
 
         //North > West
-        sensors.add(new Sensor(groupID + "/motorised/2/sensor/0", 714, 300));
-        sensors.add(new Sensor(groupID + "/motorised/2/sensor/1", 872, 300));
+        sensors.add(new Sensor(groupID + "/motorised/2/sensor/0", 714, 300, "car"));
+        sensors.add(new Sensor(groupID + "/motorised/2/sensor/1", 872, 300, "car"));
         
 
         //East
         //East > North
-        sensors.add(new Sensor(groupID + "/motorised/3/sensor/0", 570, 730));
-        sensors.add(new Sensor(groupID + "/motorised/3/sensor/1", 570, 833));
+        sensors.add(new Sensor(groupID + "/motorised/3/sensor/0", 570, 730, "car"));
+        sensors.add(new Sensor(groupID + "/motorised/3/sensor/1", 570, 833, "car"));
 
         //East > South
-        sensors.add(new Sensor(groupID + "/motorised/4/sensor/0", 516, 730));
-        sensors.add(new Sensor(groupID + "/motorised/4/sensor/1", 522, 833));
+        sensors.add(new Sensor(groupID + "/motorised/4/sensor/0", 516, 730, "car"));
+        sensors.add(new Sensor(groupID + "/motorised/4/sensor/1", 522, 833, "car"));
 
         //South
         //South > North & East
         //South > North
-        sensors.add(new Sensor(groupID + "/motorised/5/sensor/3", 35, 520));
-        sensors.add(new Sensor(groupID + "/motorised/5/sensor/2", 176, 520));
+        sensors.add(new Sensor(groupID + "/motorised/5/sensor/3", 35, 520, "car"));
+        sensors.add(new Sensor(groupID + "/motorised/5/sensor/2", 176, 520, "car"));
 
         //South > East
-        sensors.add(new Sensor(groupID + "/motorised/5/sensor/1", 35, 573));
-        sensors.add(new Sensor(groupID + "/motorised/5/sensor/0", 176, 573));
+        sensors.add(new Sensor(groupID + "/motorised/5/sensor/1", 35, 573, "car"));
+        sensors.add(new Sensor(groupID + "/motorised/5/sensor/0", 176, 573, "car"));
 
         //South > West
-        sensors.add(new Sensor(groupID + "/motorised/6/sensor/0", 176, 452));
-        sensors.add(new Sensor(groupID + "/motorised/6/sensor/1", 35, 452));
+        sensors.add(new Sensor(groupID + "/motorised/6/sensor/0", 176, 452, "car"));
+        sensors.add(new Sensor(groupID + "/motorised/6/sensor/1", 35, 452, "car"));
         
 
         //West
         //West > North
-        sensors.add(new Sensor(groupID + "/motorised/7/sensor/0", 520, 190));
-        sensors.add(new Sensor(groupID + "/motorised/7/sensor/1", 520, 70));
+        sensors.add(new Sensor(groupID + "/motorised/7/sensor/0", 520, 190, "car"));
+        sensors.add(new Sensor(groupID + "/motorised/7/sensor/1", 520, 70, "car"));
 
         //West > South
-        sensors.add(new Sensor(groupID + "/motorised/8/sensor/0", 470, 190));
-        sensors.add(new Sensor(groupID + "/motorised/8/sensor/1", 470, 70));
+        sensors.add(new Sensor(groupID + "/motorised/8/sensor/0", 470, 190, "car"));
+        sensors.add(new Sensor(groupID + "/motorised/8/sensor/1", 470, 70, "car"));
 
         //Cyclist sensors
         //South
-        sensors.add(new Sensor(groupID + "/cycle/3/sensor/0", 245, 598));
-        sensors.add(new Sensor(groupID + "/cycle/3/sensor/1", 228, 302));
-        sensors.add(new Sensor(groupID + "/cycle/2/sensor/0", 400, 305));
+        sensors.add(new Sensor(groupID + "/cycle/3/sensor/0", 245, 598, "cyclist"));
+        sensors.add(new Sensor(groupID + "/cycle/3/sensor/1", 228, 302, "cyclist"));
+        sensors.add(new Sensor(groupID + "/cycle/2/sensor/0", 400, 305, "cyclist"));
 
         //North
-        sensors.add(new Sensor(groupID + "/cycle/0/sensor/0", 638, 585));
+        sensors.add(new Sensor(groupID + "/cycle/0/sensor/0", 638, 585, "cyclist"));
 
         //East
-        sensors.add(new Sensor(groupID + "/cycle/1/sensor/0", 450, 635));
+        sensors.add(new Sensor(groupID + "/cycle/1/sensor/0", 450, 635, "cyclist"));
 
         //West
-        sensors.add(new Sensor(groupID + "/cycle/4/sensor/1", 440, 280));
-        sensors.add(new Sensor(groupID + "/cycle/4/sensor/0", 600, 260));
+        sensors.add(new Sensor(groupID + "/cycle/4/sensor/1", 440, 280, "cyclist"));
+        sensors.add(new Sensor(groupID + "/cycle/4/sensor/0", 600, 260, "cyclist"));
 
         //Pedestrian sensors
         //North
-        sensors.add(new Sensor(groupID + "/foot/0/sensor/0", 682, 595));
-        sensors.add(new Sensor(groupID + "/foot/0/sensor/1", 661, 496));
-        sensors.add(new Sensor(groupID + "/foot/1/sensor/0", 661, 285));
-        sensors.add(new Sensor(groupID + "/foot/1/sensor/1", 682, 486));
+        sensors.add(new Sensor(groupID + "/foot/0/sensor/0", 682, 595, "pedestrian"));
+        sensors.add(new Sensor(groupID + "/foot/0/sensor/1", 661, 496, "pedestrian"));
+        sensors.add(new Sensor(groupID + "/foot/1/sensor/0", 661, 285, "pedestrian"));
+        sensors.add(new Sensor(groupID + "/foot/1/sensor/1", 682, 486, "pedestrian"));
 
 
         //East
-        sensors.add(new Sensor(groupID + "/foot/2/sensor/1", 440, 675));
-        sensors.add(new Sensor(groupID + "/foot/2/sensor/0", 600, 657));
+        sensors.add(new Sensor(groupID + "/foot/2/sensor/1", 440, 675, "pedestrian"));
+        sensors.add(new Sensor(groupID + "/foot/2/sensor/0", 600, 657, "pedestrian"));
 
         //South
-        sensors.add(new Sensor(groupID + "/foot/3/sensor/0", 264, 492));
-        sensors.add(new Sensor(groupID + "/foot/3/sensor/1", 285, 598));
-        sensors.add(new Sensor(groupID + "/foot/4/sensor/0", 264, 411));
-        sensors.add(new Sensor(groupID + "/foot/4/sensor/1", 285, 482));
-        sensors.add(new Sensor(groupID + "/foot/5/sensor/0", 264, 302));
-        sensors.add(new Sensor(groupID + "/foot/5/sensor/1", 285, 421));
+        sensors.add(new Sensor(groupID + "/foot/3/sensor/0", 264, 492, "pedestrian"));
+        sensors.add(new Sensor(groupID + "/foot/3/sensor/1", 285, 598, "pedestrian"));
+        sensors.add(new Sensor(groupID + "/foot/4/sensor/0", 264, 411, "pedestrian"));
+        sensors.add(new Sensor(groupID + "/foot/4/sensor/1", 285, 482, "pedestrian"));
+        sensors.add(new Sensor(groupID + "/foot/5/sensor/0", 264, 302, "pedestrian"));
+        sensors.add(new Sensor(groupID + "/foot/5/sensor/1", 285, 421, "pedestrian"));
 
         //West
-        sensors.add(new Sensor(groupID + "/foot/6/sensor/1", 440, 235));
-        sensors.add(new Sensor(groupID + "/foot/6/sensor/0", 605, 220));
+        sensors.add(new Sensor(groupID + "/foot/6/sensor/1", 440, 235, "pedestrian"));
+        sensors.add(new Sensor(groupID + "/foot/6/sensor/0", 605, 220, "pedestrian"));
 
 
 
@@ -547,15 +547,17 @@ public class Simulation extends JPanel {
         worldObjects.add(lightP13);
 
 
-        //North side
-        TrafficLight lightP9 = new TrafficLight(groupID + "/foot/0/traffic_light/0", 682, 595, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
-        worldObjects.add(lightP9);
-        TrafficLight lightP10 = new TrafficLight(groupID + "/foot/1/traffic_light/0", 682, 486, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
-        worldObjects.add(lightP10);
-        TrafficLight lightP8 = new TrafficLight(groupID + "/foot/1/traffic_light/0", 661, 285, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
-        worldObjects.add(lightP8);
-        TrafficLight lightP11 = new TrafficLight(groupID + "/foot/0/traffic_light/0", 661, 496, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
-        worldObjects.add(lightP11);
+        //train and boat lights
+        TrafficLight lightT0 = new TrafficLight(groupID + "/track/0/train_light/1", 330, 295, 180, red, red, green, "track");
+        worldObjects.add(lightT0);
+        TrafficLight lightT1 = new TrafficLight(groupID + "/track/0/train_light/0", 353, 603, 0, red, red, green, "track");
+        worldObjects.add(lightT1);
+        
+        TrafficLight lightV0 = new TrafficLight(groupID + "/vessel/0/boat_light/1", 1130, 320, 180, red, red, green, "vessel");
+        worldObjects.add(lightV0);
+        TrafficLight lightV1 = new TrafficLight(groupID + "/vessel/0/boat_light/0", 1130, 680, 0, red, red, green, "vessel");
+        worldObjects.add(lightV1);
+
 
         //Creating train barriers
         //West > East
@@ -614,8 +616,8 @@ public class Simulation extends JPanel {
         worldObjects.add(vesbarrier7);
         boatBarriers.add(vesbarrier7);
 
-        sensors.add(new Sensor(groupID + "/vessel/0/sensor/1", 1150, 500));
-        sensors.add(new Sensor(groupID + "/track/0/sensor/1", 345, 445));
+        sensors.add(new Sensor(groupID + "/vessel/0/sensor/1", 1150, 500, "vessel"));
+        sensors.add(new Sensor(groupID + "/track/0/sensor/1", 345, 445, "track"));
 
     }
 

@@ -101,8 +101,8 @@ topic_sensors.append(group_ID+"/track/0/sensor/1")
 topic_sensors.append(group_ID+"/track/0/sensor/2")
 topic_warninglights.append(group_ID+"/track/0/warning_light/0")
 topic_barriers.append(group_ID+"/track/0/barrier/0")
-train_light.append(group_ID+"/vessel/0/train_light/0")
-train_light.append(group_ID+"/vessel/0/train_light/1")
+train_light.append(group_ID+"/track/0/train_light/0")
+train_light.append(group_ID+"/track/0/train_light/1")
 
 
 ############
