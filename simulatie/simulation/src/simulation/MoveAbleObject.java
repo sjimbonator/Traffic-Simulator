@@ -23,9 +23,8 @@ public abstract class MoveAbleObject implements DrawAbleObject {
     protected Point2D destination;
     protected int routeIndex = 0;
     protected boolean pointReached = true;
-    
-    //public Rectangle2D predictbox;
 
+    //public Rectangle2D predictbox;
     protected Image model;
 
     protected Rectangle2D buildRect(double x, double y) {
@@ -36,24 +35,26 @@ public abstract class MoveAbleObject implements DrawAbleObject {
         points[3] = rotatePoint(new Point2D.Double((x + (width / 2)), (y - (height / 2))));
         double[] minMaxX = getMinMax(points, 'x');
         double[] minMaxY = getMinMax(points, 'y');
-        Rectangle2D rect = new Rectangle((int) minMaxX[0], (int) minMaxY[0], (int) ((minMaxX[1]-minMaxX[0])), (int) ((minMaxY[1]-minMaxY[0])));
+        Rectangle2D rect = new Rectangle((int) minMaxX[0], (int) minMaxY[0], (int) ((minMaxX[1] - minMaxX[0])), (int) ((minMaxY[1] - minMaxY[0])));
         return rect;
 
     }
-    
-    protected void buildHitBox(){
+
+    protected void buildHitBox() {
         hitbox = buildRect(x, y);
     }
-    
-    protected Rectangle2D predictHitbox(){
+
+    protected Rectangle2D predictHitbox() {
         double xTemp = x;
         double yTemp = y;
         double speedTemp = speed;
         speed = maxSpeed;
-        for(int i = 0; i< 20; i++){move();}
+        for (int i = 0; i < 20; i++) {
+            move();
+        }
         Rectangle2D temprect = buildRect(x, y);
         x = xTemp;
-        y = yTemp;  
+        y = yTemp;
         speed = speedTemp;
         //predictbox = temprect;
         return temprect;
@@ -63,13 +64,13 @@ public abstract class MoveAbleObject implements DrawAbleObject {
         double radian = Math.toRadians(rotation);
         double s = Math.sin(radian);
         double c = Math.cos(radian);
-        
+
         double xTemp = p.getX() - x;
         double yTemp = p.getY() - y;
-        
+
         double newX = xTemp * c - yTemp * s;
         double newY = xTemp * s + yTemp * c;
-        
+
         newX += x;
         newY += y;
 
@@ -107,7 +108,7 @@ public abstract class MoveAbleObject implements DrawAbleObject {
     protected double[] getMinMax(Point2D[] hitbox, char index) {
         double[] minmax = null;
         for (Point2D point : hitbox) {
-            
+
             double p;
             if (index == 'x') {
                 p = point.getX();
@@ -147,7 +148,6 @@ public abstract class MoveAbleObject implements DrawAbleObject {
         buildHitBox();
         move();
         //Rectangle2D predictBox = predictHitbox();
-        
 
         for (DrawAbleObject object : worldObjects) {
             if (!(object == this)) {
@@ -157,15 +157,18 @@ public abstract class MoveAbleObject implements DrawAbleObject {
                         continue;
                     }
                 } else if (object instanceof Barrier) {
-                    if (!(((Barrier) object).isActive())) {
-                        continue;
+                    if (!(this.type == "train")) {
+                        if (!(((Barrier) object).isActive())) {
+                            continue;
+                        }
                     }
+
                 } else if (object instanceof MoveAbleObject) {
                     Rectangle2D objHitbox = ((MoveAbleObject) object).getHitbox();
-                    
+
                     if (predictHitbox().intersects(objHitbox)) {
                         deccelerate();
-                         return false;
+                        return false;
                     }
                     continue;
 
@@ -212,6 +215,9 @@ public abstract class MoveAbleObject implements DrawAbleObject {
             }
         }
         accelerate();
+        if(!Simulation.openBridge && this.type == "boat"){
+            if(y >= 250 && y <= 750 ){deccelerate();}
+        }
         return false;
     }
 

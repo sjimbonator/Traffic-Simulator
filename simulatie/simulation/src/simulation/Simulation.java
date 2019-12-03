@@ -98,16 +98,16 @@ public class Simulation extends JPanel {
 
         //Creating sensors
         //Track
-        sensors.add(new Sensor(groupID + "/track/0/sensor/0", 343, 890, "track"));
-        sensors.add(new Sensor(groupID + "/track/0/sensor/1", 345, 445, "track"));
-        sensors.add(new Sensor(groupID + "/track/0/sensor/2", 343, 285, "track"));
+        sensors.add(new Sensor(groupID + "/track/0/sensor/0", 343, 890, "train"));
+        sensors.add(new Sensor(groupID + "/track/0/sensor/1", 345, 445, "train"));
+        sensors.add(new Sensor(groupID + "/track/0/sensor/2", 343, 285, "train"));
 
 
 
         //Vessel
-        sensors.add(new Sensor(groupID + "/vessel/0/sensor/0", 1129, 708, "vessel"));
-        sensors.add(new Sensor(groupID + "/vessel/0/sensor/1", 1150, 500, "vessel"));
-        sensors.add(new Sensor(groupID + "/vessel/0/sensor/2", 1129, 10, "vessel"));
+        sensors.add(new Sensor(groupID + "/vessel/0/sensor/0", 1129, 708, "boat"));
+        sensors.add(new Sensor(groupID + "/vessel/0/sensor/1", 1150, 500, "boat"));
+        sensors.add(new Sensor(groupID + "/vessel/0/sensor/2", 1129, 10, "boat"));
         sensors.add(new Sensor(groupID + "/vessel/0/sensor/3", 1150, 500, "car"));
 
         //Motorised
@@ -553,14 +553,14 @@ public class Simulation extends JPanel {
 
 
         //train and boat lights
-        TrafficLight lightT0 = new TrafficLight(groupID + "/track/0/train_light/1", 330, 295, 180, red, red, green, "track");
+        TrafficLight lightT0 = new TrafficLight(groupID + "/track/0/train_light/1", 344, 75, 180, red, red, green, "train");
         worldObjects.add(lightT0);
-        TrafficLight lightT1 = new TrafficLight(groupID + "/track/0/train_light/0", 353, 603, 0, red, red, green, "track");
+        TrafficLight lightT1 = new TrafficLight(groupID + "/track/0/train_light/0", 344, 825, 0, red, red, green, "train");
         worldObjects.add(lightT1);
         
-        TrafficLight lightV0 = new TrafficLight(groupID + "/vessel/0/boat_light/1", 1130, 320, 180, red, red, green, "vessel");
+        TrafficLight lightV0 = new TrafficLight(groupID + "/vessel/0/boat_light/1", 1130, 320, 180, red, red, green, "boat");
         worldObjects.add(lightV0);
-        TrafficLight lightV1 = new TrafficLight(groupID + "/vessel/0/boat_light/0", 1130, 680, 0, red, red, green, "vessel");
+        TrafficLight lightV1 = new TrafficLight(groupID + "/vessel/0/boat_light/0", 1130, 680, 0, red, red, green, "boat");
         worldObjects.add(lightV1);
 
 
