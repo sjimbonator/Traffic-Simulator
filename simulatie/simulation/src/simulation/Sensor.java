@@ -21,7 +21,7 @@ public class Sensor {
         for (DrawAbleObject object : worldObjects) {
             double objX = object.getX();
             double objY = object.getY();
-            if ((objX >= (x - 40) && objX <= (x + 40)) && (objY >= (y - 40) && objY <= (y + 40))) {
+            if ((objX >= (x - 30) && objX <= (x + 30)) && (objY >= (y - 30) && objY <= (y + 30))) {
                 tempPayload = 1;
             }
         }
