@@ -23,6 +23,10 @@ namespace Controller
         public static Dictionary<string, string> messages = new Dictionary<string, string>();
         private static Dictionary<string, Lane> lanes = new Dictionary<string, Lane>();
 
+        // Create Client instance
+        public static MqttClient client = new MqttClient(Program.brokerAddress);
+        byte code = client.Connect(Guid.NewGuid().ToString());
+
         private static void Subscribe()
         {
             //Mqtt Connection

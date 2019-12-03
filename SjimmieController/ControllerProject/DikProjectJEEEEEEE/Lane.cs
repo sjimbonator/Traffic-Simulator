@@ -33,13 +33,7 @@ namespace Controller
 
         private void Publish()
         {
-            // Create Client instance
-            MqttClient client = new MqttClient(Program.brokerAddress);
-            byte code = client.Connect(Guid.NewGuid().ToString());
-            Console.WriteLine(trafficLightTopic + "gonna publish here");
-
-
-            ushort msgId = client.Publish(trafficLightTopic, // topic
+            ushort msgId = Program.client.Publish(trafficLightTopic, // topic
                        Encoding.UTF8.GetBytes(trafficLightMessage), // message body
                        MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE, // QoS level
                        false); // retained}
