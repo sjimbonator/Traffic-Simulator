@@ -489,9 +489,9 @@ public class Simulation extends JPanel {
         worldObjects.add(light8);
 
         //West
-        TrafficLight light9 = new TrafficLight(groupID + "/motorised/8/traffic_light/0", 538, 202, 90, red, orange, green, "car");
+        TrafficLight light9 = new TrafficLight(groupID + "/motorised/7/traffic_light/0", 538, 202, 90, red, orange, green, "car");
         worldObjects.add(light9);
-        TrafficLight light10 = new TrafficLight(groupID + "/motorised/7/traffic_light/0", 460, 202, 270, red, orange, green, "car");
+        TrafficLight light10 = new TrafficLight(groupID + "/motorised/8/traffic_light/0", 460, 202, 270, red, orange, green, "car");
         worldObjects.add(light10);
 
 
