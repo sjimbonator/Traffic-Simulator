@@ -27,6 +27,9 @@ namespace Controller
         public static MqttClient client = new MqttClient(Program.brokerAddress);
         byte code = client.Connect(Guid.NewGuid().ToString());
 
+        private static bool boatEvent = false;
+        private static bool trainEvent = false;
+
         private static void Subscribe()
         {
             //Mqtt Connection
@@ -93,11 +96,11 @@ namespace Controller
             return lane;
         }
 
-        private static List<Lane> FindCompatibleHighestPrio()
+        private static List<Lane> FindCompatibleHighestPrio(string[] lanes)
         {
             List<Lane> prioLanes= new List<Lane>();
             //Adds the lane with the highest priority of all the lanes to the list.
-            Lane highestPrio = FindHighestPrio(lanes.Keys.ToArray());
+            Lane highestPrio = FindHighestPrio(lanes);
             prioLanes.Add(highestPrio);
 
             List<Lane> compatibleLanes(string[] compatibleKeys)
@@ -137,7 +140,24 @@ namespace Controller
         {
             foreach (KeyValuePair<string, Lane> entry in lanes)
             {
-                entry.Value.RedLight();
+                if (entry.Value is SmallLane)
+                {
+                    SmallLane smallLane = entry.Value as SmallLane;
+                    smallLane.RedLight();
+                }
+
+            }
+        }
+
+        private static void SetListToRed(List<Lane> laneList)
+        {
+            foreach (Lane lane in laneList)
+            {
+                if (lane is SmallLane)
+                {
+                    SmallLane smallLane = lane as SmallLane;
+                    smallLane.RedLight();
+                }
             }
         }
 
@@ -145,7 +165,11 @@ namespace Controller
         {
             foreach (Lane lane in laneList)
             {
-                lane.GreenLight();
+                if (lane is SmallLane)
+                {
+                    SmallLane smallLane = lane as SmallLane;
+                    smallLane.GreenLight();
+                }
             }
         }
 
@@ -153,8 +177,23 @@ namespace Controller
         {
             foreach (Lane lane in laneList)
             {
-                lane.OrangeLight();
+                if (lane is SmallLane)
+                {
+                    SmallLane smallLane = lane as SmallLane;
+                    smallLane.OrangeLight();
+                }
             }
+        }
+
+        private static bool CheckList(List<Lane> laneList)
+        {
+            bool returnbool = true;
+            foreach(Lane lane in laneList)
+            {
+                if (!lane.isReady()) { returnbool = false; break; }
+            }
+
+            return returnbool;
         }
 
         private static void CleanUp()
@@ -175,29 +214,29 @@ namespace Controller
                 
             }
             
-            lanes.Add("motorised/0", new Lane("motorised/0", 1, 2, new int[] {1,2,3,6,8}, new int[] {2,3,4}, new int[] {3,4,5,6}));
-            lanes.Add("motorised/1", new Lane("motorised/1", 2, 2, new int[] {0,2,3,5}, new int[] {1,4}, new int[] {2,6}));
-            lanes.Add("motorised/2", new Lane("motorised/2", 1, 2, new int[] {0,1,3,4,5,7,8}, new int[] {1,2,3}, new int[] {2,3,4,5}));
-            lanes.Add("motorised/3", new Lane("motorised/3", 1, 2, new int[] {0,1,2,4,6,8}, new int[] {2,3,4}, new int[] {3,4,5,6}));
-            lanes.Add("motorised/4", new Lane("motorised/4", 1, 2, new int[] {2,3,7}, new int[] {0,4}, new int[] {0,1,6}));
-            lanes.Add("motorised/5", new Lane("motorised/5", 2, 2, new int[] {1,2,6,8}, new int[] {4}, new int[] {6}));
-            lanes.Add("motorised/6", new Lane("motorised/6", 1, 2, new int[] {0,3,5,8}, new int[] {0,1}, new int[] {0,1,2}));
-            lanes.Add("motorised/7", new Lane("motorised/7", 1, 2, new int[] {2,3,4,8}, new int[] {1,2,3}, new int[] {2,3,4,5}));
-            lanes.Add("motorised/8", new Lane("motorised/8", 1, 2, new int[] {0,2,3,5,6,7}, new int[] {0,1}, new int[] {0,1,2}));
+            lanes.Add("motorised/0", new SmallLane("motorised/0", 1, 2, new int[] {1,2,3,6,8}, new int[] {2,3,4}, new int[] {3,4,5,6}));
+            lanes.Add("motorised/1", new SmallLane("motorised/1", 2, 2, new int[] {0,2,3,5}, new int[] {1,4}, new int[] {2,6}));
+            lanes.Add("motorised/2", new SmallLane("motorised/2", 1, 2, new int[] {0,1,3,4,5,7,8}, new int[] {1,2,3}, new int[] {2,3,4,5}));
+            lanes.Add("motorised/3", new SmallLane("motorised/3", 1, 2, new int[] {0,1,2,4,6,8}, new int[] {2,3,4}, new int[] {3,4,5,6}));
+            lanes.Add("motorised/4", new SmallLane("motorised/4", 1, 2, new int[] {2,3,7}, new int[] {0,4}, new int[] {0,1,6}));
+            lanes.Add("motorised/5", new SmallLane("motorised/5", 2, 2, new int[] {1,2,6,8}, new int[] {4}, new int[] {6}));
+            lanes.Add("motorised/6", new SmallLane("motorised/6", 1, 2, new int[] {0,3,5,8}, new int[] {0,1}, new int[] {0,1,2}));
+            lanes.Add("motorised/7", new SmallLane("motorised/7", 1, 2, new int[] {2,3,4,8}, new int[] {1,2,3}, new int[] {2,3,4,5}));
+            lanes.Add("motorised/8", new SmallLane("motorised/8", 1, 2, new int[] {0,2,3,5,6,7}, new int[] {0,1}, new int[] {0,1,2}));
 
-            lanes.Add("cycle/0", new Lane("cycle/0", 1, 1, new int[] {4,6,8}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
-            lanes.Add("cycle/1", new Lane("cycle/1", 1, 1, new int[] {1,2,6,7,8}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
-            lanes.Add("cycle/2", new Lane("cycle/2", 1, 1, new int[] {0,2,3,7}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
-            lanes.Add("cycle/3", new Lane("cycle/3", 1, 1, new int[] {0,2,3,7}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
-            lanes.Add("cycle/4", new Lane("cycle/4", 1, 1, new int[] {0,1,3,4,5}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
+            lanes.Add("cycle/0", new SmallLane("cycle/0", 1, 1, new int[] {4,6,8}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
+            lanes.Add("cycle/1", new SmallLane("cycle/1", 1, 1, new int[] {1,2,6,7,8}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
+            lanes.Add("cycle/2", new SmallLane("cycle/2", 1, 1, new int[] {0,2,3,7}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
+            lanes.Add("cycle/3", new SmallLane("cycle/3", 1, 1, new int[] {0,2,3,7}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
+            lanes.Add("cycle/4", new SmallLane("cycle/4", 1, 1, new int[] {0,1,3,4,5}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
 
-            lanes.Add("foot/0", new Lane("foot/0", 1, 1, new int[] {4,6,8}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
-            lanes.Add("foot/1", new Lane("foot/1", 1, 1, new int[] {4,6,8}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
-            lanes.Add("foot/2", new Lane("foot/2", 1, 1, new int[] {1,2,6,7,8}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
-            lanes.Add("foot/3", new Lane("foot/3", 1, 1, new int[] {0,2,3,7}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
-            lanes.Add("foot/4", new Lane("foot/4", 1, 1, new int[] {0,2,3,7}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
-            lanes.Add("foot/5", new Lane("foot/5", 1, 1, new int[] {0,2,3,7}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
-            lanes.Add("foot/6", new Lane("foot/6", 1, 1, new int[] {0,1,3,4,5}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
+            lanes.Add("foot/0", new SmallLane("foot/0", 1, 1, new int[] {4,6,8}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
+            lanes.Add("foot/1", new SmallLane("foot/1", 1, 1, new int[] {4,6,8}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
+            lanes.Add("foot/2", new SmallLane("foot/2", 1, 1, new int[] {1,2,6,7,8}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
+            lanes.Add("foot/3", new SmallLane("foot/3", 1, 1, new int[] {0,2,3,7}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
+            lanes.Add("foot/4", new SmallLane("foot/4", 1, 1, new int[] {0,2,3,7}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
+            lanes.Add("foot/5", new SmallLane("foot/5", 1, 1, new int[] {0,2,3,7}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
+            lanes.Add("foot/6", new SmallLane("foot/6", 1, 1, new int[] {0,1,3,4,5}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
 
             Thread subscribeThread = new Thread(Subscribe);
             subscribeThread.Start();
@@ -208,15 +247,14 @@ namespace Controller
             Console.WriteLine("Starting Main Loop use the enter key to exit.");
             while (true)
             {
-                SetAllToRed();
-                System.Threading.Thread.Sleep(3000);
-                List<Lane> lanelist = FindCompatibleHighestPrio();
+                string[] availableKeys = lanes.Keys.ToArray();
+                List<Lane> lanelist = FindCompatibleHighestPrio(availableKeys);
                 SetListToGreen(lanelist);
                 System.Threading.Thread.Sleep(6000);
                 SetListToOrange(lanelist);
                 System.Threading.Thread.Sleep(1000);
-
-
+                SetListToRed(lanelist);
+                System.Threading.Thread.Sleep(3000);
             }
             CleanUp();
 
