@@ -525,6 +525,16 @@ public class Simulation extends JPanel {
 
 
         //Pedestrian lights
+        //North side
+        TrafficLight lightP9 = new TrafficLight(groupID + "/foot/0/traffic_light/0", 682, 595, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
+        worldObjects.add(lightP9);
+        TrafficLight lightP10 = new TrafficLight(groupID + "/foot/1/traffic_light/0", 682, 486, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
+        worldObjects.add(lightP10);
+        TrafficLight lightP8 = new TrafficLight(groupID + "/foot/1/traffic_light/0", 661, 285, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
+        worldObjects.add(lightP8);
+        TrafficLight lightP11 = new TrafficLight(groupID + "/foot/0/traffic_light/0", 661, 496, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
+        worldObjects.add(lightP11);
+        
         //East side
         TrafficLight lightP2 = new TrafficLight(groupID + "/foot/2/traffic_light/0", 440, 675, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
         worldObjects.add(lightP2);
@@ -624,12 +634,14 @@ public class Simulation extends JPanel {
 
     public void update() {
         tickCount++;
-        String warningLightPayload = MqttSubscriber.messages.get(groupID + "/track/0/warning_light/0");
-        if (warningLightPayload != null && warningLightPayload.contains("1")) {
+        String trainWarningLightPayload = MqttSubscriber.messages.get(groupID + "/track/0/warning_light/0");
+        String boatWarningLightPayload = MqttSubscriber.messages.get(groupID + "/vessel/0/warning_light/0");
+        String deckPayload = MqttSubscriber.messages.get(groupID + "/vessel/0/deck/0");
+        
+        if (trainWarningLightPayload != null && trainWarningLightPayload.contains("1")) {
             for (Barrier object : trainBarriers) {
                 object.setOverride(true);
             }
-
         } else {
 
             for (Barrier object : trainBarriers) {
@@ -638,20 +650,20 @@ public class Simulation extends JPanel {
 
         }
 
-        warningLightPayload = MqttSubscriber.messages.get(groupID + "/vessel/0/warning_light/0");
-        if (warningLightPayload != null && warningLightPayload.contains("1")) {
+        if (boatWarningLightPayload != null && boatWarningLightPayload.contains("1")) {
+            if (deckPayload != null && deckPayload.contains("1")) {
             openBridge = true;
             for (Barrier object : boatBarriers) {
                 object.setOverride(true);
             }
-
-        } else {
+        }
+         else {
             openBridge = false;
             for (Barrier object : boatBarriers) {
                 object.setOverride(false);
             }
-
         }
+      }
 
         //Car spawn
         if (tickCount % 150 == 0) {

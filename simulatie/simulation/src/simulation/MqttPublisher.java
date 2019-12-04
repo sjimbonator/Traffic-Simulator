@@ -7,10 +7,6 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 public class MqttPublisher implements Runnable {
-
-    //private static String topic;
-    //private static String content;
-    //private static String sensorPayload = "0";   //placeholder payload of sensor to publish via mqtt
     private int qos = 1;
     private String topic;
     private String content;
