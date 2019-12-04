@@ -13,5 +13,8 @@ namespace Controller
         bool isReady();
         string[] GetGroupedLanes();
         void CheckPriority();
+        void RedLight();
+        void OrangeLight();
+        void GreenLight();
     }
 }

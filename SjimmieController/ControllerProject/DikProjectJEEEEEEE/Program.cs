@@ -27,9 +27,6 @@ namespace Controller
         public static MqttClient client = new MqttClient(Program.brokerAddress);
         byte code = client.Connect(Guid.NewGuid().ToString());
 
-        private static bool boatEvent = false;
-        private static bool trainEvent = false;
-
         private static void Subscribe()
         {
             //Mqtt Connection
@@ -140,12 +137,7 @@ namespace Controller
         {
             foreach (KeyValuePair<string, Lane> entry in lanes)
             {
-                if (entry.Value is SmallLane)
-                {
-                    SmallLane smallLane = entry.Value as SmallLane;
-                    smallLane.RedLight();
-                }
-
+                entry.Value.RedLight();
             }
         }
 
@@ -153,11 +145,7 @@ namespace Controller
         {
             foreach (Lane lane in laneList)
             {
-                if (lane is SmallLane)
-                {
-                    SmallLane smallLane = lane as SmallLane;
-                    smallLane.RedLight();
-                }
+                lane.RedLight();
             }
         }
 
@@ -165,11 +153,7 @@ namespace Controller
         {
             foreach (Lane lane in laneList)
             {
-                if (lane is SmallLane)
-                {
-                    SmallLane smallLane = lane as SmallLane;
-                    smallLane.GreenLight();
-                }
+                lane.GreenLight();
             }
         }
 
@@ -177,11 +161,7 @@ namespace Controller
         {
             foreach (Lane lane in laneList)
             {
-                if (lane is SmallLane)
-                {
-                    SmallLane smallLane = lane as SmallLane;
-                    smallLane.OrangeLight();
-                }
+                lane.OrangeLight();
             }
         }
 
@@ -237,6 +217,8 @@ namespace Controller
             lanes.Add("foot/4", new SmallLane("foot/4", 1, 1, new int[] {0,2,3,7}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
             lanes.Add("foot/5", new SmallLane("foot/5", 1, 1, new int[] {0,2,3,7}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
             lanes.Add("foot/6", new SmallLane("foot/6", 1, 1, new int[] {0,1,3,4,5}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}));
+
+            lanes.Add("vessel/0", new Vessel("vessel/0", new int[] { 0, 1, 2, 4, 6, 8 }, new int[] { 0, 1, 2, 3, 4 }, new int[] { 0, 1, 2, 3, 4, 5, 6 }));
 
             Thread subscribeThread = new Thread(Subscribe);
             subscribeThread.Start();
