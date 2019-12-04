@@ -13,14 +13,18 @@ public class Sensor {
     private String topic;
     private MqttClient publishclient;
     private String type;
+    private double checkRangeX;
+    private double checkRangeY;
 
     private int payload = 0;
 
-    public Sensor(String topic, double x, double y, String type) {
+    public Sensor(String topic, double x, double y, String type, double checkRangeX, double checkRangeY) {
         this.x = x;
         this.y = y;
         this.topic = topic;
         this.type = type;
+        this.checkRangeX = checkRangeX;
+        this.checkRangeY = checkRangeY;
         try {
             MemoryPersistence persistence = new MemoryPersistence();
             String broker = "tcp://arankieskamp.com:1883";
@@ -47,7 +51,7 @@ public class Sensor {
         for (DrawAbleObject object : worldObjects) {
             double objX = object.getX();
             double objY = object.getY();
-            if (((object.getType() == this.type) && objX >= (x - 30) && objX <= (x + 30)) && (objY >= (y - 30) && objY <= (y + 30))) {
+            if (((object.getType() == this.type) && objX >= (x - checkRangeX) && objX <= (x + checkRangeX)) && (objY >= (y - checkRangeY) && objY <= (y + checkRangeY))) {
                 tempPayload = 1;
             }
         }
