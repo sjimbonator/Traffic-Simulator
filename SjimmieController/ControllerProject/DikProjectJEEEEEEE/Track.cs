@@ -9,7 +9,7 @@ using uPLibrary.Networking.M2Mqtt.Messages;
 
 namespace Controller
 {
-    class Vessel : Lane
+    class Track : Lane
     {
         private string group;
         public string GetGroup() { return group; }
@@ -17,21 +17,18 @@ namespace Controller
         private Thread publishThread;
 
         private string eastSensor;
+        private string passSensor;
         private string westSensor;
-
-        private string deckSensor;
-        private string bridgeSensor;
 
         private string warning_light;
         private string barrier;
-        private string deck;
 
-        private string eastBoat_light;
-        private string westBoat_light;
+        private string eastLight;
+        private string westLight;
 
         private int eastPriority = 0;
         private int westPriority = 0;
-        public int GetPriority() { return (eastPriority + westPriority) / 10; }
+        public int GetPriority() { return eastPriority + westPriority; }
 
         bool ready = true;
         public bool isReady() { return ready; }
@@ -48,84 +45,50 @@ namespace Controller
                        false); // retained}
         }
 
-        private void openBridge()
-        {
-            string value;
-            ready = false;
-            Publish(warning_light, "1");
-            bool bridgeIsEmpty = false;
-            while(!bridgeIsEmpty)
-            {
-                bridgeIsEmpty = true;
-                if (Program.messages.TryGetValue(deckSensor, out value))
-                {
-                    if (value == "1") { bridgeIsEmpty = false; }
-                }
-            }
-            Publish(barrier, "1");
-            Thread.Sleep(4000);
-            Publish(deck, "1");
-            Thread.Sleep(10000);
-            if (Program.messages.TryGetValue(eastSensor, out value))
-            {
-                if (value == "1")
-                {
-                    Publish(eastBoat_light, "1");
-                    Thread.Sleep(4000);
-                    Publish(eastBoat_light, "0");
-                }
-            }
-            if (Program.messages.TryGetValue(westSensor, out value))
-            {
-                if (value == "1")
-                {
-                    Publish(westBoat_light, "1");
-                    Thread.Sleep(4000);
-                    Publish(westBoat_light, "0");
-                }
-            }
-            ready = true;
-        }
-
-        private void closeBridge()
+        private void openTrack()
         {
             ready = false;
-            string value;
-            bool waterIsEmpty = false;
-            while (!waterIsEmpty)
-            {
-                waterIsEmpty = true;
-                if (Program.messages.TryGetValue(bridgeSensor, out value))
-                {
-                    if (value == "1") { waterIsEmpty = false; }
-                }
-            }
-            
-            Publish(deck, "0");
-            Thread.Sleep(10000);
             Publish(barrier, "0");
             Thread.Sleep(4000);
             Publish(warning_light, "0");
+            ready = true;
+        }
 
+        private void closeTrack()
+        {
+            ready = false;
+            string value;
+            Publish(warning_light, "1");
+            Thread.Sleep(1000);
+            Publish(barrier, "1");
+            Thread.Sleep(4000);
+            if (eastPriority > 0) { Publish(eastLight, "1"); }
+            else if (westPriority > 0) { Publish(westLight, "1"); }
+
+            bool passed = false;
+            while (!passed)
+            {
+                if (Program.messages.TryGetValue(passSensor, out value))
+                {
+                    if (value == "1") { passed = true; }
+                }
+            }
             ready = true;
 
         }
 
-        public Vessel(string group, int[] motorisedNumbers, int[] cycleNumbers, int[] footNumbers, int[] vesselNumbers, int[] trackNumbers)
+        public Track(string group, int[] motorisedNumbers, int[] cycleNumbers, int[] footNumbers, int[] vesselNumbers, int[] trackNumbers)
         {
 
             eastSensor = Program.group_id + "/" + group + "/sensor/" + 0;
+            passSensor = Program.group_id + "/" + group + "/sensor/" + 1;
             westSensor = Program.group_id + "/" + group + "/sensor/" + 2;
-
-            deckSensor = Program.group_id + "/" + group + "/sensor/" + 3;
-            bridgeSensor = Program.group_id + "/" + group + "/sensor/" + 1;
 
             warning_light = Program.group_id + "/" + group + "/warning_light/" + 0;
             barrier = Program.group_id + "/" + group + "/barrier/" + 0;
-            deck = Program.group_id + "/" + group + "/deck/" + 0;
 
-            eastBoat_light = Program.group_id + "/" + group + "/boat_light/" + 0;
-            westBoat_light = Program.group_id + "/" + group + "/boat_light/" + 1;
+            eastLight = Program.group_id + "/" + group + "/train_light/" + 0;
+            westLight = Program.group_id + "/" + group + "/train_light/" + 1;
 
 
             groupedLanes = new string[motorisedNumbers.Length + cycleNumbers.Length + footNumbers.Length + vesselNumbers.Length + trackNumbers.Length];
@@ -160,30 +123,30 @@ namespace Controller
 
         public void CheckPriority()
         {
-            int increment = 1;
             string value;
+            eastPriority = 0;
+            westPriority = 0;
             if (Program.messages.TryGetValue(eastSensor, out value))
             {
-                if (value == "1") { eastPriority += increment; }
-                else { eastPriority = 0; }
+                if (value == "1") { eastPriority = int.MaxValue / 2; }
             }
             if (Program.messages.TryGetValue(westSensor, out value))
             {
-                if (value == "1") { westPriority += increment; }
-                else { westPriority = 0; }
+                if (value == "1") { westPriority = int.MaxValue / 2; }
             }
         }
 
         public void RedLight()
         {
-            publishThread = new Thread(closeBridge);
+            publishThread = new Thread(closeTrack);
             publishThread.Start();
         }
         public void OrangeLight() { }
         public void GreenLight()
         {
-            publishThread = new Thread(openBridge);
+            publishThread = new Thread(openTrack);
             publishThread.Start();
         }
     }
 }
+
