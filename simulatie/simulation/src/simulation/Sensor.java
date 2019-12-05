@@ -51,7 +51,7 @@ public class Sensor {
         for (DrawAbleObject object : worldObjects) {
             double objX = object.getX();
             double objY = object.getY();
-            if (((object.getType() == this.type) && objX >= (x - checkRangeX) && objX <= (x + checkRangeX)) && (objY >= (y - checkRangeY) && objY <= (y + checkRangeY))) {
+            if (((object.getType() == this.type || this.type == "override") && objX >= (x - checkRangeX) && objX <= (x + checkRangeX)) && (objY >= (y - checkRangeY) && objY <= (y + checkRangeY))) {
                 tempPayload = 1;
             }
         }
