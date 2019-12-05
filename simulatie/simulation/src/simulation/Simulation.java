@@ -67,6 +67,8 @@ public class Simulation extends JPanel {
     private MqttSubscriber subscriber = MqttSubscriber.getInstance(groupID + "/#");
 
     public static boolean openBridge = false;
+    public static boolean warningBoat = false;
+    public static boolean warningTrain = false;
 
     public Simulation() {
         try {
@@ -114,7 +116,7 @@ public class Simulation extends JPanel {
         sensors.add(new Sensor(groupID + "/vessel/0/sensor/2", 1129, 170, "boat", 30, 120));
         
         //brugdeck sensor
-        sensors.add(new Sensor(groupID + "/vessel/0/sensor/3", 1140, 487, "car", 70, 157));
+        sensors.add(new Sensor(groupID + "/vessel/0/sensor/3", 1140, 487, "override", 70, 157));
 
         //Motorised
         //North
@@ -678,6 +680,8 @@ public class Simulation extends JPanel {
         String deckPayload = MqttSubscriber.messages.get(groupID + "/vessel/0/deck/0");
         String boatBarrierPayLoad = MqttSubscriber.messages.get(groupID + "/vessel/0/barrier/0");
         String trainBarrierPayLoad = MqttSubscriber.messages.get(groupID + "/track/0/barrier/0");
+        String trainWarningLight = MqttSubscriber.messages.get(groupID + "/track/0/warning_light/0");
+        String boatWarningLight = MqttSubscriber.messages.get(groupID + "/vessel/0/warning_light/0");
         
         if (trainBarrierPayLoad != null && trainBarrierPayLoad.contains("1")) {
             for (Barrier object : trainBarriers) {
@@ -704,6 +708,22 @@ public class Simulation extends JPanel {
          else {
             openBridge = false;
         }
+        
+        if (boatWarningLight != null && boatWarningLight.contains("1")) {
+            warningBoat = true;
+        }
+         else {
+            warningBoat = false;
+        }
+        
+        if (trainWarningLight != null && trainWarningLight.contains("1")) {
+            warningTrain = true;
+        }
+         else {
+            warningTrain = false;
+        }
+        
+        
             
         //Car spawn
         if (tickCount % 150 == 0) {

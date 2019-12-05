@@ -162,8 +162,8 @@ public abstract class MoveAbleObject implements DrawAbleObject {
                             continue;
                         }
                     }
-
-                } else if (object instanceof MoveAbleObject) {
+                }
+                else if (object instanceof MoveAbleObject) {
                     Rectangle2D objHitbox = ((MoveAbleObject) object).getHitbox();
 
                     if (predictHitbox().intersects(objHitbox)) {
@@ -217,6 +217,16 @@ public abstract class MoveAbleObject implements DrawAbleObject {
         accelerate();
         if(!Simulation.openBridge && this.type == "boat"){
             if(y >= 250 && y <= 750 ){deccelerate();}
+        }
+        
+        if(Simulation.warningBoat && this.type != "boat"){
+            if((x >= 1025 && x <= 1260 ) && (y >= 328 && y <= 674 )){deccelerate();}
+            //else{accelerate();}
+        }
+        
+        if(Simulation.warningTrain && this.type != "train"){
+            if((x >= 295 && x <= 390 ) && (y >= 215 && y <= 685 )){deccelerate();}
+            //else{accelerate();}
         }
         return false;
     }

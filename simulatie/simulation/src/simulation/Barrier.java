@@ -34,6 +34,10 @@ public class Barrier implements DrawAbleObject {
     public boolean isActive() {
         return active;
     }
+    
+    public Image barrierOn() {
+        return barrierOn;
+    }
 
     public void setOverride(boolean override) {
         this.override = override;
