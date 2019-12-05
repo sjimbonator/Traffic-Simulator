@@ -21,6 +21,8 @@ namespace Controller
         private int[] priority;
         private bool greenLight = false;
 
+        private MqttClient client;
+
         public int GetPriority()
         {
             int totalPriority = 0;
@@ -36,7 +38,8 @@ namespace Controller
 
         private void Publish()
         {
-            ushort msgId = Program.client.Publish(trafficLightTopic, // topic
+            //Console.WriteLine(trafficLightTopic + " " + trafficLightMessage);
+            ushort msgId = client.Publish(trafficLightTopic, // topic
                        Encoding.UTF8.GetBytes(trafficLightMessage), // message body
                        MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE, // QoS level
                        false); // retained}
@@ -87,21 +90,21 @@ namespace Controller
 
             this.group = group;
             trafficLightTopic = Program.group_id + "/" + group + "/traffic_light/0";
+
+            client = new MqttClient(Program.brokerAddress);
+            byte code = client.Connect(Guid.NewGuid().ToString());
         }
 
         public void CheckPriority()
         {
-            Console.WriteLine("Priority van: " + GetGroup() + " = ");
             for (int i = 0; i < sensors.Length; i++)
             {
                 for (int j = 0; j < sensors[i].Length; j++)
                 {
-                    Console.WriteLine(i + j + "  " + sensors[i][j]);
                     int increment = 2 / sensors.Length;
                     string value = "";
                     if (Program.messages.TryGetValue(sensors[i][j], out value))
                     {
-                        Console.WriteLine("true");
                         if (value == "1" && !greenLight) { priority[i + j] += increment; }
                         else { priority[i + j] = 0; }
                     }
@@ -111,11 +114,6 @@ namespace Controller
 
                 }
             }
-            Console.WriteLine(GetPriority());
-
-
-
-
         }
 
         public void RedLight()

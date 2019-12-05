@@ -23,10 +23,6 @@ namespace Controller
         public static Dictionary<string, string> messages = new Dictionary<string, string>();
         private static Dictionary<string, Lane> lanes = new Dictionary<string, Lane>();
 
-        // Create Client instance
-        public static MqttClient client = new MqttClient(Program.brokerAddress);
-        byte code = client.Connect(Guid.NewGuid().ToString());
-
         private static void Subscribe()
         {
             //Mqtt Connection
@@ -107,6 +103,7 @@ namespace Controller
                 bool isCompatible = true;
                 foreach (Lane lane in prioLanes)
                 {
+                    if (lane.GetPriority() == 0) { isCompatible = false; break; }
                     if (!(lane.GetGroupedLanes().Contains(prio.GetGroup()))) { isCompatible = false; break; }
                 }
                 if (isCompatible) { prioLanes.Add(prio); }
@@ -228,11 +225,11 @@ namespace Controller
             lanes.Add("foot/6", new SmallLane("foot/6", 1, 1, new int[] {0,1,3,4,5}, new int[] {0,1,2,3,4}, new int[] {0,1,2,3,4,5,6}, new int[] { 0 }, new int[] { 0 }));
 
             lanes.Add("vessel/0", new Vessel("vessel/0", new int[] { 0, 1, 2, 4, 6, 8 }, new int[] { 0, 1, 2, 3, 4 }, new int[] { 0, 1, 2, 3, 4, 5, 6 }, new int[] {  }, new int[] { 0 }));
-            lanes.Add("track/0", new Vessel("track/0", new int[] { 0, 2, 3, 7 }, new int[] { 0, 1, 2, 3, 4 }, new int[] { 0, 1, 2, 3, 4, 5, 6 }, new int[] { 0 }, new int[] {  }));
+            lanes.Add("track/0", new Track("track/0", new int[] { 0, 2, 3, 7 }, new int[] { 0, 1, 2, 3, 4 }, new int[] { 0, 1, 2, 3, 4, 5, 6 }, new int[] { 0 }, new int[] {  }));
 
             Thread subscribeThread = new Thread(Subscribe);
             subscribeThread.Start();
-            SetAllToRed();
+            //SetAllToRed();
             Thread updateThread = new Thread(UpdateLanes);
             updateThread.Start();
             //Main loop

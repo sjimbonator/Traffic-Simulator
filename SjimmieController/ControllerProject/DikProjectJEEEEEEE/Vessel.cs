@@ -40,9 +40,11 @@ namespace Controller
         private string[] groupedLanes;
         public string[] GetGroupedLanes() { return groupedLanes; }
 
+        private MqttClient client;
+
         private void Publish(string topic, string message)
         {
-            ushort msgId = Program.client.Publish(topic, // topic
+            ushort msgId = client.Publish(topic, // topic
                        Encoding.UTF8.GetBytes(message), // message body
                        MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE, // QoS level
                        false); // retained}
@@ -156,6 +158,8 @@ namespace Controller
             }
 
             this.group = group;
+            client = new MqttClient(Program.brokerAddress);
+            byte code = client.Connect(Guid.NewGuid().ToString());
         }
 
         public void CheckPriority()
