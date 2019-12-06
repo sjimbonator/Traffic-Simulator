@@ -1,7 +1,7 @@
 import paho.mqtt.client as mqtt #import the client
 import time
 
-group_ID = "7"
+group_ID = "24170"
 
 topic_trafficlights = list()
 topic_warninglights = list()
@@ -114,48 +114,48 @@ def on_message(client, userdata, message):
     for topic in topic_sensors:
         if topic == message.topic and (payload != "0" and payload != "1"):
 
-            print("message received " , message.topic)
+            print("message received from simulation " , message.topic)
             print("payload =",payload)
             print ("sensor payload value does not follow the protocol! (values of 0 and 1)" )
             print("---------------------------------------------------------")
 
     for topic in topic_trafficlights:
         if topic == message.topic and (payload != "0" and payload != "1" and payload != "2"):
-            print("message received " , message.topic)
+            print("message received from controller " , message.topic)
             print("payload =",payload)
             print ("traffic light payload value does not follow the protocol! (values of 0, 1, 2)" )
             print("---------------------------------------------------------")
 
     for topic in topic_barriers:
         if topic == message.topic and (payload != "0" and payload != "1"):
-            print("message received " , message.topic)
+            print("message received from controller " , message.topic)
             print("payload =",payload)
             print ("barrier payload value does not follow the protocol! (values of 0 and 1)")
             print("---------------------------------------------------------")
 
     for topic in topic_warninglights:
         if topic == message.topic and (payload != "0" and payload != "1"):
-            print("message received " , message.topic)
+            print("message received from controller " , message.topic)
             print("payload =",payload)
             print ("warning light payload value does not follow the protocol! (values of 0 and 1)")
             print("---------------------------------------------------------")
 
     for topic in boat_light:
         if topic == message.topic and (payload != "0" and payload != "1"):
-            print("message received " , message.topic)
+            print("message received from controller " , message.topic)
             print("payload =",payload)
             print ("boat_light payload value does not follow the protocol! (values of 0 and 1)")
             print("---------------------------------------------------------")
 
     for topic in train_light:
         if topic == message.topic and (payload != "0" and payload != "1"):
-            print("message received " , message.topic)
+            print("message received from controller " , message.topic)
             print("payload =",payload)
             print ("train_light payload value does not follow the protocol! (values of 0 and 1)")
             print("---------------------------------------------------------")
 
     if deck == message.topic and (payload != "0" and payload != "1"):
-            print("message received " , message.topic)
+            print("message received from controller " , message.topic)
             print("payload =",payload)
             print ("deck payload value does not follow the protocol! (values of 0 and 1)")
             print("---------------------------------------------------------")
@@ -163,6 +163,11 @@ def on_message(client, userdata, message):
     if message.topic not in topic_sensors and  message.topic not in topic_trafficlights and message.topic not in topic_barriers and message.topic not in topic_warninglights and message.topic not in boat_light and message.topic not in train_light and message.topic != deck:
         print("message received " , message.topic)
         print ("published topic does not follow the protocol!")
+        print("---------------------------------------------------------")
+
+    else:
+        print("message received from topic:  " , message.topic)
+        print("payload =",payload)
         print("---------------------------------------------------------")
 
 #############
