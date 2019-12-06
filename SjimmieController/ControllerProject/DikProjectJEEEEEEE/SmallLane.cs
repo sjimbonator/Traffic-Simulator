@@ -101,7 +101,7 @@ namespace Controller
             {
                 for (int j = 0; j < sensors[i].Length; j++)
                 {
-                    int increment = 2 / sensors.Length;
+                    int increment = 1;
                     string value = "";
                     if (Program.messages.TryGetValue(sensors[i][j], out value))
                     {

@@ -218,14 +218,14 @@ public abstract class MoveAbleObject implements DrawAbleObject {
         if(!Simulation.openBridge && this.type == "boat"){
             if(y >= 250 && y <= 750 ){deccelerate();}
         }
-        
+        double yTemp = y + (speed * Math.cos((Math.toRadians(rotation) * 13)));
+        double xTemp = x + (speed * -Math.sin((Math.toRadians(rotation) * 13)));
         if(Simulation.warningBoat && this.type != "boat"){
-            if((x >= 1025 && x <= 1260 ) && (y >= 328 && y <= 674 )){deccelerate();}
+            if( !((x >= 1025 && x <= 1260 ) && (y >= 328 && y <= 674 )) && ((xTemp >= 1025 && xTemp <= 1260 ) && (yTemp >= 328 && yTemp <= 674 )) ){deccelerate();}
             //else{accelerate();}
         }
-        
         if(Simulation.warningTrain && this.type != "train"){
-            if((x >= 295 && x <= 390 ) && (y >= 215 && y <= 685 )){deccelerate();}
+            if( !((x >= 295 && x <= 390 ) && (y >= 215 && y <= 685 )) && ((xTemp >= 295 && xTemp <= 390 ) && (yTemp >= 215 && yTemp <= 685 )) ){deccelerate();}
             //else{accelerate();}
         }
         return false;

@@ -31,7 +31,7 @@ namespace Controller
 
         private int eastPriority = 0;
         private int westPriority = 0;
-        public int GetPriority() { return (eastPriority + westPriority) / 10; }
+        public int GetPriority() {  return ((eastPriority + westPriority) / 10); }
 
         bool ready = true;
         public bool isReady() { return ready; }

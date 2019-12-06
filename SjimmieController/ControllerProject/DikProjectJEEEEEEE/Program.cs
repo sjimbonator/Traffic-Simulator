@@ -82,7 +82,7 @@ namespace Controller
                 if (lanes.TryGetValue(key, out value))
                 {
                     if (lane == null) { lane = value; continue; }
-                    if (value.GetPriority() > lane.GetPriority()) { lane = value; }
+                    if (value.GetPriority() >= lane.GetPriority()) { lane = value; }
                 }
             }
 
@@ -94,20 +94,22 @@ namespace Controller
             List<Lane> prioLanes= new List<Lane>();
             //Adds the lane with the highest priority of all the lanes to the list.
             Lane highestPrio = FindHighestPrio(lanes);
+            if (highestPrio.GetPriority() == 0) { return prioLanes; }
             prioLanes.Add(highestPrio);
 
             List<Lane> compatibleLanes(string[] compatibleKeys)
             {
                 Lane prio = FindHighestPrio(compatibleKeys);
-
-                bool isCompatible = true;
-                foreach (Lane lane in prioLanes)
+                if (!((prio.GetPriority() == 0) && (prio.GetGroup().Contains("track") || prio.GetGroup().Contains("vessel"))))
                 {
-                    if (lane.GetPriority() == 0) { isCompatible = false; break; }
-                    if (!(lane.GetGroupedLanes().Contains(prio.GetGroup()))) { isCompatible = false; break; }
-                }
-                if (isCompatible) { prioLanes.Add(prio); }
+                    bool isCompatible = true;
+                    foreach (Lane lane in prioLanes)
+                    {
 
+                        if (!(lane.GetGroupedLanes().Contains(prio.GetGroup()))) { isCompatible = false; break; }
+                    }
+                    if (isCompatible) { prioLanes.Add(prio); }
+                }
                 string stringToRemove = prio.GetGroup();
                 compatibleKeys = compatibleKeys.Where(val => val != stringToRemove).ToArray();
                 if (compatibleKeys.Length == 0) { return prioLanes; }
@@ -239,11 +241,11 @@ namespace Controller
                 string[] availableKeys = lanes.Keys.ToArray();
                 List<Lane> laneList = FindCompatibleHighestPrio(availableKeys);
                 SetListToGreen(laneList);
-                System.Threading.Thread.Sleep(6000);
+                System.Threading.Thread.Sleep(7000);
                 SetListToOrange(laneList);
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(4000);
                 SetListToRed(laneList);
-                System.Threading.Thread.Sleep(3000);
+                System.Threading.Thread.Sleep(1000);
             }
             CleanUp();
 
