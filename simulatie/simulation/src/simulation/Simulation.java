@@ -20,7 +20,7 @@ import javax.swing.*;
 
 public class Simulation extends JPanel {
 
-    private String groupID = "7";
+    private String groupID = "11111";
 
     private int tickCount = 0;
 
@@ -104,9 +104,9 @@ public class Simulation extends JPanel {
 
         //Creating sensors
         //Track
-        sensors.add(new Sensor(groupID + "/track/0/sensor/0", 343, 890, "train", 30, 30));
-        sensors.add(new Sensor(groupID + "/track/0/sensor/1", 345, 445, "train", 23, 225));
-        sensors.add(new Sensor(groupID + "/track/0/sensor/2", 343, 285, "train", 30, 30));
+        sensors.add(new Sensor(groupID + "/track/0/sensor/0", 343, 900, "train", 30, 200));
+        sensors.add(new Sensor(groupID + "/track/0/sensor/1", 345, 450, "train", 23, 225));
+        sensors.add(new Sensor(groupID + "/track/0/sensor/2", 343, 0, "train", 30, 200));
 
 
 
@@ -571,14 +571,14 @@ public class Simulation extends JPanel {
 
 
         //train and boat lights
-        TrafficLight lightT0 = new TrafficLight(groupID + "/track/0/train_light/1", 344, 75, 180, red, red, green, "train");
+        TrafficLight lightT0 = new TrafficLight(groupID + "/track/0/train_light/1", 344, 75, 180, red, green, green, "train");
         worldObjects.add(lightT0);
-        TrafficLight lightT1 = new TrafficLight(groupID + "/track/0/train_light/0", 344, 825, 0, red, red, green, "train");
+        TrafficLight lightT1 = new TrafficLight(groupID + "/track/0/train_light/0", 344, 825, 0, red, green, green, "train");
         worldObjects.add(lightT1);
         
-        TrafficLight lightV0 = new TrafficLight(groupID + "/vessel/0/boat_light/1", 1130, 320, 180, red, red, green, "boat");
+        TrafficLight lightV0 = new TrafficLight(groupID + "/vessel/0/boat_light/1", 1130, 320, 180, red, green, green, "boat");
         worldObjects.add(lightV0);
-        TrafficLight lightV1 = new TrafficLight(groupID + "/vessel/0/boat_light/0", 1130, 680, 0, red, red, green, "boat");
+        TrafficLight lightV1 = new TrafficLight(groupID + "/vessel/0/boat_light/0", 1130, 680, 0, red, green, green, "boat");
         worldObjects.add(lightV1);
 
 

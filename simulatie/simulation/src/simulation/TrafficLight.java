@@ -60,6 +60,7 @@ public class TrafficLight implements DrawAbleObject {
             return red;
         }else if(payLoad != null && payLoad.contains("1")){
             color = "orange";
+            if(type == "boat" || type == "train"){color = "green";}
             return orange;
         }else if(payLoad != null && payLoad.contains("2")) {
             color = "green";

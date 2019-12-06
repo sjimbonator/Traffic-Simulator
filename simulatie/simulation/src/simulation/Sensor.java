@@ -51,11 +51,15 @@ public class Sensor {
         for (DrawAbleObject object : worldObjects) {
             double objX = object.getX();
             double objY = object.getY();
-            if (((object.getType() == this.type || this.type == "override") && objX >= (x - checkRangeX) && objX <= (x + checkRangeX)) && (objY >= (y - checkRangeY) && objY <= (y + checkRangeY))) {
-                tempPayload = 1;
+            if (object instanceof MoveAbleObject) {
+                if ((object.getType() == this.type || this.type == "override") && (objX >= (x - checkRangeX) && objX <= (x + checkRangeX)) && (objY >= (y - checkRangeY) && objY <= (y + checkRangeY))) {
+                    tempPayload = 1;
+                }
             }
+
         }
         if (tempPayload != payload) {
+            System.out.print(type);
             payload = tempPayload;
             MqttPublisher publisher = new MqttPublisher(topic, ("" + payload), publishclient);
             Thread t = new Thread(publisher);
