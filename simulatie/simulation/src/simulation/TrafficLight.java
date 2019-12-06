@@ -23,8 +23,9 @@ public class TrafficLight implements DrawAbleObject {
     private String payLoad;
     private String topic;
     private String type;
+    private String direction;
     
-    public TrafficLight(String topic, int x, int y, int rotation, Image red, Image orange, Image green , String type) {
+    public TrafficLight(String topic, int x, int y, int rotation, Image red, Image orange, Image green , String type, String direction) {
         this.topic = topic;
         
         this.x = x;
@@ -36,6 +37,7 @@ public class TrafficLight implements DrawAbleObject {
         this.green = green;
         
         this.type = type;
+        this.direction = direction;
     }
 
     //function used to find color of the trafficlight for the cars
@@ -84,5 +86,9 @@ public class TrafficLight implements DrawAbleObject {
     @Override
     public double getRotation() {
         return rotation;
+    }
+    
+    public String getDirection() {
+        return direction;
     }
 }

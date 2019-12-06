@@ -20,7 +20,7 @@ import javax.swing.*;
 
 public class Simulation extends JPanel {
 
-    private String groupID = "11111";
+    private String groupID = "7";
 
     private int tickCount = 0;
 
@@ -478,107 +478,107 @@ public class Simulation extends JPanel {
 
         //Creating traffic lights
         //North
-        TrafficLight light0 = new TrafficLight(groupID + "/motorised/0/traffic_light/0", 702, 470, 180, red, orange, green, "car");
+        TrafficLight light0 = new TrafficLight(groupID + "/motorised/0/traffic_light/0", 702, 470, 180, red, orange, green, "car","left");
         worldObjects.add(light0);
-        TrafficLight light1 = new TrafficLight(groupID + "/motorised/1/traffic_light/0", 702, 421, 270, red, orange, green, "car");
+        TrafficLight light1 = new TrafficLight(groupID + "/motorised/1/traffic_light/0", 702, 421, 270, red, orange, green, "car","left");
         worldObjects.add(light1);
-        TrafficLight light2 = new TrafficLight(groupID + "/motorised/1/traffic_light/0", 702, 342, 270, red, orange, green, "car");
+        TrafficLight light2 = new TrafficLight(groupID + "/motorised/1/traffic_light/0", 702, 342, 270, red, orange, green, "car","left");
         worldObjects.add(light2);
-        TrafficLight light3 = new TrafficLight(groupID + "/motorised/2/traffic_light/0", 702, 293, 0, red, orange, green, "car");
+        TrafficLight light3 = new TrafficLight(groupID + "/motorised/2/traffic_light/0", 702, 293, 0, red, orange, green, "car","left");
         worldObjects.add(light3);
 
         //East
-        TrafficLight light4 = new TrafficLight(groupID + "/motorised/3/traffic_light/0", 588, 698, 90, red, orange, green, "car");
+        TrafficLight light4 = new TrafficLight(groupID + "/motorised/3/traffic_light/0", 588, 698, 90, red, orange, green, "car", "up");
         worldObjects.add(light4);
-        TrafficLight light5 = new TrafficLight(groupID + "/motorised/4/traffic_light/0", 509, 698, 270, red, orange, green, "car");
+        TrafficLight light5 = new TrafficLight(groupID + "/motorised/4/traffic_light/0", 509, 698, 270, red, orange, green, "car", "up");
         worldObjects.add(light5);
 
         //South
-        TrafficLight light6 = new TrafficLight(groupID + "/motorised/5/traffic_light/0", 202, 505, 90, red, orange, green, "car");
+        TrafficLight light6 = new TrafficLight(groupID + "/motorised/5/traffic_light/0", 202, 505, 90, red, orange, green, "car", "right");
         worldObjects.add(light6);
-        TrafficLight light7 = new TrafficLight(groupID + "/motorised/5/traffic_light/0", 202, 584, 90, red, orange, green, "car");
+        TrafficLight light7 = new TrafficLight(groupID + "/motorised/5/traffic_light/0", 202, 584, 90, red, orange, green, "car", "right");
         worldObjects.add(light7);
-        TrafficLight light8 = new TrafficLight(groupID + "/motorised/6/traffic_light/0", 202, 438, 0, red, orange, green, "car");
+        TrafficLight light8 = new TrafficLight(groupID + "/motorised/6/traffic_light/0", 202, 438, 0, red, orange, green, "car", "right");
         worldObjects.add(light8);
 
         //West
-        TrafficLight light9 = new TrafficLight(groupID + "/motorised/7/traffic_light/0", 538, 202, 90, red, orange, green, "car");
+        TrafficLight light9 = new TrafficLight(groupID + "/motorised/7/traffic_light/0", 538, 202, 90, red, orange, green, "car", "down");
         worldObjects.add(light9);
-        TrafficLight light10 = new TrafficLight(groupID + "/motorised/8/traffic_light/0", 460, 202, 270, red, orange, green, "car");
+        TrafficLight light10 = new TrafficLight(groupID + "/motorised/8/traffic_light/0", 460, 202, 270, red, orange, green, "car", "down");
         worldObjects.add(light10);
 
 
         //Cyclist lights
         //South side
-        TrafficLight lightC0 = new TrafficLight(groupID + "/cycle/3/traffic_light/0", 245, 598, 0,redBike, redBike, greenBike, "cyclist");
+        TrafficLight lightC0 = new TrafficLight(groupID + "/cycle/3/traffic_light/0", 245, 598, 0,redBike, redBike, greenBike, "cyclist", "up");
         worldObjects.add(lightC0);
-        TrafficLight lightC1 = new TrafficLight(groupID + "/cycle/3/traffic_light/0", 228, 302, 0, redBike, redBike, greenBike, "cyclist");
+        TrafficLight lightC1 = new TrafficLight(groupID + "/cycle/3/traffic_light/0", 228, 302, 0, redBike, redBike, greenBike, "cyclist", "down");
         worldObjects.add(lightC1);
-        TrafficLight lightC2 = new TrafficLight(groupID + "/cycle/2/traffic_light/0", 400, 305, 0, redBike, redBike, greenBike, "cyclist");
+        TrafficLight lightC2 = new TrafficLight(groupID + "/cycle/2/traffic_light/0", 400, 305, 0, redBike, redBike, greenBike, "cyclist", "down");
         worldObjects.add(lightC2);
 
         //North side
-        TrafficLight lightC3 = new TrafficLight(groupID + "/cycle/0/traffic_light/0", 638, 585, 0, redBike, redBike, greenBike, "cyclist");
+        TrafficLight lightC3 = new TrafficLight(groupID + "/cycle/0/traffic_light/0", 638, 585, 0, redBike, redBike, greenBike, "cyclist", "up");
         worldObjects.add(lightC3);
 
         //East side
-        TrafficLight lightC4 = new TrafficLight(groupID + "/cycle/1/traffic_light/0", 450, 635, 0, redBike, redBike, greenBike, "cyclist");
+        TrafficLight lightC4 = new TrafficLight(groupID + "/cycle/1/traffic_light/0", 450, 635, 0, redBike, redBike, greenBike, "cyclist", "right");
         worldObjects.add(lightC4);
 
         //West side
-        TrafficLight lightC5 = new TrafficLight(groupID + "/cycle/4/traffic_light/0", 440, 280, 0, redBike, redBike, greenBike, "cyclist");
+        TrafficLight lightC5 = new TrafficLight(groupID + "/cycle/4/traffic_light/0", 440, 280, 0, redBike, redBike, greenBike, "cyclist", "right");
         worldObjects.add(lightC5);
-        TrafficLight lightC6 = new TrafficLight(groupID + "/cycle/4/traffic_light/0", 600, 260, 0, redBike, redBike, greenBike, "cyclist");
+        TrafficLight lightC6 = new TrafficLight(groupID + "/cycle/4/traffic_light/0", 600, 260, 0, redBike, redBike, greenBike, "cyclist", "left");
         worldObjects.add(lightC6);
 
 
         //Pedestrian lights
         //North side
-        TrafficLight lightP9 = new TrafficLight(groupID + "/foot/0/traffic_light/0", 682, 595, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
+        TrafficLight lightP9 = new TrafficLight(groupID + "/foot/0/traffic_light/0", 682, 595, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian", "up");
         worldObjects.add(lightP9);
-        TrafficLight lightP10 = new TrafficLight(groupID + "/foot/1/traffic_light/0", 682, 486, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
+        TrafficLight lightP10 = new TrafficLight(groupID + "/foot/1/traffic_light/0", 682, 486, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian", "up");
         worldObjects.add(lightP10);
-        TrafficLight lightP8 = new TrafficLight(groupID + "/foot/1/traffic_light/0", 661, 285, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
+        TrafficLight lightP8 = new TrafficLight(groupID + "/foot/1/traffic_light/0", 661, 285, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian", "down");
         worldObjects.add(lightP8);
-        TrafficLight lightP11 = new TrafficLight(groupID + "/foot/0/traffic_light/0", 661, 496, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
+        TrafficLight lightP11 = new TrafficLight(groupID + "/foot/0/traffic_light/0", 661, 496, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian", "down");
         worldObjects.add(lightP11);
         
         //East side
-        TrafficLight lightP2 = new TrafficLight(groupID + "/foot/2/traffic_light/0", 440, 675, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
+        TrafficLight lightP2 = new TrafficLight(groupID + "/foot/2/traffic_light/0", 440, 675, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian", "right");
         worldObjects.add(lightP2);
-        TrafficLight lightP3 = new TrafficLight(groupID + "/foot/2/traffic_light/0", 600, 657, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
+        TrafficLight lightP3 = new TrafficLight(groupID + "/foot/2/traffic_light/0", 600, 657, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian", "left");
         worldObjects.add(lightP3);
 
         //West side
-        TrafficLight lightP4 = new TrafficLight(groupID + "/foot/6/traffic_light/0", 440, 235, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
+        TrafficLight lightP4 = new TrafficLight(groupID + "/foot/6/traffic_light/0", 440, 235, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian", "right");
         worldObjects.add(lightP4);
-        TrafficLight lightP5 = new TrafficLight(groupID + "/foot/6/traffic_light/0", 605, 220, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
+        TrafficLight lightP5 = new TrafficLight(groupID + "/foot/6/traffic_light/0", 605, 220, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian", "left");
         worldObjects.add(lightP5);
 
         //South side
-        TrafficLight lightP1 = new TrafficLight(groupID + "/foot/5/traffic_light/0", 264, 302, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
+        TrafficLight lightP1 = new TrafficLight(groupID + "/foot/5/traffic_light/0", 264, 302, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian", "down");
         worldObjects.add(lightP1);
-        TrafficLight lightP6 = new TrafficLight(groupID + "/foot/4/traffic_light/0", 264, 411, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
+        TrafficLight lightP6 = new TrafficLight(groupID + "/foot/4/traffic_light/0", 264, 411, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian", "down");
         worldObjects.add(lightP6);
-        TrafficLight lightP12 = new TrafficLight(groupID + "/foot/3/traffic_light/0", 264, 492, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
+        TrafficLight lightP12 = new TrafficLight(groupID + "/foot/3/traffic_light/0", 264, 492, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian", "down");
         worldObjects.add(lightP12);
-        TrafficLight lightP0 = new TrafficLight(groupID + "/foot/3/traffic_light/0", 285, 598, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
+        TrafficLight lightP0 = new TrafficLight(groupID + "/foot/3/traffic_light/0", 285, 598, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian", "up");
         worldObjects.add(lightP0);
-        TrafficLight lightP7 = new TrafficLight(groupID + "/foot/4/traffic_light/0", 285, 482, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
+        TrafficLight lightP7 = new TrafficLight(groupID + "/foot/4/traffic_light/0", 285, 482, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian", "up");
         worldObjects.add(lightP7);
-        TrafficLight lightP13 = new TrafficLight(groupID + "/foot/5/traffic_light/0", 285, 421, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian");
+        TrafficLight lightP13 = new TrafficLight(groupID + "/foot/5/traffic_light/0", 285, 421, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian", "up");
         worldObjects.add(lightP13);
 
 
         //train and boat lights
-        TrafficLight lightT0 = new TrafficLight(groupID + "/track/0/train_light/1", 344, 75, 180, red, green, green, "train");
+        TrafficLight lightT0 = new TrafficLight(groupID + "/track/0/train_light/1", 344, 75, 180, red, green, green, "train", "down");
         worldObjects.add(lightT0);
-        TrafficLight lightT1 = new TrafficLight(groupID + "/track/0/train_light/0", 344, 825, 0, red, green, green, "train");
+        TrafficLight lightT1 = new TrafficLight(groupID + "/track/0/train_light/0", 344, 825, 0, red, green, green, "train", "up");
         worldObjects.add(lightT1);
         
-        TrafficLight lightV0 = new TrafficLight(groupID + "/vessel/0/boat_light/1", 1130, 320, 180, red, green, green, "boat");
+        TrafficLight lightV0 = new TrafficLight(groupID + "/vessel/0/boat_light/1", 1130, 320, 180, red, green, green, "boat", "down");
         worldObjects.add(lightV0);
-        TrafficLight lightV1 = new TrafficLight(groupID + "/vessel/0/boat_light/0", 1130, 680, 0, red, green, green, "boat");
+        TrafficLight lightV1 = new TrafficLight(groupID + "/vessel/0/boat_light/0", 1130, 680, 0, red, green, green, "boat", "up");
         worldObjects.add(lightV1);
 
 
@@ -641,36 +641,36 @@ public class Simulation extends JPanel {
         
         
         //creating warning_lights
-        TrafficLight w0 = new TrafficLight(groupID + "/vessel/0/warning_light/0", 1234, 421, 0, warningOff, warning, warning, "boat");
+        TrafficLight w0 = new TrafficLight(groupID + "/vessel/0/warning_light/0", 1234, 421, 0, warningOff, warning, warning, "boat", "none");
         worldObjects.add(w0);
-        TrafficLight w1 = new TrafficLight(groupID + "/vessel/0/warning_light/0", 1234, 488, 0, warningOff, warning, warning, "boat");
+        TrafficLight w1 = new TrafficLight(groupID + "/vessel/0/warning_light/0", 1234, 488, 0, warningOff, warning, warning, "boat", "none");
         worldObjects.add(w1);
-        TrafficLight w2 = new TrafficLight(groupID + "/vessel/0/warning_light/0", 1033, 489, 0, warningOff, warning, warning, "boat");
+        TrafficLight w2 = new TrafficLight(groupID + "/vessel/0/warning_light/0", 1033, 489, 0, warningOff, warning, warning, "boat", "none");
         worldObjects.add(w2);
-        TrafficLight w3 = new TrafficLight(groupID + "/vessel/0/warning_light/0", 1033, 602, 0, warningOff, warning, warning, "boat");
+        TrafficLight w3 = new TrafficLight(groupID + "/vessel/0/warning_light/0", 1033, 602, 0, warningOff, warning, warning, "boat", "none");
         worldObjects.add(w3);
         
-        TrafficLight w4 = new TrafficLight(groupID + "/track/0/warning_light/0", 380, 215, 0, warningOff, warning, warning, "train");
+        TrafficLight w4 = new TrafficLight(groupID + "/track/0/warning_light/0", 380, 215, 0, warningOff, warning, warning, "train", "none");
         worldObjects.add(w4);
-        TrafficLight w5 = new TrafficLight(groupID + "/track/0/warning_light/0", 380, 300, 0, warningOff, warning, warning, "train");
+        TrafficLight w5 = new TrafficLight(groupID + "/track/0/warning_light/0", 380, 300, 0, warningOff, warning, warning, "train", "none");
         worldObjects.add(w5);
-        TrafficLight w6 = new TrafficLight(groupID + "/track/0/warning_light/0", 380, 415, 0, warningOff, warning, warning, "train");
+        TrafficLight w6 = new TrafficLight(groupID + "/track/0/warning_light/0", 380, 415, 0, warningOff, warning, warning, "train", "none");
         worldObjects.add(w6);
-        TrafficLight w7 = new TrafficLight(groupID + "/track/0/warning_light/0", 380, 486, 0, warningOff, warning, warning, "train");
+        TrafficLight w7 = new TrafficLight(groupID + "/track/0/warning_light/0", 380, 486, 0, warningOff, warning, warning, "train", "none");
         worldObjects.add(w7);
-        TrafficLight w8 = new TrafficLight(groupID + "/track/0/warning_light/0", 380, 600, 0, warningOff, warning, warning, "train");
+        TrafficLight w8 = new TrafficLight(groupID + "/track/0/warning_light/0", 380, 600, 0, warningOff, warning, warning, "train", "none");
         worldObjects.add(w8);
-        TrafficLight w9 = new TrafficLight(groupID + "/track/0/warning_light/0", 305, 215, 0, warningOff, warning, warning, "train");
+        TrafficLight w9 = new TrafficLight(groupID + "/track/0/warning_light/0", 305, 215, 0, warningOff, warning, warning, "train", "none");
         worldObjects.add(w9);
-        TrafficLight w10 = new TrafficLight(groupID + "/track/0/warning_light/0", 305, 300, 0, warningOff, warning, warning, "train");
+        TrafficLight w10 = new TrafficLight(groupID + "/track/0/warning_light/0", 305, 300, 0, warningOff, warning, warning, "train", "none");
         worldObjects.add(w10);
-        TrafficLight w11 = new TrafficLight(groupID + "/track/0/warning_light/0", 305, 415, 0, warningOff, warning, warning, "train");
+        TrafficLight w11 = new TrafficLight(groupID + "/track/0/warning_light/0", 305, 415, 0, warningOff, warning, warning, "train", "none");
         worldObjects.add(w11);
-        TrafficLight w12 = new TrafficLight(groupID + "/track/0/warning_light/0", 305, 486, 0, warningOff, warning, warning, "train");
+        TrafficLight w12 = new TrafficLight(groupID + "/track/0/warning_light/0", 305, 486, 0, warningOff, warning, warning, "train", "none");
         worldObjects.add(w12);
-        TrafficLight w13 = new TrafficLight(groupID + "/track/0/warning_light/0", 305, 535, 0, warningOff, warning, warning, "train");
+        TrafficLight w13 = new TrafficLight(groupID + "/track/0/warning_light/0", 305, 535, 0, warningOff, warning, warning, "train", "none");
         worldObjects.add(w13);
-        TrafficLight w14 = new TrafficLight(groupID + "/track/0/warning_light/0", 305, 600, 0, warningOff, warning, warning, "train");
+        TrafficLight w14 = new TrafficLight(groupID + "/track/0/warning_light/0", 305, 600, 0, warningOff, warning, warning, "train", "none");
         worldObjects.add(w14);
         
     }

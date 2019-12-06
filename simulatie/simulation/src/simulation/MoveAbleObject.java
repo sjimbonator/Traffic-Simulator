@@ -94,6 +94,7 @@ public abstract class MoveAbleObject implements DrawAbleObject {
     protected void turn() {
         destination = route.get(routeIndex);
         rotation = Math.toDegrees(Math.atan2((x - destination.getX()), -(y - destination.getY())));
+        System.out.print(rotation + "ROTATE--------------");
         pointReached = false;
 
     }
@@ -130,6 +131,19 @@ public abstract class MoveAbleObject implements DrawAbleObject {
         }
         return minmax;
     }
+    
+    protected String CheckRotation()
+    {
+        String returnString = "";
+        double temprotation = rotation;
+        if(temprotation < 0){temprotation += 360;}
+        if((temprotation >= 315 && temprotation <= 360) || (temprotation >= 0 && temprotation <= 45)){returnString = "down";}
+        if(temprotation >= 45 && temprotation <= 135){returnString = "left";}
+        if(temprotation >= 135 && temprotation <= 225){returnString = "up";}
+        if(temprotation >= 225 && temprotation <= 315){returnString = "right";}
+        
+        return returnString;
+    }
 
     public MoveAbleObject(ArrayList<Point2D> route, Image model) {
         Point2D spawn = route.get(0);
@@ -148,12 +162,12 @@ public abstract class MoveAbleObject implements DrawAbleObject {
         buildHitBox();
         move();
         //Rectangle2D predictBox = predictHitbox();
-
+        
         for (DrawAbleObject object : worldObjects) {
             if (!(object == this)) {
                 if (object instanceof TrafficLight) {
-
-                    if (((TrafficLight) object).getColor() == "green" || ((TrafficLight) object).getType() != this.type) {
+                    
+                    if (((TrafficLight) object).getColor() == "green" || ((TrafficLight) object).getType() != this.type || (!(CheckRotation() ==(((TrafficLight) object).getDirection())))) {
                         continue;
                     }
                 } else if (object instanceof Barrier) {
