@@ -9,7 +9,7 @@ using uPLibrary.Networking.M2Mqtt.Messages;
 
 namespace Controller
 {
-    class Track : Lane
+    class Track
     {
         private string group;
         public string GetGroup() { return group; }

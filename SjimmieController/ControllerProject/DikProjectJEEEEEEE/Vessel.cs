@@ -9,7 +9,7 @@ using uPLibrary.Networking.M2Mqtt.Messages;
 
 namespace Controller
 {
-    class Vessel : Lane
+    class Vessel
     {
         private string group;
         public string GetGroup() { return group; }
@@ -33,8 +33,8 @@ namespace Controller
         private int westPriority = 0;
         public int GetPriority() {  return ((eastPriority + westPriority) / 10); }
 
-        bool ready = true;
-        public bool isReady() { return ready; }
+        bool running = false;
+        public bool IsRunning() { return running; }
 
         //Array of all lanes that can cross at the same time as this lane.
         private string[] groupedLanes;
@@ -53,7 +53,7 @@ namespace Controller
         private void openBridge()
         {
             string value;
-            ready = false;
+            running = true;
             Publish(warning_light, "1");
             bool bridgeIsEmpty = false;
             while(!bridgeIsEmpty)
@@ -73,7 +73,7 @@ namespace Controller
                 if (value == "1")
                 {
                     Publish(eastBoat_light, "1");
-                    Thread.Sleep(4000);
+                    Thread.Sleep(8000);
                     Publish(eastBoat_light, "0");
                 }
             }
@@ -82,16 +82,15 @@ namespace Controller
                 if (value == "1")
                 {
                     Publish(westBoat_light, "1");
-                    Thread.Sleep(4000);
+                    Thread.Sleep(8000);
                     Publish(westBoat_light, "0");
                 }
             }
-            ready = true;
+            closeBridge();
         }
 
         private void closeBridge()
         {
-            ready = false;
             string value;
             bool waterIsEmpty = false;
             while (!waterIsEmpty)
@@ -109,7 +108,7 @@ namespace Controller
             Thread.Sleep(4000);
             Publish(warning_light, "0");
 
-            ready = true;
+            running = false;
 
         }
 
@@ -164,29 +163,22 @@ namespace Controller
 
         public void CheckPriority()
         {
-            int increment = 1;
             string value;
             if (Program.messages.TryGetValue(eastSensor, out value))
             {
-                if (value == "1") { eastPriority += increment; }
+                if (value == "1") { eastPriority += 1; }
                 else { eastPriority = 0; }
             }
             if (Program.messages.TryGetValue(westSensor, out value))
             {
-                if (value == "1") { westPriority += increment; }
+                if (value == "1") { westPriority += 1; }
                 else { westPriority = 0; }
             }
         }
 
-        public void RedLight()
+        public void HandleBridge()
         {
             publishThread = new Thread(closeBridge);
-            publishThread.Start();
-        }
-        public void OrangeLight() { }
-        public void GreenLight()
-        {
-            publishThread = new Thread(openBridge);
             publishThread.Start();
         }
     }
