@@ -102,14 +102,17 @@ namespace Controller
 
             List<Lane> compatibleLanes(string[] compatibleKeys)
             {
-                Console.WriteLine(compatibleKeys.Length);
                 Lane prio = FindHighestPrio(compatibleKeys);
                 bool isCompatible = true;
-                foreach (Lane lane in prioLanes)
+                if (lanes.Contains(prio.GetGroup()))
                 {
-                    if (!(lane.GetGroupedLanes().Contains(prio.GetGroup())) || !(lanes.Contains(prio.GetGroup()) )) { isCompatible = false; break; }
+                    foreach (Lane lane in prioLanes)
+                    {
+                        if (!(lane.GetGroupedLanes().Contains(prio.GetGroup()))) { isCompatible = false; break; }
+                    }
+                    if (isCompatible) { prioLanes.Add(prio); }
                 }
-                if (isCompatible) { prioLanes.Add(prio); }
+                
 
                 string stringToRemove = prio.GetGroup();
                 compatibleKeys = compatibleKeys.Where(val => val != stringToRemove).ToArray();

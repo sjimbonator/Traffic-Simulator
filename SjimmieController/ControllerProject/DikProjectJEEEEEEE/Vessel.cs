@@ -67,7 +67,6 @@ namespace Controller
         private void openBridge()
         {
             string value;
-            running = true;
             Publish(warning_light, "1");
             bool bridgeIsEmpty = false;
             while(!bridgeIsEmpty)
@@ -175,6 +174,7 @@ namespace Controller
 
         public void HandleBridge()
         {
+            running = true;
             publishThread = new Thread(openBridge);
             publishThread.Start();
         }

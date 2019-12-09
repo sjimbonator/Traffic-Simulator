@@ -98,10 +98,6 @@ namespace Controller
                         if (value == "1" && !greenLight) { priority[i + j] += increment; }
                         else { priority[i + j] = 0; }
                     }
-
-
-
-
                 }
             }
         }
@@ -116,6 +112,7 @@ namespace Controller
         public void OrangeLight()
         {
             trafficLightMessage = "1";
+            if (group.Contains("foot/4")) { trafficLightMessage = "2"; }
             publishThread = new Thread(Publish);
             publishThread.Start();
             greenLight = false;

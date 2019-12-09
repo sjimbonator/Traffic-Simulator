@@ -116,7 +116,7 @@ public class Simulation extends JPanel {
         sensors.add(new Sensor(groupID + "/vessel/0/sensor/2", 1140, 120, "boat", 70, 160));
         
         //brugdeck sensor
-        sensors.add(new Sensor(groupID + "/vessel/0/sensor/3", 1140, 500, "override", 110, 160));
+        sensors.add(new Sensor(groupID + "/vessel/0/sensor/3", 1140, 500, "override", 110, 170));
 
         //Motorised
         //North
@@ -536,11 +536,11 @@ public class Simulation extends JPanel {
         //North side
         TrafficLight lightP9 = new TrafficLight(groupID + "/foot/0/traffic_light/0", 682, 595, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian", "up");
         worldObjects.add(lightP9);
-        TrafficLight lightP10 = new TrafficLight(groupID + "/foot/1/traffic_light/0", 682, 486, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian", "up");
+        TrafficLight lightP10 = new TrafficLight(groupID + "/foot/0/traffic_light/0", 682, 470, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian", "up");
         worldObjects.add(lightP10);
         TrafficLight lightP8 = new TrafficLight(groupID + "/foot/1/traffic_light/0", 661, 285, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian", "down");
         worldObjects.add(lightP8);
-        TrafficLight lightP11 = new TrafficLight(groupID + "/foot/0/traffic_light/0", 661, 496, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian", "down");
+        TrafficLight lightP11 = new TrafficLight(groupID + "/foot/1/traffic_light/0", 661, 510, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian", "down");
         worldObjects.add(lightP11);
         
         //East side
@@ -558,15 +558,15 @@ public class Simulation extends JPanel {
         //South side
         TrafficLight lightP1 = new TrafficLight(groupID + "/foot/5/traffic_light/0", 264, 302, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian", "down");
         worldObjects.add(lightP1);
-        TrafficLight lightP6 = new TrafficLight(groupID + "/foot/4/traffic_light/0", 264, 411, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian", "down");
+        TrafficLight lightP6 = new TrafficLight(groupID + "/foot/5/traffic_light/0", 264, 430, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian", "down");
         worldObjects.add(lightP6);
-        TrafficLight lightP12 = new TrafficLight(groupID + "/foot/3/traffic_light/0", 264, 492, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian", "down");
+        TrafficLight lightP12 = new TrafficLight(groupID + "/foot/4/traffic_light/0", 264, 470, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian", "up");
         worldObjects.add(lightP12);
         TrafficLight lightP0 = new TrafficLight(groupID + "/foot/3/traffic_light/0", 285, 598, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian", "up");
         worldObjects.add(lightP0);
-        TrafficLight lightP7 = new TrafficLight(groupID + "/foot/4/traffic_light/0", 285, 482, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian", "up");
+        TrafficLight lightP7 = new TrafficLight(groupID + "/foot/3/traffic_light/0", 285, 470, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian", "up");
         worldObjects.add(lightP7);
-        TrafficLight lightP13 = new TrafficLight(groupID + "/foot/5/traffic_light/0", 285, 421, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian", "up");
+        TrafficLight lightP13 = new TrafficLight(groupID + "/foot/4/traffic_light/0", 285, 430, 0, redPedestrian, redPedestrian, greenPedestrian, "pedestrian", "down");
         worldObjects.add(lightP13);
 
 

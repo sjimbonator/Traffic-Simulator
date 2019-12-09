@@ -28,7 +28,11 @@ namespace Controller
 
         private int eastPriority = 0;
         private int westPriority = 0;
-        public int GetPriority() { return eastPriority + westPriority; }
+        public int GetPriority()
+        {
+            if (running) { return 0; }
+            return eastPriority + westPriority;
+        }
 
         bool running = false;
         public bool IsRunning() { return running; }
@@ -46,35 +50,43 @@ namespace Controller
                        MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE, // QoS level
                        false); // retained}
         }
+        private void WaitForValue(string topic, string desiredValue)
+        {
+            bool valueFound = false;
+            while (!valueFound)
+            {
+                valueFound = false;
+                string value;
+                if (Program.messages.TryGetValue(topic, out value))
+                {
+                    if (value == desiredValue) { valueFound = true; }
+                }
+                else if (desiredValue == "0") { valueFound = true; }
+            }
+        }
 
         private void openTrack()
         {
             Publish(barrier, "0");
             Thread.Sleep(4000);
             Publish(warning_light, "0");
+            Thread.Sleep(4000);
             running = false;
         }
 
         private void closeTrack()
         {
-            running = true;
             string value;
             Publish(warning_light, "1");
             Thread.Sleep(2000);
             Publish(barrier, "1");
             Thread.Sleep(4000);
-            if (eastPriority > 0) { Publish(eastLight, "1"); }
+            bool east = false;
+            if (eastPriority > 0) { Publish(eastLight, "1"); east = true; }
             else if (westPriority > 0) { Publish(westLight, "1"); }
-
-            bool passed = false;
-            while (!passed)
-            {
-                if (Program.messages.TryGetValue(passSensor, out value))
-                {
-                    if (value == "1") { passed = true; }
-                }
-            }
-            Thread.Sleep(4000);
+            WaitForValue(passSensor, "1");
+            if (east) { Publish(eastLight, "0"); WaitForValue(westSensor, "1"); WaitForValue(westSensor, "0"); }
+            else { Publish(westLight, "0"); WaitForValue(eastSensor, "1"); WaitForValue(eastSensor, "0"); }
             openTrack();
 
         }
@@ -132,6 +144,7 @@ namespace Controller
 
         public void HandleTrack()
         {
+            running = true;
             publishThread = new Thread(closeTrack);
             publishThread.Start();
         }
