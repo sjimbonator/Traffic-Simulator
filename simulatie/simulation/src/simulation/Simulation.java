@@ -14,13 +14,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class Simulation extends JPanel {
 
-    private String groupID = "7";
+    private static String groupID = "";
 
     private int tickCount = 0;
 
@@ -799,6 +800,12 @@ public class Simulation extends JPanel {
     }
 
     public static void main(String args[]) {
+        Scanner input = new Scanner(System.in);
+    	
+    	System.out.print("What is your group id: ");
+    	int number = input.nextInt();
+        groupID = "" + number;
+    	System.out.println("You entered " + number + " as your group id.");
         JFrame frame = new JFrame("Traffic Jam Simulator");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);

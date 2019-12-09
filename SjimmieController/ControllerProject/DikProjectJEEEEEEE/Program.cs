@@ -270,7 +270,7 @@ namespace Controller
             Thread updateThread = new Thread(UpdateLanes);
             updateThread.Start();
             //Main loop
-            Console.WriteLine("Starting Main Loop use the enter key to exit.");
+            Console.WriteLine("Running...");
             while (true)
             {
                 string[] availableKeys = GetAvailableLanes();
