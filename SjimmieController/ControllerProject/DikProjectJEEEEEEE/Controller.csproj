@@ -48,7 +48,6 @@
     <Compile Include="Lane.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SmallLane.cs" />
     <Compile Include="Track.cs" />
     <Compile Include="Vessel.cs" />
   </ItemGroup>

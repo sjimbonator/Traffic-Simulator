@@ -10,7 +10,7 @@ public class Pedestrian extends MoveAbleObject {
         super(route, model);
         type = "pedestrian";
         acceleration = 1;
-        maxSpeed = 0.4;
+        maxSpeed = 0.6;
         checkRange = 0;
         width = 10;
         height = 10;

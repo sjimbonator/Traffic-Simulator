@@ -111,12 +111,12 @@ public class Simulation extends JPanel {
 
 
         //Vessel
-        sensors.add(new Sensor(groupID + "/vessel/0/sensor/0", 1129, 789, "boat", 30, 100));
-        sensors.add(new Sensor(groupID + "/vessel/0/sensor/1", 1140, 487, "boat", 70, 157));
-        sensors.add(new Sensor(groupID + "/vessel/0/sensor/2", 1129, 170, "boat", 30, 120));
+        sensors.add(new Sensor(groupID + "/vessel/0/sensor/0", 1140, 830, "boat", 70, 110));
+        sensors.add(new Sensor(groupID + "/vessel/0/sensor/1", 1140, 500, "boat", 70, 220));
+        sensors.add(new Sensor(groupID + "/vessel/0/sensor/2", 1140, 120, "boat", 70, 160));
         
         //brugdeck sensor
-        sensors.add(new Sensor(groupID + "/vessel/0/sensor/3", 1140, 487, "override", 70, 157));
+        sensors.add(new Sensor(groupID + "/vessel/0/sensor/3", 1140, 500, "override", 110, 160));
 
         //Motorised
         //North

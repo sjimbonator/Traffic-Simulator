@@ -10,7 +10,7 @@ public class Cyclist extends MoveAbleObject {
         super(route, model);
         type = "cyclist";
         acceleration = 0.15;
-        maxSpeed = 0.6;
+        maxSpeed = 0.8;
         checkRange = 10;
         width = 10;
         height = 22;

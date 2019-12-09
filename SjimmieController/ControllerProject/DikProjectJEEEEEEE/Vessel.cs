@@ -31,7 +31,7 @@ namespace Controller
 
         private int eastPriority = 0;
         private int westPriority = 0;
-        public int GetPriority() {  return ((eastPriority + westPriority) / 10); }
+        public int GetPriority() {  return eastPriority + westPriority; }
 
         bool running = false;
         public bool IsRunning() { return running; }
@@ -50,6 +50,20 @@ namespace Controller
                        false); // retained}
         }
 
+        private void WaitForValue(string topic, string desiredValue)
+        {
+            bool valueFound = false;
+            while (!valueFound)
+            {
+                valueFound = false;
+                string value;
+                if (Program.messages.TryGetValue(topic, out value))
+                {
+                    if (value == desiredValue) { valueFound = true; }
+                }
+                else if (desiredValue == "0") { valueFound = true; }
+            }
+        }
         private void openBridge()
         {
             string value;
@@ -73,16 +87,19 @@ namespace Controller
                 if (value == "1")
                 {
                     Publish(eastBoat_light, "1");
-                    Thread.Sleep(8000);
+                    WaitForValue(eastSensor, "0");
+                    Thread.Sleep(2000);
                     Publish(eastBoat_light, "0");
                 }
             }
+            WaitForValue(bridgeSensor, "0");
             if (Program.messages.TryGetValue(westSensor, out value))
             {
                 if (value == "1")
                 {
                     Publish(westBoat_light, "1");
-                    Thread.Sleep(8000);
+                    WaitForValue(westSensor, "0");
+                    Thread.Sleep(2000);
                     Publish(westBoat_light, "0");
                 }
             }
@@ -91,17 +108,7 @@ namespace Controller
 
         private void closeBridge()
         {
-            string value;
-            bool waterIsEmpty = false;
-            while (!waterIsEmpty)
-            {
-                waterIsEmpty = true;
-                if (Program.messages.TryGetValue(bridgeSensor, out value))
-                {
-                    if (value == "1") { waterIsEmpty = false; }
-                }
-            }
-            
+            WaitForValue(bridgeSensor, "0");
             Publish(deck, "0");
             Thread.Sleep(10000);
             Publish(barrier, "0");
@@ -112,7 +119,7 @@ namespace Controller
 
         }
 
-        public Vessel(string group, int[] motorisedNumbers, int[] cycleNumbers, int[] footNumbers, int[] vesselNumbers, int[] trackNumbers)
+        public Vessel(string group, int[] motorisedNumbers, int[] cycleNumbers, int[] footNumbers)
         {
 
             eastSensor = Program.group_id + "/" + group + "/sensor/" + 0;
@@ -129,7 +136,7 @@ namespace Controller
             westBoat_light = Program.group_id + "/" + group + "/boat_light/" + 1;
 
 
-            groupedLanes = new string[motorisedNumbers.Length + cycleNumbers.Length + footNumbers.Length + vesselNumbers.Length + trackNumbers.Length];
+            groupedLanes = new string[motorisedNumbers.Length + cycleNumbers.Length + footNumbers.Length];
 
             for (int i = 0; i < motorisedNumbers.Length; i++)
             {
@@ -144,16 +151,6 @@ namespace Controller
             for (int i = 0; i < footNumbers.Length; i++)
             {
                 groupedLanes[i + motorisedNumbers.Length + cycleNumbers.Length] = "foot/" + Convert.ToString(footNumbers[i]);
-            }
-
-            for (int i = 0; i < vesselNumbers.Length; i++)
-            {
-                groupedLanes[i + motorisedNumbers.Length + cycleNumbers.Length + footNumbers.Length] = "vessel/" + Convert.ToString(vesselNumbers[i]);
-            }
-
-            for (int i = 0; i < trackNumbers.Length; i++)
-            {
-                groupedLanes[i + motorisedNumbers.Length + cycleNumbers.Length + footNumbers.Length + vesselNumbers.Length] = "track/" + Convert.ToString(trackNumbers[i]);
             }
 
             this.group = group;
@@ -178,7 +175,7 @@ namespace Controller
 
         public void HandleBridge()
         {
-            publishThread = new Thread(closeBridge);
+            publishThread = new Thread(openBridge);
             publishThread.Start();
         }
     }

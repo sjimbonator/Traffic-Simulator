@@ -49,7 +49,7 @@ public abstract class MoveAbleObject implements DrawAbleObject {
         double yTemp = y;
         double speedTemp = speed;
         speed = maxSpeed;
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 20 / maxSpeed; i++) {
             move();
         }
         Rectangle2D temprect = buildRect(x, y);
@@ -104,6 +104,14 @@ public abstract class MoveAbleObject implements DrawAbleObject {
         if (speed < 0) {
             speed = 0;
         }
+    }
+    protected boolean passedLight(TrafficLight light) {
+        String direction = CheckRotation();
+        if(direction == "down" && (y >= light.getY())){return true;}
+        if(direction == "up" && (y <= light.getY())){return true;}
+        if(direction == "left" && (x <= light.getX())){return true;}
+        if(direction == "right" && (x >= light.getX())){return true;}
+        return false;
     }
 
     protected double[] getMinMax(Point2D[] hitbox, char index) {
@@ -167,7 +175,14 @@ public abstract class MoveAbleObject implements DrawAbleObject {
             if (!(object == this)) {
                 if (object instanceof TrafficLight) {
                     
-                    if (((TrafficLight) object).getColor() == "green" || ((TrafficLight) object).getType() != this.type || (!(CheckRotation() ==(((TrafficLight) object).getDirection())))) {
+                    if (((TrafficLight) object).getColor() == "green" || ((TrafficLight) object).getType() != this.type) {
+                        continue;
+                    }
+                    if (!(CheckRotation() ==(((TrafficLight) object).getDirection()))) {
+                        continue;
+                    }
+                    else if(passedLight(((TrafficLight) object)))
+                    {
                         continue;
                     }
                 } else if (object instanceof Barrier) {
@@ -230,12 +245,12 @@ public abstract class MoveAbleObject implements DrawAbleObject {
         }
         accelerate();
         if(!Simulation.openBridge && this.type == "boat"){
-            if(y >= 250 && y <= 750 ){deccelerate();}
+            if(y >= 290 && y <= 710 ){deccelerate();}
         }
         double yTemp = y + (speed * Math.cos((Math.toRadians(rotation) * 13)));
         double xTemp = x + (speed * -Math.sin((Math.toRadians(rotation) * 13)));
         if(Simulation.warningBoat && this.type != "boat"){
-            if( !((x >= 1025 && x <= 1260 ) && (y >= 328 && y <= 674 )) && ((xTemp >= 1025 && xTemp <= 1260 ) && (yTemp >= 328 && yTemp <= 674 )) ){deccelerate();}
+            if( !((x >= 1015 && x <= 1270 ) && (y >= 328 && y <= 674 )) && ((xTemp >= 1015 && xTemp <= 1270 ) && (yTemp >= 328 && yTemp <= 674 )) ){deccelerate();}
             //else{accelerate();}
         }
         if(Simulation.warningTrain && this.type != "train"){

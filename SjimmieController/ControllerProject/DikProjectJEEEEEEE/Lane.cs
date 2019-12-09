@@ -45,7 +45,7 @@ namespace Controller
                        false); // retained}
         }
 
-        public Lane(string group, int laneSize, int sensorAmount, int[] motorisedNumbers, int[] cycleNumbers, int[] footNumbers, int[] vesselNumbers, int[] trackNumbers)
+        public Lane(string group, int laneSize, int sensorAmount, int[] motorisedNumbers, int[] cycleNumbers, int[] footNumbers)
         {
             int id = 0;
             sensors = new string[laneSize][];
@@ -61,7 +61,7 @@ namespace Controller
                 }
             }
 
-            groupedLanes = new string[motorisedNumbers.Length + cycleNumbers.Length + footNumbers.Length + vesselNumbers.Length + trackNumbers.Length];
+            groupedLanes = new string[motorisedNumbers.Length + cycleNumbers.Length + footNumbers.Length];
 
             for (int i = 0; i < motorisedNumbers.Length; i++)
             {
@@ -76,16 +76,6 @@ namespace Controller
             for (int i = 0; i < footNumbers.Length; i++)
             {
                 groupedLanes[i + motorisedNumbers.Length + cycleNumbers.Length] = "foot/" + Convert.ToString(footNumbers[i]);
-            }
-
-            for (int i = 0; i < vesselNumbers.Length; i++)
-            {
-                groupedLanes[i + motorisedNumbers.Length + cycleNumbers.Length+ footNumbers.Length] = "vessel/" + Convert.ToString(vesselNumbers[i]);
-            }
-
-            for (int i = 0; i < trackNumbers.Length; i++)
-            {
-                groupedLanes[i + motorisedNumbers.Length + cycleNumbers.Length + footNumbers.Length + vesselNumbers.Length] = "track/" + Convert.ToString(trackNumbers[i]);
             }
 
             this.group = group;

@@ -20,6 +20,11 @@ public class Barrier implements DrawAbleObject {
     private int rotation;
     private boolean active;
     private boolean override;
+    
+    private void activate()
+    {
+        active = true;
+    }
 
     public Barrier(String topic, double x, double y, Image barrierOff, Image barrierOn) {
         this.topic = topic;

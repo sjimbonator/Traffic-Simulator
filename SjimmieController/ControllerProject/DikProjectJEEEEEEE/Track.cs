@@ -30,8 +30,8 @@ namespace Controller
         private int westPriority = 0;
         public int GetPriority() { return eastPriority + westPriority; }
 
-        bool ready = true;
-        public bool isReady() { return ready; }
+        bool running = false;
+        public bool IsRunning() { return running; }
 
         //Array of all lanes that can cross at the same time as this lane.
         private string[] groupedLanes;
@@ -49,19 +49,18 @@ namespace Controller
 
         private void openTrack()
         {
-            ready = false;
             Publish(barrier, "0");
             Thread.Sleep(4000);
             Publish(warning_light, "0");
-            ready = true;
+            running = false;
         }
 
         private void closeTrack()
         {
-            ready = false;
+            running = true;
             string value;
             Publish(warning_light, "1");
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
             Publish(barrier, "1");
             Thread.Sleep(4000);
             if (eastPriority > 0) { Publish(eastLight, "1"); }
@@ -75,11 +74,12 @@ namespace Controller
                     if (value == "1") { passed = true; }
                 }
             }
-            ready = true;
+            Thread.Sleep(4000);
+            openTrack();
 
         }
 
-        public Track(string group, int[] motorisedNumbers, int[] cycleNumbers, int[] footNumbers, int[] vesselNumbers, int[] trackNumbers)
+        public Track(string group, int[] motorisedNumbers, int[] cycleNumbers, int[] footNumbers)
         {
 
             eastSensor = Program.group_id + "/" + group + "/sensor/" + 0;
@@ -93,7 +93,7 @@ namespace Controller
             westLight = Program.group_id + "/" + group + "/train_light/" + 1;
 
 
-            groupedLanes = new string[motorisedNumbers.Length + cycleNumbers.Length + footNumbers.Length + vesselNumbers.Length + trackNumbers.Length];
+            groupedLanes = new string[motorisedNumbers.Length + cycleNumbers.Length + footNumbers.Length];
 
             for (int i = 0; i < motorisedNumbers.Length; i++)
             {
@@ -108,16 +108,6 @@ namespace Controller
             for (int i = 0; i < footNumbers.Length; i++)
             {
                 groupedLanes[i + motorisedNumbers.Length + cycleNumbers.Length] = "foot/" + Convert.ToString(footNumbers[i]);
-            }
-
-            for (int i = 0; i < vesselNumbers.Length; i++)
-            {
-                groupedLanes[i + motorisedNumbers.Length + cycleNumbers.Length + footNumbers.Length] = "vessel/" + Convert.ToString(vesselNumbers[i]);
-            }
-
-            for (int i = 0; i < trackNumbers.Length; i++)
-            {
-                groupedLanes[i + motorisedNumbers.Length + cycleNumbers.Length + footNumbers.Length + vesselNumbers.Length] = "track/" + Convert.ToString(trackNumbers[i]);
             }
 
             this.group = group;
@@ -140,15 +130,9 @@ namespace Controller
             }
         }
 
-        public void RedLight()
+        public void HandleTrack()
         {
             publishThread = new Thread(closeTrack);
-            publishThread.Start();
-        }
-        public void OrangeLight() { }
-        public void GreenLight()
-        {
-            publishThread = new Thread(openTrack);
             publishThread.Start();
         }
     }
