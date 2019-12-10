@@ -70,6 +70,7 @@ public class Simulation extends JPanel {
     public static boolean openBridge = false;
     public static boolean warningBoat = false;
     public static boolean warningTrain = false;
+    public static boolean train = false;
 
     public Simulation() {
         try {
@@ -732,9 +733,10 @@ public class Simulation extends JPanel {
             worldObjects.add(new Car(carRoutes.get(random), carImage));
         }
         //Train spawn
-        if (tickCount % 3600 == 0) {
+        if (tickCount % 3600 == 0 && !train) {
             int random = (int) (Math.random() * trainRoutes.size());
             worldObjects.add(new Train(trainRoutes.get(random), trainImage));
+            train = true;
         }
         //Boat spawn
         if (tickCount % 4800 == 0) {
@@ -755,6 +757,7 @@ public class Simulation extends JPanel {
         for (DrawAbleObject object : worldObjects) {
             if (object.update(worldObjects)) {
                 deleteList.add(object);
+                if(object instanceof Train){ train = false;}
             }
         }
         worldObjects.removeAll(deleteList);
