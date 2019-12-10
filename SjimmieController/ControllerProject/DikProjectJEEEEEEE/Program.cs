@@ -194,7 +194,7 @@ namespace Controller
         private static string[] GetAvailableLanes()
         {
             string[] availableKeys = lanes.Keys.ToArray();
-            if (!boat.IsRunning() && boat.GetPriority() > 1) { boat.HandleBridge();}
+            if (!boat.IsRunning() && boat.GetPriority() > 1 && boat.IsReady()) { boat.HandleBridge();}
             if (boat.IsRunning())
             {
                 List<string> tempKeys = new List<string>();

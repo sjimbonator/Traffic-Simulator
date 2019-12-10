@@ -12,8 +12,8 @@ public class Pedestrian extends MoveAbleObject {
         acceleration = 1;
         maxSpeed = 0.6;
         checkRange = 0;
-        width = 10;
-        height = 10;
+        width = 8;
+        height = 8;
         buildHitBox();
 
     }

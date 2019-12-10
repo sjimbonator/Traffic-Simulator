@@ -35,6 +35,8 @@ namespace Controller
 
         bool running = false;
         public bool IsRunning() { return running; }
+        bool ready = true;
+        public bool IsReady() { return ready; }
 
         //Array of all lanes that can cross at the same time as this lane.
         private string[] groupedLanes;
@@ -87,7 +89,7 @@ namespace Controller
                 {
                     Publish(eastBoat_light, "1");
                     WaitForValue(eastSensor, "0");
-                    Thread.Sleep(2000);
+                    //Thread.Sleep(2000);
                     Publish(eastBoat_light, "0");
                 }
             }
@@ -98,7 +100,7 @@ namespace Controller
                 {
                     Publish(westBoat_light, "1");
                     WaitForValue(westSensor, "0");
-                    Thread.Sleep(2000);
+                    //Thread.Sleep(2000);
                     Publish(westBoat_light, "0");
                 }
             }
@@ -115,6 +117,9 @@ namespace Controller
             Publish(warning_light, "0");
 
             running = false;
+
+            Thread.Sleep(30000);
+            ready = true;
 
         }
 
@@ -175,6 +180,7 @@ namespace Controller
         public void HandleBridge()
         {
             running = true;
+            ready = false;
             publishThread = new Thread(openBridge);
             publishThread.Start();
         }
