@@ -77,13 +77,15 @@ namespace Controller
         private void closeTrack()
         {
             string value;
+            bool east = false;
+            if (eastPriority > 0) { east = true; }
+            else if (westPriority > 0) { east = false; }
             Publish(warning_light, "1");
             Thread.Sleep(2000);
             Publish(barrier, "1");
             Thread.Sleep(4000);
-            bool east = false;
-            if (eastPriority > 0) { Publish(eastLight, "1"); east = true; }
-            else if (westPriority > 0) { Publish(westLight, "1"); }
+            if (east) { Publish(eastLight, "1"); }
+            else  { Publish(westLight, "1"); }
             WaitForValue(passSensor, "1");
             if (east) { Publish(eastLight, "0"); WaitForValue(westSensor, "1"); WaitForValue(westSensor, "0"); }
             else { Publish(westLight, "0"); WaitForValue(eastSensor, "1"); WaitForValue(eastSensor, "0"); }
