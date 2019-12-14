@@ -94,7 +94,6 @@ public abstract class MoveAbleObject implements DrawAbleObject {
     protected void turn() {
         destination = route.get(routeIndex);
         rotation = Math.toDegrees(Math.atan2((x - destination.getX()), -(y - destination.getY())));
-        System.out.print(rotation + "ROTATE--------------");
         pointReached = false;
 
     }

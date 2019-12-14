@@ -89,7 +89,7 @@ namespace Controller
                 {
                     Publish(eastBoat_light, "1");
                     WaitForValue(eastSensor, "0");
-                    //Thread.Sleep(2000);
+                    Thread.Sleep(2000);
                     Publish(eastBoat_light, "0");
                 }
             }
@@ -100,7 +100,7 @@ namespace Controller
                 {
                     Publish(westBoat_light, "1");
                     WaitForValue(westSensor, "0");
-                    //Thread.Sleep(2000);
+                    Thread.Sleep(2000);
                     Publish(westBoat_light, "0");
                 }
             }
